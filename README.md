@@ -1,4 +1,4 @@
-******* News Plugin *******
+******* Elgg News Plugin *******
 
 Free Elgg plugin for posting news and announcements by administrators.
 
