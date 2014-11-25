@@ -6,8 +6,11 @@
 
 elgg_load_library('elgg:amapnews');
 
-// check if admin user is loggedin
-if (elgg_is_admin_logged_in()) { 
+$group_guid = (int) get_input('group_guid');
+$group_entity = get_entity($group_guid);
+
+// post news only for admins or groups owners (if allowed by admins)
+if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($group_entity, 'group') && $group_entity->canEdit()))	{
     
     // Get variables
     $title = get_input("title");
@@ -31,6 +34,15 @@ if (elgg_is_admin_logged_in()) {
         register_error(elgg_echo('amapnews:save:missing_excerpt'));
         forward(REFERER);
     }  
+    
+	// if not admin but group onwer, check if a access level is limited only to group
+	if (!elgg_is_admin_logged_in() && elgg_instanceof($group_entity, 'group') && $group_entity->canEdit())	{
+		if ($access_id > 0 && $access_id < 3)	{
+			register_error(elgg_echo('amapnews:save:notvalid_access_id'));
+			forward(REFERER);
+		}
+	}
+
     
     // check whether this is a new object or an edit
     $new_entity = true;
@@ -92,7 +104,13 @@ if (elgg_is_admin_logged_in()) {
 			}            
         }
 
-        forward(elgg_get_site_url() . "news");
+		if (elgg_instanceof($group_entity, 'group')) {
+			forward(elgg_get_site_url() . "news/group/".$group_entity->guid."/all");
+		}
+		else {
+			forward(elgg_get_site_url() . "news");
+		}
+		
     } else {
         register_error(elgg_echo('amapnews:save:failed'));
         forward("amapnews");

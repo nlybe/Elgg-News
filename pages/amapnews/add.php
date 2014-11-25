@@ -6,9 +6,17 @@
 
 elgg_load_library('elgg:amapnews');
 
-if (elgg_is_admin_logged_in())	{
+$entity_unit = get_entity(get_input('guid'));
+
+// post news only for admins or groups owners (if allowed by admins)
+if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($entity_unit, 'group') && $entity_unit->canEdit()))	{
 
     $title = elgg_echo('amapnews:add');
+	$page_owner = elgg_get_page_owner_entity();
+	$crumbs_title = $page_owner->name;
+	if (elgg_instanceof($page_owner, 'group')) {
+		elgg_push_breadcrumb($crumbs_title, "news/group/$page_owner->guid/all");
+	}  
     elgg_push_breadcrumb($title);
 
     // build sidebar 
@@ -18,6 +26,9 @@ if (elgg_is_admin_logged_in())	{
     $form_vars = array('name' => 'amapnewsForm', 'enctype' => 'multipart/form-data');
     
     $vars = amapnews_prepare_form_vars();
+    if (allow_post_on_groups() && elgg_instanceof($entity_unit, 'group') && $entity_unit->canEdit()) {
+		$vars['group_guid'] = $entity_unit->guid;
+	}
     $content = elgg_view_form('amapnews/add', $form_vars, $vars);
 
     $body = elgg_view_layout('content', array(

@@ -33,6 +33,7 @@ $lang = array(
     'amapnews:unknown_amapnews' => "Unknown entity",     
     'amapnews:delete:success' => "Post was successfully deleted", 
     'amapnews:delete:failed' => "Post cannot be deleted", 
+    'amapnews:save:notvalid_access_id' => "Not valid Access Level. You have to set as private or allow only to group.",
     
     // settings
     'amapnews:settings:no' => "No",
@@ -40,7 +41,9 @@ $lang = array(
     'amapnews:settings:show_user_icon' => "Display user icon",    
     'amapnews:settings:show_user_icon:note' => "Display user icon on list or single view. If select no, a news icon will be displayed.",    
     'amapnews:settings:show_username' => "Display username",    
-    'amapnews:settings:show_username:note' => "Display username on list or single view",    
+    'amapnews:settings:show_username:note' => "Display username on list or single view",   
+    'amapnews:settings:post_on_groups' => "Post news on groups",    
+    'amapnews:settings:post_on_groups:note' => "Allow group's owners to post news/announcements inside groups", 
     
     // river
     'river:create:object:amapnews' => '%s posted new with title %s',
@@ -53,7 +56,10 @@ $lang = array(
     'amapnews:widget:description' => 'Display latest site news',  
     'amapnews:widget:viewall' => 'View all',  
     
-
+	// groups
+	'amapnews:group' => 'Group news', 
+	'amapnews:group:enable' => 'Enable News on group', 
+	'amapnews:owner' => "%s's news",
 );
 
 add_translation("en", $lang);

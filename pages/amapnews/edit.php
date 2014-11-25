@@ -21,6 +21,9 @@ elgg_push_breadcrumb($title);
 
 $form_vars = array('name' => 'amapnews', 'enctype' => 'multipart/form-data');
 $vars = amapnews_prepare_form_vars($entity_unit);
+if (allow_post_on_groups() && elgg_instanceof($page_owner, 'group') && $page_owner->canEdit()) {
+	$vars['group_guid'] = $page_owner->guid;
+}
 $content = elgg_view_form('amapnews/add', $form_vars, $vars);
 
 $body = elgg_view_layout('content', array(

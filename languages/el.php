@@ -33,6 +33,7 @@ $lang = array(
     'amapnews:unknown_amapnews' => "Άγνωστη οντότητα",  
     'amapnews:delete:success' => "Η ανακοίνωση διαγράφτηκε με επιτυχία", 
     'amapnews:delete:failed' => "Η ανακοίνωση δεν μπορεί να διαγραφτεί", 
+    'amapnews:save:notvalid_access_id' => "Μη επιτρεπτό επίπεδο πρόσβασης. Θα πρέπει να ορίσετε τη δημοσίεσυη ως Ιδιωτικό ή να επιλέξετε πρόσβαση εντός της ομάδας σας.",
     
     // settings
     'amapnews:settings:no' => "No",
@@ -40,7 +41,9 @@ $lang = array(
     'amapnews:settings:show_user_icon' => "Display user icon",    
     'amapnews:settings:show_user_icon:note' => "Display user icon on list or single view. If select no, a news icon will be displayed.",    
     'amapnews:settings:show_username' => "Display username",    
-    'amapnews:settings:show_username:note' => "Display username on list or single view",    
+    'amapnews:settings:show_username:note' => "Display username on list or single view",  
+    'amapnews:settings:post_on_groups' => "Post news on groups",    
+    'amapnews:settings:post_on_groups:note' => "Allow group's owners to post news/announcements inside groups", 
     
     // river
     'river:create:object:amapnews' => '%s δημοσίευσε νέα ανακοίνωση με τίτλο %s',

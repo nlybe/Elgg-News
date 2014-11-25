@@ -30,3 +30,12 @@ $show_username_output = elgg_view('input/dropdown', array('name' => 'params[show
 $show_username_output .= "<span class='elgg-subtext'>" . elgg_echo('amapnews:settings:show_username:note') . "</span>";
 echo elgg_view_module("inline", elgg_echo('amapnews:settings:show_username'), $show_username_output);
 
+// set if allow group's owners to post news/announcements inside groups
+$post_on_groups = $plugin->post_on_groups;
+if(empty($post_on_groups)){
+	$post_on_groups = AMAPNEWS_GENERAL_YES;
+}    
+$post_on_groups_output = elgg_view('input/dropdown', array('name' => 'params[post_on_groups]', 'value' => $post_on_groups, 'options_values' => $potential_yes_no));
+$post_on_groups_output .= "<span class='elgg-subtext'>" . elgg_echo('amapnews:settings:post_on_groups:note') . "</span>";
+echo elgg_view_module("inline", elgg_echo('amapnews:settings:post_on_groups'), $post_on_groups_output);
+

@@ -62,3 +62,14 @@ function display_username() {
     return false;
 }
 
+// check if allow group's owners to post news/announcements inside groups
+function allow_post_on_groups() {
+    $post_on_groups = trim(elgg_get_plugin_setting('post_on_groups', 'amapnews'));
+    
+    if ($post_on_groups === AMAPNEWS_GENERAL_YES)   {
+		return true;
+	} 
+    
+    return false;
+}
+

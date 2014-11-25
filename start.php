@@ -54,9 +54,17 @@ function amapnews_init() {
     elgg_register_page_handler('news', 'amapnews_page_handler');
     elgg_register_page_handler('amapnews', 'amapnews_page_handler');
 
+    // extend group main page 
+    elgg_extend_view('groups/tool_latest', 'amapnews/group_module');
+    
+    // add the group news tool option
+    add_group_tool_option('amapnews', elgg_echo('amapnews:group:enable'), true);   
+    
+    // Register menu item to an ownerblock
+    elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'amapnews_owner_block_menu');
+    
 	// get current elgg version
 	$release = elgg_get_version(true);
-	    
 	// Register a URL handler for agora
 	if ($release < 1.9)  // version 1.8
 		elgg_register_entity_url_handler('object', 'amapnews', 'amapnews_url');
@@ -92,7 +100,8 @@ function amapnews_page_handler($page) {
 
     switch ($page[0]) {
 	    case "add":
-            admin_gatekeeper();
+            //admin_gatekeeper();
+            set_input('guid', $page[1]);
             include "$base/add.php";
             break;
             
@@ -102,7 +111,6 @@ function amapnews_page_handler($page) {
             break;            
             
 	    case "edit":
-            admin_gatekeeper();
             set_input('guid', $page[1]);
             include "$base/edit.php";
             break;
@@ -110,7 +118,20 @@ function amapnews_page_handler($page) {
         case "view":
             set_input('guid', $page[1]);
             include "$base/view.php";
-            break;            
+            break;   
+            
+        case "owner":
+			include "$base/owner.php";
+            break;   
+            
+        case "group":
+            group_gatekeeper();
+            include "$base/owner.php";
+            break;
+            
+        case "all":
+            include "$base/all.php";
+            break;   
             
         default:
             include "$base/all.php";
@@ -169,7 +190,7 @@ function amapnews_set_url($hook, $type, $url, $params) {
 
 
 /**
- * Add option so set as new by admin to entity menu at end of the menu
+ * Add option to set as new by admin to entity menu at end of the menu
  */
 function amapnews_entity_menu_setup($hook, $type, $return, $params) {
 	if (elgg_is_admin_logged_in()) { 
@@ -195,5 +216,25 @@ function amapnews_entity_menu_setup($hook, $type, $return, $params) {
 	
 	return false;
 }
+
+/**
+ * Add a menu item to an ownerblock
+ */
+function amapnews_owner_block_menu($hook, $type, $return, $params) {
+    if (elgg_instanceof($params['entity'], 'user')) {
+        $url = "amapnews/owner/{$params['entity']->username}";
+        $item = new ElggMenuItem('amapnews', elgg_echo('amapnews'), $url);
+        $return[] = $item;
+    } else {
+        if ($params['entity']->amapnews_enable != 'no') {
+            $url = "news/group/{$params['entity']->guid}/all";
+            $item = new ElggMenuItem('amapnews', elgg_echo('amapnews:group'), $url);
+            $return[] = $item;
+        }
+    }
+
+    return $return;
+}
+
 
 ?>

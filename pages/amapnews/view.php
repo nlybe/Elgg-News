@@ -16,7 +16,11 @@ if (!$entity_unit) {
 
 $page_owner = elgg_get_page_owner_entity();
 $crumbs_title = $page_owner->name;
-elgg_push_breadcrumb($crumbs_title, "amapnews/owner/$page_owner->username");
+if (elgg_instanceof($page_owner, 'group')) {
+	elgg_push_breadcrumb($crumbs_title, "news/group/$page_owner->guid/all");
+} else {
+	elgg_push_breadcrumb($crumbs_title, "news/owner/$page_owner->username");
+}
 
 $title = $entity_unit->title; 
 elgg_push_breadcrumb($title);

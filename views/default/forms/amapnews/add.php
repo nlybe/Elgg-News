@@ -17,6 +17,7 @@ if (!$container_guid) {
 }
 $guid = elgg_extract('guid', $vars, null);
 $cguid = elgg_extract('cguid', $vars, null);
+$group_guid = elgg_extract('group_guid', $vars, null);
 
 $comments_input = elgg_view('input/dropdown', array(
 	'name' => 'comments_on',
@@ -97,7 +98,10 @@ if ($connected_entity_guid) {
     }
     if ($connected_entity_guid) {
 		echo elgg_view('input/hidden', array('name' => 'connected_guid', 'value' => $connected_entity_guid));
-    }    
+    }  
+    if ($group_guid) {
+		echo elgg_view('input/hidden', array('name' => 'group_guid', 'value' => $group_guid));
+    }  
     echo elgg_view('input/hidden', array('name' => 'container_guid', 'value' => $container_guid));
     echo elgg_view('input/submit', array('value' => elgg_echo('amapnews:add:submit')));
 ?>
