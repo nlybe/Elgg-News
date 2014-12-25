@@ -74,7 +74,7 @@ if ($full && !elgg_in_context('gallery')) {
     $body = '';
     $body .= '<div class="elgg-image-block clearfix">';
       
-    $body .= $entity_unit->title;
+    //$body .= $entity_unit->title;
     
     if ($entity_unit->description) 
         $body .= '<div class="desc">'.$entity_unit->description.'</div>';

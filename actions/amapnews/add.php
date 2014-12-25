@@ -35,7 +35,7 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
         forward(REFERER);
     }  
     
-	// if not admin but group onwer, check if a access level is limited only to group
+	// if not admin but group owners, check if a access level is limited only to group
 	if (!elgg_is_admin_logged_in() && elgg_instanceof($group_entity, 'group') && $group_entity->canEdit())	{
 		if ($access_id > 0 && $access_id < 3)	{
 			register_error(elgg_echo('amapnews:save:notvalid_access_id'));
