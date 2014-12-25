@@ -1,0 +1,23 @@
+******* Elgg News Plugin *******
+
+CHANGE LOG
+
+1.8.2	(26 Dec 2014)
+--------------------- 
+- Small bugs fixes
+
+
+1.8.1	(26 Nov 2014)
+--------------------- 
+- Added option for group owners to post announcements inside group only
+- Small bugs fixes
+
+1.8.0	(15 Nov 2014)
+--------------------- 
+Initial release 
+
+
+
+
+
+
