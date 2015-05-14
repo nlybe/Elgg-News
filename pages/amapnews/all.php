@@ -6,6 +6,9 @@
 
 elgg_load_library('elgg:amapnews');
 
+$user = elgg_get_logged_in_user_entity();
+$staff = $user->news_staff;
+
 $options = array(
 	'type' => 'object',
 	'subtype' => 'amapnews',
@@ -19,7 +22,7 @@ elgg_push_breadcrumb(elgg_echo('amapnews'));
 $content = elgg_list_entities($options);
 $title = elgg_echo('amapnews');
 
-if (elgg_is_admin_logged_in())	{
+if (elgg_is_admin_logged_in()||$staff)	{
     elgg_register_title_button();
 }
 

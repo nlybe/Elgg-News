@@ -9,8 +9,12 @@ elgg_load_library('elgg:amapnews');
 $group_guid = (int) get_input('group_guid');
 $group_entity = get_entity($group_guid);
 
-// post news only for admins or groups owners (if allowed by admins)
-if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($group_entity, 'group') && $group_entity->canEdit()))	{
+$user = elgg_get_logged_in_user_entity();
+$staff = $user->news_staff;
+
+
+// post news only for admins or groups owners and staff (if allowed by admins)
+if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($group_entity, 'group') && $group_entity->canEdit()) || $staff)	{
     
     // Get variables
     $title = get_input("title");
@@ -89,20 +93,12 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
         system_message(elgg_echo('amapnews:save:success'));
 
         //add to river only if new
-        if ($new) {
-			// add purchase to river
-			$release = elgg_get_version(true);
-			if ($release < 1.9)  // version 1.8
-				add_to_river('river/object/amapnews/create','create', elgg_get_logged_in_user_guid(), $entity_unit->getGUID());
-			else { // use this since Elgg 1.9
-				elgg_create_river_item(array(
-					'view' => 'river/object/amapnews/create',
-					'action_type' => 'create',
-					'subject_guid' => elgg_get_logged_in_user_guid(),
-					'object_guid' => $entity_unit->getGUID(),
-				));
-			}            
-        }
+        elgg_create_river_item(array(
+			'view' => 'river/object/amapnews/create',
+			'action_type' => 'create',
+			'subject_guid' => elgg_get_logged_in_user_guid(),
+			'object_guid' => $entity_unit->getGUID(),
+		));
 
 		if (elgg_instanceof($group_entity, 'group')) {
 			forward(elgg_get_site_url() . "news/group/".$group_entity->guid."/all");

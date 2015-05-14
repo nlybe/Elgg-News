@@ -2,10 +2,15 @@
 
 CHANGE LOG
 
+1.11.3	(14 May 2015)
+--------------------- 
+- Added option to determine users who can post news/announcements (thanks to Pasley70 contribution)
+- Added group widget
+- Small bugs fixes
+
 1.8.2	(26 Dec 2014)
 --------------------- 
 - Small bugs fixes
-
 
 1.8.1	(26 Nov 2014)
 --------------------- 

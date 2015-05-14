@@ -15,7 +15,7 @@ $num = (int) $vars['entity']->num_display;
 if (!$num) {
 	$num = 5;
 }		
-	
+
 $options = array(
 	'type'=>'object',
 	'subtype'=>'amapnews', 
@@ -63,10 +63,21 @@ if (elgg_instanceof($owner, 'user')) {
 				
 		$content .= "</ul>";
 	}	
-} else {
+} elseif (elgg_instanceof($owner, 'group')) {
+
+	$groupGUID = elgg_get_page_owner_guid();
+	$options['container_guid']= $groupGUID;
+
 	elgg_push_context('widgets');
 	$content = elgg_list_entities($options);
 	elgg_pop_context();	
+
+} else {
+
+	elgg_push_context('widgets');
+	$content = elgg_list_entities($options);
+	elgg_pop_context();	
+
 }
 
 
@@ -82,3 +93,5 @@ $more_link = elgg_view('output/url', array(
 	'is_trusted' => true,
 ));
 echo "<span class=\"elgg-widget-more\">$more_link</span>";
+
+

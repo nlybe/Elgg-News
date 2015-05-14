@@ -49,6 +49,9 @@ function amapnews_init() {
     
     // add option to all site entities for adding to news
     elgg_register_plugin_hook_handler('register', 'menu:entity', 'amapnews_entity_menu_setup', 400);
+
+    // add option for admin to add/remove user from news-staff
+	elgg_register_plugin_hook_handler("register", "menu:user_hover", "news_staff_user_hover_menu_hook");
     
 	// Register a page handler, so we can have nice URLs
     elgg_register_page_handler('news', 'amapnews_page_handler');
@@ -65,20 +68,17 @@ function amapnews_init() {
     
 	// get current elgg version
 	$release = elgg_get_version(true);
-	// Register a URL handler for agora
-	if ($release < 1.9)  // version 1.8
-		elgg_register_entity_url_handler('object', 'amapnews', 'amapnews_url');
-	else { // use this since Elgg 1.9
-		elgg_register_plugin_hook_handler('entity:url', 'object', 'amapnews_set_url');
-	}	
-    
+	// Register a URL handler for news
+	elgg_register_plugin_hook_handler('entity:url', 'object', 'amapnews_set_url');
+	
     // Register actions
     $action_path = elgg_get_plugins_path() . 'amapnews/actions/amapnews';
     elgg_register_action('amapnews/add', "$action_path/add.php");    
     elgg_register_action('amapnews/delete', "$action_path/delete.php");
+    elgg_register_action('amapnews/staff', "$action_path/staff.php", "admin");
     
     // Add amapnews widget for displaying latest posts
-	elgg_register_widget_type('amapnews', elgg_echo('amapnews:widget'), elgg_echo('amapnews:widget:description'), 'dashboard');
+	elgg_register_widget_type('amapnews', elgg_echo('amapnews:widget'), elgg_echo('amapnews:widget:description'), array("profile", "dashboard", "index", "groups"), true);
 }
 
 /**
@@ -143,25 +143,6 @@ function amapnews_page_handler($page) {
 }
 
 /**
- * Populates the ->getUrl() method for amapnews objects for 1.8
- */
-function amapnews_url($entity) {
-	$title = $entity->title;
-	$title = elgg_get_friendly_title($title);
-	
-	if ($entity->connected_guid) {
-		$connected_entity = get_entity($entity->connected_guid);
-		
-		if ($connected_entity) 
-			return $connected_entity->getURL();
-		else	
-			return elgg_get_site_url() . "news/view/" . $entity->getGUID() . "/" . elgg_get_friendly_title($entity->title);
-	}
-	else
-		return elgg_get_site_url() . "news/view/" . $entity->getGUID() . "/" . elgg_get_friendly_title($entity->title);
-}
-
-/**
  * Format and return the URL for news objects, since 1.9.
  *
  * @param string $hook
@@ -193,7 +174,11 @@ function amapnews_set_url($hook, $type, $url, $params) {
  * Add option to set as new by admin to entity menu at end of the menu
  */
 function amapnews_entity_menu_setup($hook, $type, $return, $params) {
-	if (elgg_is_admin_logged_in()) { 
+	
+	$user = elgg_get_logged_in_user_entity();
+	$staff = $user->news_staff;
+	
+	if (elgg_is_admin_logged_in() || $staff) { 
 		$entity = $params['entity'];
 		
 		if (!elgg_instanceof($entity, 'object', 'amapnews'))	{
@@ -207,14 +192,14 @@ function amapnews_entity_menu_setup($hook, $type, $return, $params) {
 				'text' => elgg_echo("amapnews:add:tonews"),
 				'href' =>  $url,
 				'priority' => 50,
-				'class' => 'elgg-lightbox',
+				'link_class' => 'elgg-lightbox',
 			);
 			$return[] = ElggMenuItem::factory($options);
 			return $return;
 		}
 	}
 	
-	return false;
+	return $return;
 }
 
 /**
@@ -222,9 +207,12 @@ function amapnews_entity_menu_setup($hook, $type, $return, $params) {
  */
 function amapnews_owner_block_menu($hook, $type, $return, $params) {
     if (elgg_instanceof($params['entity'], 'user')) {
+        /* Macht zur Zeit keinen Sinn 
         $url = "amapnews/owner/{$params['entity']->username}";
         $item = new ElggMenuItem('amapnews', elgg_echo('amapnews'), $url);
         $return[] = $item;
+        */
+        return false;
     } else {
         if ($params['entity']->amapnews_enable != 'no') {
             $url = "news/group/{$params['entity']->guid}/all";
@@ -234,6 +222,43 @@ function amapnews_owner_block_menu($hook, $type, $return, $params) {
     }
 
     return $return;
+}
+
+/* News-Staff */
+
+function news_staff_user_hover_menu_hook($hook, $type, $return_value, $params) {
+	
+	$user = elgg_get_logged_in_user_entity();
+	
+	if (empty($user) || !$user->isAdmin()) {
+		return $return_value;
+	}
+	
+	if (empty($params) || !is_array($params)) {
+		return $return_value;
+	}
+	
+	$entity = elgg_extract("entity", $params);
+	
+	if ($entity->getGUID() == $user->getGUID()) {
+		return $return_value;
+	}
+	
+	$text = elgg_echo("amapnews:menu_user_hover:make_staff");
+	
+	if ($entity->news_staff) {
+		$text = elgg_echo("amapnews:menu_user_hover:remove_staff");
+	}
+	
+	$return_value[] = ElggMenuItem::factory(array(
+		"name" => "amapnews_staff",
+		"text" => $text,
+		"href" => "action/amapnews/staff?guid=" . $entity->getGUID(),
+		"confirm" => elgg_echo("question:areyousure"),
+		"section" => "admin"
+	));
+	
+	return $return_value;
 }
 
 

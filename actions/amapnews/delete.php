@@ -4,8 +4,12 @@
  * @package amapnews
  */
 
-// check if admin user is loggedin
-if (!elgg_is_admin_logged_in()) 
+
+$user = elgg_get_logged_in_user_entity();
+$staff = $user->news_staff;
+
+// check if admin user is loggedin or staff
+if ( !(elgg_is_admin_logged_in()||$staff) )
 	forward(REFERER);
 
 $guid = get_input('guid');
