@@ -84,12 +84,12 @@ elseif (elgg_instanceof($owner, 'group')) {
     $options['container_guid']= $groupGUID;
 
     elgg_push_context('widgets');
-    $content = elgg_list_entities($options);
+    $content = elgg_list_entities_from_metadata($options);
     elgg_pop_context();	
 } 
 else {
     elgg_push_context('widgets');
-    $content = elgg_list_entities($options);
+    $content = elgg_list_entities_from_metadata($options);
     elgg_pop_context();	
 }
 
