@@ -4,7 +4,6 @@
  * @package amapnews
  */
 
-
 $user = elgg_get_logged_in_user_entity();
 $staff = $user->news_staff;
 
@@ -13,11 +12,16 @@ if ( !(elgg_is_admin_logged_in()||$staff) )
 	forward(REFERER);
 
 $guid = get_input('guid');
-$entity_unit = get_entity($guid);
+$entity = get_entity($guid);
 
-if (elgg_instanceof($entity_unit, 'object', 'amapnews') && $entity_unit->canEdit()) {
-    $container = $entity_unit->getContainerEntity();
-    if ($entity_unit->delete()) {
+if (elgg_instanceof($entity, 'object', 'amapnews') && $entity->canEdit()) {
+    $container = $entity->getContainerEntity();
+
+    //delete files connected with this entity
+    if ($entity->photo)
+        $entity->del_photo();
+        
+    if ($entity->delete()) {
         system_message(elgg_echo("amapnews:delete:success"));
         forward("amapnews/all");
     }

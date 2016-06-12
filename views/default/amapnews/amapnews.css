@@ -26,3 +26,12 @@
 .elgg-form-amapnews-add .amapnews_featured input {
     display: inline-block;
 }
+
+.elgg-form-amapnews-add .elgg-input-file {
+    width: 75%;
+}
+
+div.entity_photo {
+    float:left; 
+    margin: 0 10px 0 0;
+}

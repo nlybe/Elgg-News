@@ -58,6 +58,16 @@ function amapnews_init() {
     // loads the widgets
     amapnews_widgets_init();
     
+    // set photo sizes for news posts
+    elgg_set_config('amapnews_photo_sizes', array(
+        'tiny' => array('w' => 25, 'h' => 25, 'square' => TRUE, 'upscale' => FALSE),
+        'small' => array('w' => 40, 'h' => 40, 'square' => TRUE, 'upscale' => FALSE),
+        'medium' => array('w' => 100, 'h' => 100, 'square' => TRUE, 'upscale' => FALSE),
+        'large' => array('w' => 150, 'h' => 150, 'square' => TRUE, 'upscale' => FALSE),
+        'master' => array('w' => 215, 'h' => 215, 'square' => TRUE, 'upscale' => FALSE),
+        'default' => array('w' => 1200, 'h' => 1200, 'square' => FALSE, 'upscale' => FALSE),
+    ));    
+    
     // Register actions
     $action_path = elgg_get_plugins_path() . 'amapnews/actions/amapnews';
     elgg_register_action('amapnews/add', "$action_path/add.php");    
@@ -87,6 +97,13 @@ function amapnews_page_handler($page) {
             $resource_vars['guid'] = elgg_extract(1, $page);
             echo elgg_view_resource('amapnews/add', $resource_vars);
             break;
+        
+        case "photo_view":
+            $resource_vars['guid'] = elgg_extract(1, $page);
+            $resource_vars['size'] = elgg_extract(2, $page);
+            $resource_vars['tu'] = elgg_extract(3, $page);
+            echo elgg_view_resource('amapnews/photo_view', $resource_vars);
+            break;        
             
         case "add_existed":
             $resource_vars['cguid'] = elgg_extract(1, $page);

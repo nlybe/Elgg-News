@@ -20,6 +20,7 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
     $description = get_input("description");
     $excerpt = get_input("excerpt");
     $featured = get_input("featured");
+    $photo = get_input("photo");
     $tags = get_input("tags");
     $access_id = (int) get_input("access_id");
     $guid = (int) get_input('amapnews_guid');
@@ -38,6 +39,28 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
         register_error(elgg_echo('amapnews:save:missing_excerpt'));
         forward(REFERER);
     }  
+    
+    // Check if photo uploaded
+    if ($_FILES["photo"]["error"] != 4) {
+        $allowedExts = array("gif", "jpeg", "jpg", "png", "GIF", "JPEG", "JPG", "PNG");
+        $temp = explode(".", $_FILES["photo"]["name"]);
+        $extension = end($temp);
+        if (((	$_FILES["photo"]["type"] == "image/gif") 
+            || ($_FILES["photo"]["type"] == "image/jpeg") 
+            || ($_FILES["photo"]["type"] == "image/jpg")
+            || ($_FILES["photo"]["type"] == "image/pjpeg") 
+            || ($_FILES["photo"]["type"] == "image/x-png") 
+            || ($_FILES["photo"]["type"] == "image/png"))
+            && (in_array($extension, $allowedExts))	)	 {
+
+            $photo_sizes = elgg_get_config('amapnews_photo_sizes');
+        }
+        else
+        {
+            register_error(elgg_echo('amapnews:add:photo:invalid'));  
+            forward(REFERER); 
+        } 
+    }    
     
     // if not admin but group owners, check if a access level is limited only to group
     if (!elgg_is_admin_logged_in() && elgg_instanceof($group_entity, 'group') && $group_entity->canEdit())	{
@@ -86,9 +109,30 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
     $entity->container_guid = $container_guid;
     $entity->comments_on = $comments_on;
     $entity->access_id = $access_id;
+    if ($_FILES["photo"]["error"] != 4) { 
+        $entity->photo = time(); 
+    }    
 
     if ($entity->save()) {
         elgg_clear_sticky_form('amapnews');
+        
+	// upload photo if any
+	if ($_FILES["photo"]["error"] != 4) {
+            foreach ($photo_sizes as $name => $photo_info) {
+                $resized = get_resized_image_from_uploaded_file('photo', $photo_info['w'], $photo_info['h'], $photo_info['square'], $photo_info['upscale']);
+
+                if ($resized) {
+                    $file = new ElggFile();
+                    $file->owner_guid = $entity->owner_guid;
+                    $file->container_guid = $entity->getGUID();
+                    $file->setFilename("amapnews/".$entity->getGUID().$name.".jpg");
+                    $file->open('write');
+                    $file->write($resized);
+                    $file->close();
+                    $files[] = $file;
+                } 
+            }
+	}          
         
         system_message(elgg_echo('amapnews:save:success'));
 

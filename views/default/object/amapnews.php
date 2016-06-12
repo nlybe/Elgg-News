@@ -87,6 +87,16 @@ if ($full && !elgg_in_context('gallery')) {
     $body = '';
     $body .= '<div class="elgg-image-block clearfix">';
     
+    // Check if entity has photo
+    if ($entity->photo) {
+        $entity_photo = elgg_view('output/img', array(
+            'src' => amapnews_getEntityIconUrl($entity->getGUID(), 'large'),
+            'alt' => $entity->title,
+            'class' => 'elgg-photo',
+        ));  
+        $body .= elgg_format_element('div', ['class' => 'entity_photo'],$entity_photo);
+    }
+    
     if ($entity->description) 
         $body .= '<div class="desc">'.$entity->description.'</div>';
     else 
@@ -102,13 +112,14 @@ if ($full && !elgg_in_context('gallery')) {
     ));
 } 
 else {
-    // we want small thumb on group views
-    $page_owner = elgg_get_page_owner_entity();
-    if (elgg_instanceof($page_owner, 'group'))  
-        $thumbsize = 'small';
-    else
-        $thumbsize = 'medium';
-	
+    if ($entity->photo) {
+        $owner_icon = elgg_view('output/img', array(
+            'src' => amapnews_getEntityIconUrl($entity->getGUID(), 'small'),
+            'alt' => $entity->title,
+            'class' => 'elgg-photo',
+        ));        
+    }
+    
     $display_text = $url;
    
     $content =  $entity->excerpt;

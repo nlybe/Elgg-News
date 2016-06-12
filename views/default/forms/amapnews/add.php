@@ -9,6 +9,7 @@ $title = elgg_extract('title', $vars, '');
 $description = elgg_extract('description', $vars, '');
 $excerpt = elgg_extract('excerpt', $vars, '');
 $featured = elgg_extract('featured', $vars, false);
+$photo = elgg_extract('photo', $vars, '');
 $tags = elgg_extract('tags', $vars, '');
 $connected_guid = elgg_extract('connected_guid', $vars, '');
 $access_id = elgg_extract('access_id', $vars, ACCESS_DEFAULT);
@@ -80,6 +81,22 @@ if ($connected_entity_guid) {
             'help' => elgg_echo('amapnews:add:description:help'),
         )));
     }
+    
+    if ($guid && $photo) {
+        $entity_photo = elgg_view('output/img', array(
+            'src' => amapnews_getEntityIconUrl($guid, 'medium'),
+            'alt' => $title,
+            'class' => 'elgg-photo',
+            'style' => 'float: right;',
+        )); 
+        echo $entity_photo;
+    }
+    echo elgg_format_element('div', [], elgg_view_input('file', array(
+        'name' => 'photo',
+        'value' => $photo,
+        'label' => elgg_echo('amapnews:add:photo'),
+        'help' => elgg_echo('amapnews:add:photo:help'),
+    )));    
 
     echo elgg_format_element('div', ['class' => 'amapnews_featured'], elgg_view_input('checkbox', array(
         'name' => 'featured',

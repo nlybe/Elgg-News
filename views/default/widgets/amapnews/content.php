@@ -25,7 +25,6 @@ $options = array(
     'size' => 'small'
 );
 
-error_log(elgg_get_context());
 if (elgg_instanceof($owner, 'user')) {
     if (!elgg_in_context('dashboard'))
         $options['owner_guid'] = $owner->guid;

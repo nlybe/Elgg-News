@@ -8,13 +8,14 @@ class Amapnews extends ElggObject {
     const SUBTYPE = "amapnews";
     
     protected $meta_defaults = array(
-        "title" 	 => NULL,
-        "description" 	 => NULL,
-        "excerpt" 	 => NULL,
-        "featured" 	 => NULL, 
-        "tags" 		 => NULL,
-        "connected_guid" => NULL,
-        "comments_on"	 => NULL,
+        "title"             => NULL,
+        "description"       => NULL,
+        "excerpt"           => NULL,
+        "featured"          => NULL, 
+        "photo"             => NULL,
+        "tags"              => NULL,
+        "connected_guid"    => NULL,
+        "comments_on"       => NULL,
     );    
 
     protected function initializeAttributes() {
@@ -34,5 +35,25 @@ class Amapnews extends ElggObject {
         
         return false;
     }    
+    
+    /**
+     * Delete item photo from diskspace
+     * 
+     * @return boolean
+     */
+    public function del_photo() {
+        $photo_sizes = elgg_get_config('amapnews_photo_sizes');
+        foreach ($photo_sizes as $name => $photo_info) {
+            $file = new ElggFile();
+            $file->owner_guid = $this->owner_guid;
+            $file->setFilename("amapnews/{$this->getGUID()}{$name}.jpg");
+            $filepath = $file->getFilenameOnFilestore();
+            if (!$file->delete()) {
+                // do nothing
+            }
+        }
+
+        return true;
+    }     
  
 }

@@ -18,6 +18,7 @@ function amapnews_prepare_form_vars($entity_unit = null) {
         'description' => '',
         'excerpt' => '',
         'featured' => '',
+        'photo' => '',
         'tags' => '',
         'connected_guid' => null,	// guid of entity connected
         'access_id' => ACCESS_DEFAULT,
@@ -92,3 +93,42 @@ function allow_post_on_groups() {
     return false;
 }
 
+/**
+ * Get entity icon URL
+ * 
+ * @param type $entity_guid
+ * @param type $size
+ * @return boolean
+ */
+function amapnews_getEntityIconUrl($entity_guid, $size = 'master') {
+    $entity = get_entity($entity_guid);
+
+    if (!elgg_instanceof($entity)) 
+        return false;
+
+    // Get the size
+    $size = amapnews_getIconSize($size);
+    $icon_time = $entity->time_updated;
+    $icon_url = "amapnews/photo_view/$entity->guid/{$size}/{$icon_time}";
+
+    return elgg_normalize_url($icon_url);
+}
+
+/**
+ * Get entity icon size
+ * 
+ * @param string $size
+ * @return string
+ */
+function amapnews_getIconSize($size = 'master') {
+    $photo_sizes = elgg_get_config('amapnews_photo_sizes');
+    $sizenames = array();
+    foreach ($photo_sizes as $name => $photo_info) {
+        array_push($sizenames, $name);
+    }
+    if (!in_array($size, $sizenames)) {
+        $size = 'medium';
+    }
+
+    return $size;
+}
