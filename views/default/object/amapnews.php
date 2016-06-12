@@ -7,22 +7,32 @@
 elgg_load_library('elgg:amapnews');
 
 $full = elgg_extract('full_view', $vars, FALSE);
-$entity_unit = elgg_extract('entity', $vars, FALSE);
+$entity = elgg_extract('entity', $vars, FALSE);
 
-if (!$entity_unit) { 
+if (!$entity) { 
     return;
 }
 
-$owner = $entity_unit->getOwnerEntity();
+$owner = $entity->getOwnerEntity();
 
 if (display_user_icon()) {
     $owner_icon = elgg_view_entity_icon($owner, 'small');
 }
-else
+else {
     $owner_icon = elgg_view('output/img', array(
         'src' => elgg_get_simplecache_url('amapnews/icon/amapnews.png'),
         'alt' => elgg_echo('amapnews'),
     ));
+}
+
+$featured = '';
+if ($entity->is_featured()) {
+    $featured_icon = elgg_view('output/img', array(
+        'src' => elgg_get_simplecache_url('amapnews/icon/featured.png'),
+        'alt' => elgg_echo('amapnews:featured'),
+    ));    
+    $featured = elgg_format_element('div', array('style' => "float:right;"), $featured_icon);
+}  
 
 if (display_username()) {
     $owner_link = elgg_view('output/url', array(
@@ -35,16 +45,16 @@ if (display_username()) {
 else
     $author_text = '';
 
-$date = elgg_view_friendly_time($entity_unit->time_created);
+$date = elgg_view_friendly_time($entity->time_created);
 
 //only display if there are commments
-if ($entity_unit->comments_on != 'Off') {
-    $comments_count = $entity_unit->countComments();
+if ($entity->comments_on != 'Off') {
+    $comments_count = $entity->countComments();
     //only display if there are commments
     if ($comments_count != 0) {
         $text = elgg_echo("comments") . " ($comments_count)";
         $comments_link = elgg_view('output/url', array(
-            'href' => $entity_unit->getURL() . '#amapnews-comments',
+            'href' => $entity->getURL() . '#amapnews-comments',
             'text' => $text,
             'is_trusted' => true,
         ));
@@ -62,11 +72,11 @@ $metadata = elgg_view_menu('entity', array(
     'class' => 'elgg-menu-hz',
 ));
 
-$subtitle = "$author_text $date $comments_link";
+$subtitle = "$author_text $date $comments_link $featured";
 
 if ($full && !elgg_in_context('gallery')) {
     $params = array(
-        'entity' => $entity_unit,
+        'entity' => $entity,
         'title' => false,
         'metadata' => $metadata,
         'subtitle' => $subtitle,
@@ -76,18 +86,16 @@ if ($full && !elgg_in_context('gallery')) {
 
     $body = '';
     $body .= '<div class="elgg-image-block clearfix">';
-      
-    //$body .= $entity_unit->title;
     
-    if ($entity_unit->description) 
-        $body .= '<div class="desc">'.$entity_unit->description.'</div>';
+    if ($entity->description) 
+        $body .= '<div class="desc">'.$entity->description.'</div>';
     else 
         $body .= '<div class="desc">&nbsp;</div>';
 
     $body .= '</div>';
 
     echo elgg_view('object/elements/full', array(
-        'entity' => $entity_unit,
+        'entity' => $entity,
         'icon' => $owner_icon,
         'summary' => $summary,
         'body' => $body,
@@ -103,9 +111,9 @@ else {
 	
     $display_text = $url;
    
-    $content =  $entity_unit->excerpt;
+    $content =  $entity->excerpt;
     $params = array(
-        'entity' => $entity_unit,
+        'entity' => $entity,
         'metadata' => $metadata,
         'subtitle' => $subtitle,
         'content' => $content,

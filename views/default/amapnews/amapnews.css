@@ -17,3 +17,12 @@
 #cboxLoadedContent .add_existed input[type="submit"] {
     float: right;
 }
+
+.elgg-form-amapnews-add .amapnews_featured .elgg-field-label {
+    width: 150px;
+    display: inline-block;
+}
+
+.elgg-form-amapnews-add .amapnews_featured input {
+    display: inline-block;
+}

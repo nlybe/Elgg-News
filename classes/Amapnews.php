@@ -11,6 +11,7 @@ class Amapnews extends ElggObject {
         "title" 	 => NULL,
         "description" 	 => NULL,
         "excerpt" 	 => NULL,
+        "featured" 	 => NULL, 
         "tags" 		 => NULL,
         "connected_guid" => NULL,
         "comments_on"	 => NULL,
@@ -21,5 +22,17 @@ class Amapnews extends ElggObject {
 
         $this->attributes["subtype"] = self::SUBTYPE;
     }
+    
+    /**
+     * Check if current item is featured
+     * @return boolean
+     */
+    function is_featured() {
+        if ($this->featured === AMAPNEWS_GENERAL_YES) {
+            return true;
+        }
+        
+        return false;
+    }    
  
 }

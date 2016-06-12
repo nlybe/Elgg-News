@@ -4,7 +4,8 @@
  * @package amapnews
  */
  
-require_once(dirname(__FILE__) . "/lib/hooks.php");
+require_once(dirname(__FILE__) . '/lib/hooks.php');
+require_once(dirname(__FILE__) . '/lib/widgets.php');
 
 elgg_register_event_handler('init', 'system', 'amapnews_init');
 
@@ -36,7 +37,7 @@ function amapnews_init() {
     elgg_register_plugin_hook_handler("register", "menu:user_hover", "news_staff_user_hover_menu_hook");
 
     // Register menu item to an ownerblock. It is used to  register news menu item to groups
-    // elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'amapnews_owner_block_menu');
+    elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'amapnews_owner_block_menu');
     
     // Register a URL handler for news
     elgg_register_plugin_hook_handler('entity:url', 'object', 'amapnews_set_url');
@@ -51,14 +52,15 @@ function amapnews_init() {
     // add the group news tool option
     add_group_tool_option('amapnews', elgg_echo('amapnews:group:enable'), true);   
 	
+    // loads the widgets
+    amapnews_widgets_init();
+    
     // Register actions
     $action_path = elgg_get_plugins_path() . 'amapnews/actions/amapnews';
     elgg_register_action('amapnews/add', "$action_path/add.php");    
     elgg_register_action('amapnews/delete', "$action_path/delete.php");
     elgg_register_action('amapnews/staff', "$action_path/staff.php", "admin");
-    
-    // Add amapnews widget for displaying latest posts
-    elgg_register_widget_type('amapnews', elgg_echo('amapnews:widget'), elgg_echo('amapnews:widget:description'), array("profile", "dashboard", "index", "groups"), true);
+    elgg_register_action('amapnews/set_featured', "$action_path/set_featured.php", "admin");    
 }
 
 /**

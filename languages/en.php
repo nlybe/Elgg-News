@@ -11,15 +11,23 @@ $lang = array(
     'amapnews:menu' => "News",
     'amapnews:edit' => "Edit post",
     'item:object:amapnews' => "News",
+    'amapnews:featured' => "Featured",
  
     // submit form
     'news:add' => "Post News",
     'amapnews:add' => "Post News",
     'amapnews:add:requiredfields' => "Fields with an asterisk (*) are required",
     'amapnews:add:title' => "Title",
+    'amapnews:add:title:help' => "Set the title of this post.",
     'amapnews:add:excerpt' => "Summary",
+    'amapnews:add:excerpt:help' => "Set a summary for this post. It will be displayed in news list.",
     'amapnews:add:description' => "Description",
+    'amapnews:add:description:help' => "Enter the main text for this post. It will be displayed on full view.",
+    'amapnews:add:featured' => "Set as featured",
+    'amapnews:add:featured:help' => "Check this for setting this item as featured. It could be used in special sections like widgets, landing page etc.",
+    'amapnews:add:unfeatured' => "Unset featured",
     'amapnews:add:tags' => "Tags",
+    'amapnews:add:tags:help' => "Enter some tags.",
     'amapnews:add:submit' => "Submit",
     'amapnews:add:tonews' => "Add to news",
     'amapnews:add:novalidentity' => "No valid entity for adding to news",
@@ -61,8 +69,11 @@ $lang = array(
     
     // widget
     'amapnews:widget' => 'News & Announcements', 
-    'amapnews:widget:description' => 'Display latest news and announcements',  
+    'amapnews:widget:description' => 'Display latest news and announcements', 
+    'amapnews:widget:num_display' => 'Number of items to display: ',
     'amapnews:widget:viewall' => 'View all',  
+    'amapnews:widget:amapnews_featured' => 'Featured News', 
+    'amapnews:widget:amapnews_featured:description' => 'Display latest featured/important news and announcements',     
     
     // groups
     'amapnews:group' => 'Group news', 

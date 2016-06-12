@@ -8,6 +8,7 @@
 $title = elgg_extract('title', $vars, '');
 $description = elgg_extract('description', $vars, '');
 $excerpt = elgg_extract('excerpt', $vars, '');
+$featured = elgg_extract('featured', $vars, false);
 $tags = elgg_extract('tags', $vars, '');
 $connected_guid = elgg_extract('connected_guid', $vars, '');
 $access_id = elgg_extract('access_id', $vars, ACCESS_DEFAULT);
@@ -52,32 +53,50 @@ if ($connected_entity_guid) {
 <?php if ($connected_entity_exists) echo '<div style="" class="add_existed">'; ?>
 <?php if ($connected_entity_exists) echo '<h3>'.elgg_echo('amapnews:add:connected_entity:title').'</h3>'; ?>
 
-<p><?php echo elgg_echo('amapnews:add:requiredfields'); ?></p>
-<div>
-    <label><?php echo elgg_echo('amapnews:add:title'); ?></label> <span style="color:red;">(*)</span>
-    <span class='amapnews_custom_fields_more_info' id='more_info_title' title='<?php echo elgg_echo('amapnews:add:title:note'); ?>'></span>
-    <br /><?php echo elgg_view('input/text', array('name' => 'title', 'value' => $title)); ?>
-</div>
+<?php
+    echo elgg_format_element('p', [], elgg_echo('amapnews:add:requiredfields'));
+    
+    echo elgg_format_element('div', [], elgg_view_input('text', array(
+        'name' => 'title',
+        'value' => $title,
+        'label' => elgg_echo('amapnews:add:title'),
+        'help' => elgg_echo('amapnews:add:title:help'),
+        'required' => true,
+    )));
+    
+    echo elgg_format_element('div', [], elgg_view_input('text', array(
+        'name' => 'excerpt',
+        'value' => $excerpt,
+        'label' => elgg_echo('amapnews:add:excerpt'),
+        'help' => elgg_echo('amapnews:add:excerpt:help'),
+        'required' => true,
+    )));
+    
+    if (!$connected_entity_exists) { /* do not display description when is connected with other entity */
+        echo elgg_format_element('div', [], elgg_view_input('longtext', array(
+            'name' => 'description',
+            'value' => $description,
+            'label' => elgg_echo('amapnews:add:description'),
+            'help' => elgg_echo('amapnews:add:description:help'),
+        )));
+    }
 
-<div>
-    <label><?php echo elgg_echo('amapnews:add:excerpt'); ?></label> <span style="color:red;">(*)</span>
-    <span class='amapnews_custom_fields_more_info' id='more_info_excerpt' excerpt='<?php echo elgg_echo('amapnews:add:excerpt:note'); ?>'></span>
-    <br /><?php echo elgg_view('input/text', array('name' => 'excerpt', 'value' => $excerpt)); ?>
-</div>
-
-<?php if (!$connected_entity_exists) { /* do not display description when is connected with other entity */?>
-<div>
-    <label><?php echo elgg_echo('amapnews:add:description'); ?></label>
-    <span class='amapnews_custom_fields_more_info' id='more_info_description' description='<?php echo elgg_echo('amapnews:add:description:note'); ?>'></span>
-    <br /><?php echo elgg_view('input/longtext', array('name' => 'description', 'value' => $description)); ?>
-</div>
-
-<?php } ?>
-
-<div style="display:block; clear:both;">
-    <label><?php echo elgg_echo('amapnews:add:tags'); ?></label>
-    <br /><?php echo elgg_view('input/tags', array('name' => 'tags', 'value' => $tags)); ?>
-</div>
+    echo elgg_format_element('div', ['class' => 'amapnews_featured'], elgg_view_input('checkbox', array(
+        'name' => 'featured',
+        'value' => AMAPNEWS_GENERAL_YES,
+        'default' => AMAPNEWS_GENERAL_NO,
+        'checked' => ($featured === AMAPNEWS_GENERAL_YES) ? true : false,
+        'label' => elgg_echo('amapnews:add:featured'),
+        'help' => elgg_echo('amapnews:add:featured:help'),
+    )));
+    
+    echo elgg_format_element('div', [], elgg_view_input('text', array(
+        'name' => 'tags',
+        'value' => $tags,
+        'label' => elgg_echo('amapnews:add:tags'),
+        'help' => elgg_echo('amapnews:add:tags:help'),
+    )));    
+?>
 
 <?php if (!$connected_entity_exists) { /* do not display comments when is connected with other entity */?>
 <div>

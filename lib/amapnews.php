@@ -17,6 +17,7 @@ function amapnews_prepare_form_vars($entity_unit = null) {
         'title' => '',
         'description' => '',
         'excerpt' => '',
+        'featured' => '',
         'tags' => '',
         'connected_guid' => null,	// guid of entity connected
         'access_id' => ACCESS_DEFAULT,

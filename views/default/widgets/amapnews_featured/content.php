@@ -22,15 +22,17 @@ $options = array(
     'limit'=>$num,
     'full_view' => false,
     'pagination' => false,
-    'size' => 'small'
+    'size' => 'small',
+    'metadata_name_value_pairs' => array(
+        array('name' => 'featured','value' => AMAPNEWS_GENERAL_YES, 'operand' => '='),
+    ),
 );
 
-error_log(elgg_get_context());
 if (elgg_instanceof($owner, 'user')) {
     if (!elgg_in_context('dashboard'))
         $options['owner_guid'] = $owner->guid;
     
-    $posts = elgg_get_entities($options);	
+    $posts = elgg_get_entities_from_metadata($options);	
 	
     if (is_array($posts) && sizeof($posts) > 0) {
         $content =  '<ul class="elgg-list">';	
@@ -78,7 +80,8 @@ if (elgg_instanceof($owner, 'user')) {
     }	
 } 
 elseif (elgg_instanceof($owner, 'group')) {
-    $options['container_guid']= elgg_get_page_owner_guid();
+    $groupGUID = elgg_get_page_owner_guid();
+    $options['container_guid']= $groupGUID;
 
     elgg_push_context('widgets');
     $content = elgg_list_entities($options);

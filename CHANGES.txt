@@ -5,6 +5,8 @@ CHANGE LOG
 2.0.4	(June 2016)
 --------------------- 
 - Added compatibility with Elgg 2.0
+- Added option to set a news item as featured
+- Added a featured news widget 
 - Several code improvements
 
 1.11.3	(May 2015)
