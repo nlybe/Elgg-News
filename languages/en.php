@@ -34,6 +34,7 @@ $lang = array(
     'amapnews:delete:success' => "Post was successfully deleted", 
     'amapnews:delete:failed' => "Post cannot be deleted", 
     'amapnews:save:notvalid_access_id' => "Not valid Access Level. You have to set as private or allow only to group.",
+    'amapnews:add:connected_entity:title' => 'Add this entity to news',
     
     // settings
     'amapnews:settings:no' => "No",
@@ -48,7 +49,7 @@ $lang = array(
     'amapnews:settings:post_users' => "Regular User can post News",    
     'amapnews:settings:post_users:note' => "Allow users  to post site-news/announcements. Restict this with user-roles.", 
 
-	'amapnews:settings:staff' => 'News staff',
+    'amapnews:settings:staff' => 'News staff',
     'amapnews:settings:nostaff' => "No participants selected. You can add users via the user menu.",    
     'amapnews:settings:managestaff' => "You can remove participants via the user menu.", 
      
@@ -60,19 +61,19 @@ $lang = array(
     
     // widget
     'amapnews:widget' => 'News & Announcements', 
-    'amapnews:widget:description' => 'Display latest site news',  
+    'amapnews:widget:description' => 'Display latest news and announcements',  
     'amapnews:widget:viewall' => 'View all',  
     
-	// groups
-	'amapnews:group' => 'Group news', 
-	'amapnews:group:enable' => 'Enable News on group', 
-	'amapnews:owner' => "%s's news",
-	
-	// staff
-	'amapnews:menu_user_hover:make_staff' => "Add to the news staff",
- 	'amapnews:menu_user_hover:remove_staff' => "Remove from the news staff",
- 	'amapnews:action:news_staff:removed' => "User was removed from news staff",
- 	'amapnews:action:news_staff:added' => "User added to news staff",
+    // groups
+    'amapnews:group' => 'Group news', 
+    'amapnews:group:enable' => 'Enable News on group', 
+    'amapnews:owner' => "%s's news",
+
+    // staff
+    'amapnews:menu_user_hover:make_staff' => "Add to the news staff",
+    'amapnews:menu_user_hover:remove_staff' => "Remove from the news staff",
+    'amapnews:action:news_staff:removed' => "User was removed from news staff",
+    'amapnews:action:news_staff:added' => "User added to news staff",
 
 );
 

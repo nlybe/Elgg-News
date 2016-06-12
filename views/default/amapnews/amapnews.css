@@ -1,0 +1,19 @@
+/**
+ * Elgg News plugin
+ * @package amapnews
+ */
+
+#cboxLoadedContent .add_existed {
+    padding:20px;
+    display:block;
+    min-width:500px;
+    border: 1px solid #eaeaea;
+}
+
+#cboxLoadedContent .add_existed input[type="text"] {
+    width: 100%;
+}
+
+#cboxLoadedContent .add_existed input[type="submit"] {
+    float: right;
+}

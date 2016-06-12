@@ -1,6 +1,6 @@
 ******* Elgg News Plugin *******
 
-Free Elgg plugin for post news and announcements by administrators and group owners.
+Free Elgg plugin for posting news and announcements by administrators and group owners.
 
 This plugin offers admins the options:
 1. Post news items

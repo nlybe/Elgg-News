@@ -12,7 +12,6 @@ $group_entity = get_entity($group_guid);
 $user = elgg_get_logged_in_user_entity();
 $staff = $user->news_staff;
 
-
 // post news only for admins or groups owners and staff (if allowed by admins)
 if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($group_entity, 'group') && $group_entity->canEdit()) || $staff)	{
     
@@ -46,7 +45,6 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
 			forward(REFERER);
 		}
 	}
-
     
     // check whether this is a new object or an edit
     $new_entity = true;
@@ -96,7 +94,8 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
         elgg_create_river_item(array(
 			'view' => 'river/object/amapnews/create',
 			'action_type' => 'create',
-			'subject_guid' => elgg_get_logged_in_user_guid(),
+			'subject_guid' => $entity_unit->owner_guid,
+            'target_guid' => $entity_unit->container_guid,
 			'object_guid' => $entity_unit->getGUID(),
 		));
 

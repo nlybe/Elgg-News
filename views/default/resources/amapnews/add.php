@@ -6,13 +6,13 @@
 
 elgg_load_library('elgg:amapnews');
 
-$entity_unit = get_entity(get_input('guid'));
+$submitter = get_entity(get_input('guid'));
 
 $user = elgg_get_logged_in_user_entity();
 $staff = $user->news_staff;
 
 // post news only for admins or groups owners (if allowed by admins)
-if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($entity_unit, 'group') && $entity_unit->canEdit()) || $staff)	{
+if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($submitter, 'group') && $submitter->canEdit()) || $staff)	{
 
     $title = elgg_echo('amapnews:add');
 	$page_owner = elgg_get_page_owner_entity();
@@ -29,8 +29,8 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($ent
     $form_vars = array('name' => 'amapnewsForm', 'enctype' => 'multipart/form-data');
     
     $vars = amapnews_prepare_form_vars();
-    if (allow_post_on_groups() && elgg_instanceof($entity_unit, 'group') && $entity_unit->canEdit()) {
-		$vars['group_guid'] = $entity_unit->guid;
+    if (allow_post_on_groups() && elgg_instanceof($submitter, 'group') && $submitter->canEdit()) {
+		$vars['group_guid'] = $submitter->guid;
 	}
     $content = elgg_view_form('amapnews/add', $form_vars, $vars);
 

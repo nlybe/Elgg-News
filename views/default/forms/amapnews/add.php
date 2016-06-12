@@ -13,44 +13,45 @@ $connected_guid = elgg_extract('connected_guid', $vars, '');
 $access_id = elgg_extract('access_id', $vars, ACCESS_DEFAULT);
 $container_guid = elgg_extract('container_guid', $vars);
 if (!$container_guid) {
-	$container_guid = elgg_get_logged_in_user_guid();
+    $container_guid = elgg_get_page_owner_guid();
 }
+
 $guid = elgg_extract('guid', $vars, null);
 $cguid = elgg_extract('cguid', $vars, null);
 $group_guid = elgg_extract('group_guid', $vars, null);
 
 $comments_input = elgg_view('input/dropdown', array(
-	'name' => 'comments_on',
-	'id' => 'amapnews_comments_on',
-	'value' => elgg_extract('comments_on', $vars, ''),
-	'options_values' => array('On' => elgg_echo('on'), 'Off' => elgg_echo('off'))
+    'name' => 'comments_on',
+    'id' => 'amapnews_comments_on',
+    'value' => elgg_extract('comments_on', $vars, ''),
+    'options_values' => array('On' => elgg_echo('on'), 'Off' => elgg_echo('off'))
 ));
 
 $connected_entity_exists = false;
 $connected_entity_guid = ($cguid?$cguid:$connected_guid);
 if ($connected_entity_guid) {
+    $connected_entity_unit = get_entity($connected_entity_guid);
 
-	$connected_entity_unit = get_entity($connected_entity_guid);
-	
-	if ($connected_entity_unit) {
-		$connected_entity_exists = true;
-		
-		if (!$title)
-			$title = $connected_entity_unit->title;
-			
-		if (!$excerpt)	{
-			if ($connected_entity_unit->excerpt)    // case of entities with excerpt like blogs
-				$excerpt = elgg_get_excerpt($connected_entity_unit->excerpt);
-			else                    				// case of standard entities
-				$excerpt = elgg_get_excerpt($connected_entity_unit->description);
-		}
-	}	
+    if ($connected_entity_unit) {
+        $connected_entity_exists = true;
+
+        if (!$title)
+            $title = $connected_entity_unit->title;
+
+        if (!$excerpt)	{
+            if ($connected_entity_unit->excerpt)    // case of entities with excerpt like blogs
+                $excerpt = elgg_get_excerpt($connected_entity_unit->excerpt);
+            else                    				// case of standard entities
+                $excerpt = elgg_get_excerpt($connected_entity_unit->description);
+        }
+    }	
 }
 
 ?>
 
-<?php if ($connected_entity_exists) echo '<div style="padding:20px;display:block;min-width:500px;">'; ?>
-	
+<?php if ($connected_entity_exists) echo '<div style="" class="add_existed">'; ?>
+<?php if ($connected_entity_exists) echo '<h3>'.elgg_echo('amapnews:add:connected_entity:title').'</h3>'; ?>
+
 <p><?php echo elgg_echo('amapnews:add:requiredfields'); ?></p>
 <div>
     <label><?php echo elgg_echo('amapnews:add:title'); ?></label> <span style="color:red;">(*)</span>
@@ -75,7 +76,7 @@ if ($connected_entity_guid) {
 
 <div style="display:block; clear:both;">
     <label><?php echo elgg_echo('amapnews:add:tags'); ?></label>
-    <?php echo elgg_view('input/tags', array('name' => 'tags', 'value' => $tags)); ?>
+    <br /><?php echo elgg_view('input/tags', array('name' => 'tags', 'value' => $tags)); ?>
 </div>
 
 <?php if (!$connected_entity_exists) { /* do not display comments when is connected with other entity */?>
@@ -94,13 +95,13 @@ if ($connected_entity_guid) {
 <?php
 
     if ($guid) {
-		echo elgg_view('input/hidden', array('name' => 'amapnews_guid', 'value' => $guid));
+        echo elgg_view('input/hidden', array('name' => 'amapnews_guid', 'value' => $guid));
     }
     if ($connected_entity_guid) {
-		echo elgg_view('input/hidden', array('name' => 'connected_guid', 'value' => $connected_entity_guid));
+        echo elgg_view('input/hidden', array('name' => 'connected_guid', 'value' => $connected_entity_guid));
     }  
     if ($group_guid) {
-		echo elgg_view('input/hidden', array('name' => 'group_guid', 'value' => $group_guid));
+        echo elgg_view('input/hidden', array('name' => 'group_guid', 'value' => $group_guid));
     }  
     echo elgg_view('input/hidden', array('name' => 'container_guid', 'value' => $container_guid));
     echo elgg_view('input/submit', array('value' => elgg_echo('amapnews:add:submit')));

@@ -2,17 +2,22 @@
 
 CHANGE LOG
 
-1.11.3	(14 May 2015)
+2.0.4	(June 2016)
 --------------------- 
-- Added option to determine users who can post news/announcements (thanks to Pasley70 contribution)
+- Added compatibility with Elgg 2.0
+- Several code improvements
+
+1.11.3	(May 2015)
+--------------------- 
+- Added option to determine users who can post news/announcements (thanks to Pasley70 for contribution)
 - Added group widget
 - Small bugs fixes
 
-1.8.2	(26 Dec 2014)
+1.8.2	(Dec 2014)
 --------------------- 
 - Small bugs fixes
 
-1.8.1	(26 Nov 2014)
+1.8.1	(Nov 2014)
 --------------------- 
 - Added option for group owners to post announcements inside group only
 - Small bugs fixes

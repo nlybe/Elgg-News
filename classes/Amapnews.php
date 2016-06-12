@@ -8,12 +8,12 @@ class Amapnews extends ElggObject {
     const SUBTYPE = "amapnews";
     
     protected $meta_defaults = array(
-        "title" 		=> NULL,
-        "description" 	=> NULL,
-        "excerpt" 		=> NULL,
-        "tags" 			=> NULL,
-        "connected_guid" 		=> NULL,
-        "comments_on"	=> NULL,
+        "title" 	 => NULL,
+        "description" 	 => NULL,
+        "excerpt" 	 => NULL,
+        "tags" 		 => NULL,
+        "connected_guid" => NULL,
+        "comments_on"	 => NULL,
     );    
 
     protected function initializeAttributes() {

@@ -16,21 +16,24 @@ if (!$entity_unit) {
 $owner = $entity_unit->getOwnerEntity();
 
 if (display_user_icon()) {
-	$owner_icon = elgg_view_entity_icon($owner, 'small');
+    $owner_icon = elgg_view_entity_icon($owner, 'small');
 }
 else
-	$owner_icon = '<img src="'.elgg_get_site_url() . 'mod/amapnews/graphics/amapnews.png" title="news"/>';
+    $owner_icon = elgg_view('output/img', array(
+        'src' => elgg_get_simplecache_url('amapnews/icon/amapnews.png'),
+        'alt' => elgg_echo('amapnews'),
+    ));
 
 if (display_username()) {
-	$owner_link = elgg_view('output/url', array(
-		'href' => "amapnews/owner/$owner->username",
-		'text' => $owner->name,
-		'is_trusted' => true,
-	));
-	$author_text = elgg_echo('byline', array($owner_link));
+    $owner_link = elgg_view('output/url', array(
+        'href' => "amapnews/owner/$owner->username",
+        'text' => $owner->name,
+        'is_trusted' => true,
+    ));
+    $author_text = elgg_echo('byline', array($owner_link));
 }
 else
-	$author_text = '';
+    $author_text = '';
 
 $date = elgg_view_friendly_time($entity_unit->time_created);
 
@@ -53,20 +56,20 @@ if ($entity_unit->comments_on != 'Off') {
 }
 
 $metadata = elgg_view_menu('entity', array(
-	'entity' => $vars['entity'],
-	'handler' => 'amapnews',
-	'sort_by' => 'priority',
-	'class' => 'elgg-menu-hz',
+    'entity' => $vars['entity'],
+    'handler' => 'amapnews',
+    'sort_by' => 'priority',
+    'class' => 'elgg-menu-hz',
 ));
 
 $subtitle = "$author_text $date $comments_link";
 
 if ($full && !elgg_in_context('gallery')) {
     $params = array(
-            'entity' => $entity_unit,
-            'title' => false,
-            'metadata' => $metadata,
-            'subtitle' => $subtitle,
+        'entity' => $entity_unit,
+        'title' => false,
+        'metadata' => $metadata,
+        'subtitle' => $subtitle,
     );
     $params = $params + $vars;
     $summary = elgg_view('object/elements/summary', $params);
@@ -79,33 +82,33 @@ if ($full && !elgg_in_context('gallery')) {
     if ($entity_unit->description) 
         $body .= '<div class="desc">'.$entity_unit->description.'</div>';
     else 
-		$body .= '<div class="desc">&nbsp;</div>';
+        $body .= '<div class="desc">&nbsp;</div>';
 
     $body .= '</div>';
 
     echo elgg_view('object/elements/full', array(
-		'entity' => $entity_unit,
-		'icon' => $owner_icon,
-		'summary' => $summary,
-		'body' => $body,
+        'entity' => $entity_unit,
+        'icon' => $owner_icon,
+        'summary' => $summary,
+        'body' => $body,
     ));
 } 
 else {
-	// we want small thumb on group views
-	$page_owner = elgg_get_page_owner_entity();
-	if (elgg_instanceof($page_owner, 'group'))  
-		$thumbsize = 'small';
-	else
-		$thumbsize = 'medium';
+    // we want small thumb on group views
+    $page_owner = elgg_get_page_owner_entity();
+    if (elgg_instanceof($page_owner, 'group'))  
+        $thumbsize = 'small';
+    else
+        $thumbsize = 'medium';
 	
     $display_text = $url;
    
-	$content =  $entity_unit->excerpt;
+    $content =  $entity_unit->excerpt;
     $params = array(
-		'entity' => $entity_unit,
-		'metadata' => $metadata,
-		'subtitle' => $subtitle,
-		'content' => $content,
+        'entity' => $entity_unit,
+        'metadata' => $metadata,
+        'subtitle' => $subtitle,
+        'content' => $content,
     );
     $params = $params + $vars;
     $body = elgg_view('object/elements/summary', $params);

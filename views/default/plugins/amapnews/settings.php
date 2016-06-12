@@ -41,19 +41,19 @@ echo elgg_view_module("inline", elgg_echo('amapnews:settings:post_on_groups'), $
 
 // manage news-staff
 $staff = elgg_list_entities_from_metadata(array(
-	'type' => 'user',
-	'subtype'=> null,
-	'metadata_name_value_pairs' => array (
-		'name'	=> 'news_staff',
-		'value'	=> '1',
-		'operand' => '>',
-	),
-	'full_view' => FALSE
+    'type' => 'user',
+    'subtype'=> null,
+    'metadata_name_value_pairs' => array (
+            'name'	=> 'news_staff',
+            'value'	=> '1',
+            'operand' => '>',
+    ),
+    'full_view' => FALSE
 ));
 if($staff) {
-	$output = '<p class="elgg-subtext">'.elgg_echo('amapnews:settings:managestaff').'</p>';
-	$output.= $staff;
+    $output = '<p class="elgg-subtext">'.elgg_echo('amapnews:settings:managestaff').'</p>';
+    $output.= $staff;
 } else {
-	$output = '<p class="elgg-subtext">'.elgg_echo('amapnews:settings:nostaff').'</p>';
+    $output = '<p class="elgg-subtext">'.elgg_echo('amapnews:settings:nostaff').'</p>';
 }
 echo elgg_view_module("inline", elgg_echo('amapnews:settings:staff'), $output);

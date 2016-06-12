@@ -63,16 +63,16 @@ $lang = array(
     'amapnews:widget:description' => 'Zeige die letzten Neuigkeiten',  
     'amapnews:widget:viewall' => 'Alle anzeigen',  
     
-	// groups
-	'amapnews:group' => 'Neuigkeiten in Gruppen', 
-	'amapnews:group:enable' => 'Neuigkeiten für Gruppen aktivieren', 
-	'amapnews:owner' => "Neuigkeiten von %s",
-	
-	// staff
-	'amapnews:menu_user_hover:make_staff' => "Dem Reaktions-Team hinzufügen",
- 	'amapnews:menu_user_hover:remove_staff' => "Aus dem Redaktions-Team entfernen",
- 	'amapnews:action:news_staff:removed' => "Benutzer wurde vom Redaktions-Team entfernt",
- 	'amapnews:action:news_staff:added' => "Benutzer wurde dem Redaktions-Team hinzugefügt",
+    // groups
+    'amapnews:group' => 'Neuigkeiten in Gruppen', 
+    'amapnews:group:enable' => 'Neuigkeiten für Gruppen aktivieren', 
+    'amapnews:owner' => "Neuigkeiten von %s",
+
+    // staff
+    'amapnews:menu_user_hover:make_staff' => "Dem Reaktions-Team hinzufügen",
+    'amapnews:menu_user_hover:remove_staff' => "Aus dem Redaktions-Team entfernen",
+    'amapnews:action:news_staff:removed' => "Benutzer wurde vom Redaktions-Team entfernt",
+    'amapnews:action:news_staff:added' => "Benutzer wurde dem Redaktions-Team hinzugefügt",
 
 );
 
