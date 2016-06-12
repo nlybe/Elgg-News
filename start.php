@@ -39,6 +39,9 @@ function amapnews_init() {
     // Register menu item to an ownerblock. It is used to  register news menu item to groups
     elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'amapnews_owner_block_menu');
     
+    // allow to be liked
+    elgg_register_plugin_hook_handler('likes:is_likable', 'object:amapnews', 'Elgg\Values::getTrue');
+    
     // Register a URL handler for news
     elgg_register_plugin_hook_handler('entity:url', 'object', 'amapnews_set_url');
     

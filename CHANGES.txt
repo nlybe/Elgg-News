@@ -7,6 +7,7 @@ CHANGE LOG
 - Added compatibility with Elgg 2.0
 - Added option to set a news item as featured
 - Added a featured news widget 
+- News posts are now likeable 
 - Several code improvements
 
 1.11.3	(May 2015)
