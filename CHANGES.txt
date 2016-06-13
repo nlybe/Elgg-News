@@ -9,6 +9,7 @@ CHANGE LOG
 - Added a featured news widget 
 - Added option to upload photos on news item
 - News posts are now likeable 
+- Plugin now can be installed via composer
 - Several code improvements
 
 1.11.3	(May 2015)
