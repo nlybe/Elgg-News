@@ -1,5 +1,5 @@
 {
-    "name": "nlybe/Elgg-News",
+    "name": "nlybe/elgg-news",
     "type": "elgg-plugin",
     "require": {
         "composer/installers": ">=1.0.8"
