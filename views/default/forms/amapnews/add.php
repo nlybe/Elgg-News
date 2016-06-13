@@ -65,7 +65,7 @@ if ($connected_entity_guid) {
         'required' => true,
     )));
     
-    echo elgg_format_element('div', [], elgg_view_input('text', array(
+    echo elgg_format_element('div', [], elgg_view_input('plaintext', array(
         'name' => 'excerpt',
         'value' => $excerpt,
         'label' => elgg_echo('amapnews:add:excerpt'),
