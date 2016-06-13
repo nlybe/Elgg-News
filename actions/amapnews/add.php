@@ -137,22 +137,25 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
         system_message(elgg_echo('amapnews:save:success'));
 
         //add to river only if new
-        elgg_create_river_item(array(
-            'view' => 'river/object/amapnews/create',
-            'action_type' => 'create',
-            'subject_guid' => $entity->owner_guid,
-            'target_guid' => $entity->container_guid,
-                'object_guid' => $entity->getGUID(),
+        if ($new_entity) {
+            elgg_create_river_item(array(
+                'view' => 'river/object/amapnews/create',
+                'action_type' => 'create',
+                'subject_guid' => $entity->owner_guid,
+                'target_guid' => $entity->container_guid,
+                    'object_guid' => $entity->getGUID(),
             ));
+        }
 
-            if (elgg_instanceof($group_entity, 'group')) {
-                forward(elgg_get_site_url() . "news/group/".$group_entity->guid."/all");
-            }
-            else {
-                forward($entity->getURL());
-            }
+        if (elgg_instanceof($group_entity, 'group')) {
+            forward(elgg_get_site_url() . "news/group/".$group_entity->guid."/all");
+        }
+        else {
+            forward($entity->getURL());
+        }
 		
-    } else {
+    } 
+    else {
         register_error(elgg_echo('amapnews:save:failed'));
         forward(REFERER);
     }

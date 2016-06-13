@@ -65,7 +65,7 @@ $lang = array(
     'amapnews:settings:managestaff' => "You can remove participants via the user menu.", 
      
     // river
-    'river:create:object:amapnews' => '%s posted new with title %s',
+    'river:create:object:amapnews' => '%s posted a news item with title %s',
     'river:comment:object:amapnews' => '%s commented on %s',
     'vouchers:river:annotate' => 'a comment on ',
     'vouchers:river:item' => 'an item',  
