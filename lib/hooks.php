@@ -40,7 +40,7 @@ function amapnews_entity_menu_setup($hook, $type, $return, $params) {
             return $return;
         }
 
-        if (elgg_instanceof($entity, 'object', 'amapnews'))	{
+        if (elgg_instanceof($entity, 'object', 'amapnews') && $entity->canEdit())	{
             $url = elgg_normalize_url("action/amapnews/set_featured/?guid={$entity->guid}");
             $text = ($entity->is_featured()?elgg_echo("amapnews:add:unfeatured"):elgg_echo("amapnews:add:featured"));
 

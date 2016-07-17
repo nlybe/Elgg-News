@@ -15,8 +15,6 @@ $guid = get_input('guid');
 $entity = get_entity($guid);
 
 if (elgg_instanceof($entity, 'object', 'amapnews') && $entity->canEdit()) {
-    $container = $entity->getContainerEntity();
-
     //delete files connected with this entity
     if ($entity->photo)
         $entity->del_photo();
