@@ -1,6 +1,10 @@
 ******* Elgg News Plugin *******
 
 CHANGE LOG
+2.0.5
+--------------------- 
+- fix: set featured/unfeatured is allow only to entity owner or admins
+- fix: composer file
 
 2.0.4	(June 2016)
 --------------------- 
