@@ -125,6 +125,7 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
                     $file = new ElggFile();
                     $file->owner_guid = $entity->owner_guid;
                     $file->container_guid = $entity->getGUID();
+                    $file->access_id = $access_id;
                     $file->setFilename("amapnews/".$entity->getGUID().$name.".jpg");
                     $file->open('write');
                     $file->write($resized);
@@ -143,7 +144,7 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
                 'action_type' => 'create',
                 'subject_guid' => $entity->owner_guid,
                 'target_guid' => $entity->container_guid,
-                    'object_guid' => $entity->getGUID(),
+                'object_guid' => $entity->getGUID(),
             ));
         }
 

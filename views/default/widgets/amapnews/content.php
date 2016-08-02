@@ -8,7 +8,6 @@ elgg_load_library('elgg:amapnews');
 
 // modified to be compatible with widget manager
 $owner = get_entity($vars['entity']->owner_guid);
-$url = elgg_normalize_url('amapnews');
 
 //the number of files to display
 $num = (int) $vars['entity']->num_display;
@@ -26,8 +25,11 @@ $options = array(
 );
 
 if (elgg_instanceof($owner, 'user')) {
-    if (!elgg_in_context('dashboard'))
+//error_log('..............'.elgg_in_context('dashboard'));
+    if (!elgg_in_context('dashboard')) {
+//error_log('lalalala');
         $options['owner_guid'] = $owner->guid;
+    }
     
     $posts = elgg_get_entities($options);	
 	
@@ -97,7 +99,7 @@ if (!$content) {
 echo $content;
 
 $more_link = elgg_view('output/url', array(
-    'href' => $url,
+    'href' => elgg_normalize_url('news'),
     'text' => elgg_echo("amapnews:widget:viewall"),
     'is_trusted' => true,
 ));

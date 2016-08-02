@@ -83,7 +83,7 @@ function amapnews_init() {
  * @return bool
  */
 function amapnews_page_handler($page) {
-    elgg_push_breadcrumb(elgg_echo('amapnews'), 'amapnews');
+    elgg_push_breadcrumb(elgg_echo('amapnews'), 'news');
     
     if (!isset($page[0])) {
         $page[0] = 'all';
@@ -102,6 +102,7 @@ function amapnews_page_handler($page) {
             $resource_vars['guid'] = elgg_extract(1, $page);
             $resource_vars['size'] = elgg_extract(2, $page);
             $resource_vars['tu'] = elgg_extract(3, $page);
+            $resource_vars['ia'] = elgg_extract(4, $page);
             echo elgg_view_resource('amapnews/photo_view', $resource_vars);
             break;        
             

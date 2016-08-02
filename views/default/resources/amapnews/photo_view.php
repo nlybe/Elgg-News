@@ -6,8 +6,15 @@
 
 elgg_load_library('elgg:amapnews');
 
+$ignore_access = elgg_extract('ia', $vars, '');
+if ($ignore_access) {
+    // set ignore access for loading non public objexts
+    $ia = elgg_get_ignore_access();
+    elgg_set_ignore_access(true);
+}
+
 $guid = elgg_extract('guid', $vars, '');
-$entity = get_entity($guid);
+$entity = get_entity($guid);        
 
 // Get the size
 $size = strtolower(elgg_extract('size', $vars, ''));
@@ -50,3 +57,8 @@ header("Cache-Control: public", true);
 header("Content-Length: " . strlen($contents));
 
 echo $contents;
+
+if ($ignore_access) {
+    elgg_set_ignore_access($ia);
+}
+      

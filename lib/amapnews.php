@@ -98,9 +98,10 @@ function allow_post_on_groups() {
  * 
  * @param type $entity_guid
  * @param type $size
+ * @param boolean $ignore_access: if is true, news photo will be displayed in walled garden sites
  * @return boolean
  */
-function amapnews_getEntityIconUrl($entity_guid, $size = 'master') {
+function amapnews_getEntityIconUrl($entity_guid, $size = 'master', $ignore_access = false) {
     $entity = get_entity($entity_guid);
 
     if (!elgg_instanceof($entity)) 
@@ -109,7 +110,7 @@ function amapnews_getEntityIconUrl($entity_guid, $size = 'master') {
     // Get the size
     $size = amapnews_getIconSize($size);
     $icon_time = $entity->time_updated;
-    $icon_url = "amapnews/photo_view/$entity->guid/{$size}/{$icon_time}";
+    $icon_url = "amapnews/photo_view/$entity->guid/{$size}/{$icon_time}".($ignore_access?'/'.$ignore_access:'');
 
     return elgg_normalize_url($icon_url);
 }
