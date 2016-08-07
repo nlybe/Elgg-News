@@ -45,6 +45,9 @@ function amapnews_init() {
     // Register a URL handler for news
     elgg_register_plugin_hook_handler('entity:url', 'object', 'amapnews_set_url');
     
+    // We don't want people commenting on news posts in the river
+    elgg_register_plugin_hook_handler('permissions_check:comment', 'object', 'amapnews_comment_override');    
+    
     // Register a page handler, so we can have nice URLs
     elgg_register_page_handler('news', 'amapnews_page_handler');
     elgg_register_page_handler('amapnews', 'amapnews_page_handler');

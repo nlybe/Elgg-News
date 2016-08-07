@@ -55,26 +55,4 @@ class Amapnews extends ElggObject {
 
         return true;
     }    
-    
-    /**
-     * Can a user comment on this neww?
-     *
-     * @see ElggObject::canComment()
-     *
-     * @param int $user_guid User guid (default is logged in user)
-     * @return bool
-     */
-    public function canComment($user_guid = 0) {
-        $result = parent::canComment($user_guid);
-        if ($result == false) {
-            return $result;
-        }
-
-        if ($this->comments_on == 'Off') {
-            return false;
-        }
-
-        return true;
-    }    
- 
 }

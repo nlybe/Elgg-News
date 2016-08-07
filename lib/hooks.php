@@ -153,3 +153,22 @@ function amapnews_owner_block_menu($hook, $type, $return, $params) {
 
     return $return;
 }
+
+/**
+ * We don't want people commenting on news posts in the river
+ *
+ * @param string $hook
+ * @param string $type
+ * @param string $return
+ * @param array  $params
+ * @return bool
+ */
+function amapnews_comment_override($hook, $type, $return, $params) {
+    if (elgg_instanceof($params['entity'], 'object', 'amapnews')) {
+        if ($params['entity']->comments_on == 'On') {
+            return true;
+        }
+        
+        return false;
+    }
+}
