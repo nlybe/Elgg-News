@@ -9,8 +9,8 @@ $excerpt = elgg_get_excerpt($object->excerpt);
 
 echo elgg_view('river/elements/layout', array(
     'item' => $vars['item'],
-    'message' => $message,
-    'attachments' => elgg_view('output/url', array('href' => $object->address)),
+    'message' => $excerpt,
+    //'attachments' => elgg_view('output/url', array('href' => $object->address)),
 ));
 
 

@@ -143,7 +143,7 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
                 'view' => 'river/object/amapnews/create',
                 'action_type' => 'create',
                 'subject_guid' => $entity->owner_guid,
-                'target_guid' => $entity->container_guid,
+                //'target_guid' => $entity->container_guid,
                 'object_guid' => $entity->getGUID(),
             ));
         }

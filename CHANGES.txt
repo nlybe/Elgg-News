@@ -4,8 +4,9 @@ CHANGE LOG
 2.0.5
 --------------------- 
 - added: option to show news photos on walled garden sites
-- fix: set featured/unfeatured is allow only to entity owner or admins
-- fix: composer file
+- fixed: set featured/unfeatured is allowed only to entity owner or admins
+- fixed: posts with comments set to Off cannot be commented on river
+- fixed: composer file
 
 2.0.4	(June 2016)
 --------------------- 
