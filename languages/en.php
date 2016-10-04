@@ -84,8 +84,8 @@ $lang = array(
     'amapnews:owner' => "%s's news",
 
     // staff
-    'amapnews:menu_user_hover:make_staff' => "Add to the news staff",
-    'amapnews:menu_user_hover:remove_staff' => "Remove from the news staff",
+    'amapnews:menu_user_hover:make_staff' => "Add to news staff",
+    'amapnews:menu_user_hover:remove_staff' => "Remove from news staff",
     'amapnews:action:news_staff:removed' => "User was removed from news staff",
     'amapnews:action:news_staff:added' => "User added to news staff",
 

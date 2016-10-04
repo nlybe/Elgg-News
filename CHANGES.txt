@@ -4,7 +4,8 @@ CHANGE LOG
 
 2.0.6
 --------------------- 
-- fixed: bug while trying to post news in groups as non-admin user
+- fixed: bug while trying to post/delete news in groups as non-admin user
+- fixed: small issues
 
 2.0.5
 --------------------- 
