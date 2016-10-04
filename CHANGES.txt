@@ -1,6 +1,11 @@
 ******* Elgg News Plugin *******
 
 CHANGE LOG
+
+2.0.6
+--------------------- 
+- fixed: bug while trying to post news in groups as non-admin user
+
 2.0.5
 --------------------- 
 - added: option to show news photos on walled garden sites

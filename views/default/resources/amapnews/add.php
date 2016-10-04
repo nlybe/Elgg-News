@@ -6,7 +6,8 @@
 
 elgg_load_library('elgg:amapnews');
 
-$submitter = get_entity(get_input('guid'));
+$guid = elgg_extract('guid', $vars, '');
+$submitter = get_entity($guid);
 
 $user = elgg_get_logged_in_user_entity();
 $staff = $user->news_staff;
