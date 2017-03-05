@@ -35,7 +35,7 @@ function amapnews_init() {
 
     // add option for admin to add/remove user from news-staff
     elgg_register_plugin_hook_handler("register", "menu:user_hover", "news_staff_user_hover_menu_hook");
-
+    
     // Register menu item to an ownerblock. It is used to  register news menu item to groups
     elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'amapnews_owner_block_menu');
     

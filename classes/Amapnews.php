@@ -37,6 +37,29 @@ class Amapnews extends ElggObject {
     }    
     
     /**
+     * Get icon of entity
+     * 
+     * @return icon photo
+     */
+    function getNewsIcon() {
+        if ($this->photo) {
+            $icon = elgg_view('output/img', array(
+                'src' => amapnews_getEntityIconUrl($this->getGUID(), 'small'),
+                'alt' => $this->title,
+                'class' => 'elgg-photo',
+            ));        
+        }
+        else {
+            $icon = elgg_view('output/img', array(
+                'src' => elgg_get_simplecache_url('amapnews/icon/amapnews.png'),
+                'alt' => elgg_echo('amapnews'),
+            ));
+        }
+        
+        return $icon;
+    }    
+    
+    /**
      * Delete item photo from diskspace
      * 
      * @return boolean

@@ -18,6 +18,10 @@ if (!$container_guid) {
     $container_guid = elgg_get_page_owner_guid();
 }
 
+if ($excerpt) {
+    $excerpt = str_replace('<br />','',$excerpt);
+}
+
 $guid = elgg_extract('guid', $vars, null);
 $cguid = elgg_extract('cguid', $vars, null);
 $group_guid = elgg_extract('group_guid', $vars, null);
@@ -107,7 +111,7 @@ if ($connected_entity_guid) {
         'help' => elgg_echo('amapnews:add:featured:help'),
     )));
     
-    echo elgg_format_element('div', [], elgg_view_input('text', array(
+    echo elgg_format_element('div', [], elgg_view_input('tags', array(
         'name' => 'tags',
         'value' => $tags,
         'label' => elgg_echo('amapnews:add:tags'),

@@ -18,7 +18,7 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
     // Get variables
     $title = get_input("title");
     $description = get_input("description");
-    $excerpt = get_input("excerpt");
+    $excerpt = nl2br(get_input('excerpt'));
     $featured = get_input("featured");
     $photo = get_input("photo");
     $tags = get_input("tags");
@@ -40,27 +40,49 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
         forward(REFERER);
     }  
     
-    // Check if photo uploaded
-    if ($_FILES["photo"]["error"] != 4) {
-        $allowedExts = array("gif", "jpeg", "jpg", "png", "GIF", "JPEG", "JPG", "PNG");
-        $temp = explode(".", $_FILES["photo"]["name"]);
-        $extension = end($temp);
-        if (((	$_FILES["photo"]["type"] == "image/gif") 
-            || ($_FILES["photo"]["type"] == "image/jpeg") 
-            || ($_FILES["photo"]["type"] == "image/jpg")
-            || ($_FILES["photo"]["type"] == "image/pjpeg") 
-            || ($_FILES["photo"]["type"] == "image/x-png") 
-            || ($_FILES["photo"]["type"] == "image/png"))
-            && (in_array($extension, $allowedExts))	)	 {
-
-            $photo_sizes = elgg_get_config('amapnews_photo_sizes');
+    $uploaded_files = elgg_get_uploaded_files('photo');
+    if ($uploaded_files) {   
+        $uploaded_file = array_shift($uploaded_files);
+        if (!$uploaded_file->isValid()) {
+            register_error(elgg_get_friendly_upload_error($uploaded_file->getError()));
+            forward(REFERER);
         }
-        else
-        {
-            register_error(elgg_echo('amapnews:add:photo:invalid'));  
-            forward(REFERER); 
-        } 
-    }    
+
+        $supported_mimes = [
+            'image/jpeg',
+            'image/png',
+            'image/gif',
+        ];
+
+        $mime_type = ElggFile::detectMimeType($uploaded_file->getPathname(), $uploaded_file->getClientMimeType());
+        if (!in_array($mime_type, $supported_mimes)) {
+            register_error(elgg_echo('amapnews:add:photo:invalid')); 
+            forward(REFERER);
+        }    
+    }
+    
+//    OBS
+//    Check if photo uploaded
+//    if ($_FILES["photo"]["error"] != 4) {
+//        $allowedExts = array("gif", "jpeg", "jpg", "png", "GIF", "JPEG", "JPG", "PNG");
+//        $temp = explode(".", $_FILES["photo"]["name"]);
+//        $extension = end($temp);
+//        if (((	$_FILES["photo"]["type"] == "image/gif") 
+//            || ($_FILES["photo"]["type"] == "image/jpeg") 
+//            || ($_FILES["photo"]["type"] == "image/jpg")
+//            || ($_FILES["photo"]["type"] == "image/pjpeg") 
+//            || ($_FILES["photo"]["type"] == "image/x-png") 
+//            || ($_FILES["photo"]["type"] == "image/png"))
+//            && (in_array($extension, $allowedExts))	)	 {
+//
+//            $photo_sizes = elgg_get_config('amapnews_photo_sizes');
+//        }
+//        else
+//        {
+//            register_error(elgg_echo('amapnews:add:photo:invalid'));  
+//            forward(REFERER); 
+//        } 
+//    }    
     
     // if not admin but group owners, check if a access level is limited only to group
     if (!elgg_is_admin_logged_in() && elgg_instanceof($group_entity, 'group') && $group_entity->canEdit())	{
@@ -109,29 +131,57 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
     $entity->container_guid = $container_guid;
     $entity->comments_on = $comments_on;
     $entity->access_id = $access_id;
-    if ($_FILES["photo"]["error"] != 4) { 
+    if ($uploaded_file) {
         $entity->photo = time(); 
     }    
 
     if ($entity->save()) {
         elgg_clear_sticky_form('amapnews');
-        
 	// upload photo if any
-	if ($_FILES["photo"]["error"] != 4) {
+	if ($uploaded_file) {
+            $photo_sizes = elgg_get_config('amapnews_photo_sizes');
+
+            // get the images and save their file handlers into an array, so we can do clean up if one fails.
+            $files = array();
             foreach ($photo_sizes as $name => $photo_info) {
-                $resized = get_resized_image_from_uploaded_file('photo', $photo_info['w'], $photo_info['h'], $photo_info['square'], $photo_info['upscale']);
+                $image = new ElggFile();
+                $image->owner_guid = $entity->owner_guid;
+                $image->container_guid = $entity->getGUID();
+                $image->access_id = $access_id;
+                $image->setFilename("amapnews/".$entity->getGUID().$name.".jpg");
+                $image->open('write');
+                $image->close();
+
+                $resized = elgg_save_resized_image($uploaded_file->getPathname(), $image->getFilenameOnFilestore(), array(
+                    'w' => $photo_info['w'],
+                    'h' => $photo_info['h'],
+                    'square' => $photo_info['square'],
+                    'upscale' => $photo_info['upscale'],
+                ));           
 
                 if ($resized) {
-                    $file = new ElggFile();
-                    $file->owner_guid = $entity->owner_guid;
-                    $file->container_guid = $entity->getGUID();
-                    $file->access_id = $access_id;
-                    $file->setFilename("amapnews/".$entity->getGUID().$name.".jpg");
-                    $file->open('write');
-                    $file->write($resized);
-                    $file->close();
                     $files[] = $file;
-                } 
+                } else { // cleanup on fail
+                    foreach ($files as $file) {
+                        $file->delete();
+                    }
+                }
+
+                unset($resized);                 
+//                OBS
+//                $resized = get_resized_image_from_uploaded_file('photo', $photo_info['w'], $photo_info['h'], $photo_info['square'], $photo_info['upscale']);
+//
+//                if ($resized) {
+//                    $file = new ElggFile();
+//                    $file->owner_guid = $entity->owner_guid;
+//                    $file->container_guid = $entity->getGUID();
+//                    $file->access_id = $access_id;
+//                    $file->setFilename("amapnews/".$entity->getGUID().$name.".jpg");
+//                    $file->open('write');
+//                    $file->write($resized);
+//                    $file->close();
+//                    $files[] = $file;
+//                } 
             }
 	}          
         

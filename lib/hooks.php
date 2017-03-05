@@ -172,3 +172,4 @@ function amapnews_comment_override($hook, $type, $return, $params) {
         return false;
     }
 }
+

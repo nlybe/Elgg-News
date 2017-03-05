@@ -1,8 +1,26 @@
 {
     "name": "nlybe/elgg-news",
+    "description": "News and announcements by administrators, news staff and group owners",
     "type": "elgg-plugin",
+    "keywords": [
+        "elgg", 
+        "plugin",
+        "news",
+        "announcements"
+    ],
+    "homepage": "https://github.com/nlybe/Elgg-News",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Nikos Lyberakis",
+            "email": "nikos@lyberakis.gr",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "composer/installers": ">=1.0.8"
     },
-    "license": "GPL-2.0"
+    "extra": {
+        "installer-name": "amapnews"
+    }
 }

@@ -50,9 +50,9 @@ if (elgg_instanceof($owner, 'user')) {
 
             $owner = $post->getOwnerEntity();		
             if (display_user_icon()) 
-                $owner_icon = elgg_view_entity_icon($owner, 'small');
+                $news_icon = elgg_view_entity_icon($owner, 'small');
             else
-                $owner_icon = '';
+                $news_icon = $post->getNewsIcon();
 
             if (display_username()) {
                 $owner_link = elgg_view('output/url', array(
@@ -72,7 +72,7 @@ if (elgg_instanceof($owner, 'user')) {
             $params = array('entity' => $post,'subtitle' => $subtitle);
             $params = $params + $vars;
             $list_body = elgg_view('object/elements/summary', $params);
-            $content .= elgg_view_image_block($owner_icon, $list_body);
+            $content .= elgg_view_image_block($news_icon, $list_body);
             $content .= "</li>";
         }
 

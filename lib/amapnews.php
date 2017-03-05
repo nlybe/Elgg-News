@@ -56,7 +56,7 @@ function amapnews_prepare_form_vars($entity_unit = null) {
 function display_user_icon() {
     $show_user_icon = trim(elgg_get_plugin_setting('show_user_icon', 'amapnews'));
     
-    if ($show_user_icon === AMAPNEWS_GENERAL_YES)   {
+    if (!$show_user_icon || $show_user_icon === AMAPNEWS_GENERAL_YES)   {
         return true;
     } 
     
@@ -71,7 +71,7 @@ function display_user_icon() {
 function display_username() {
     $show_username = trim(elgg_get_plugin_setting('show_username', 'amapnews'));
     
-    if ($show_username === AMAPNEWS_GENERAL_YES)   {
+    if (!$show_username || $show_username === AMAPNEWS_GENERAL_YES)   {
         return true;
     } 
     
@@ -86,7 +86,7 @@ function display_username() {
 function allow_post_on_groups() {
     $post_on_groups = trim(elgg_get_plugin_setting('post_on_groups', 'amapnews'));
     
-    if ($post_on_groups === AMAPNEWS_GENERAL_YES)   {
+    if (!$post_on_groups || $post_on_groups === AMAPNEWS_GENERAL_YES)   {
         return true;
     } 
     

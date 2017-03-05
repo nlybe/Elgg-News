@@ -15,14 +15,11 @@ if (!$entity) {
 
 $owner = $entity->getOwnerEntity();
 
-if (display_user_icon()) {
-    $owner_icon = elgg_view_entity_icon($owner, 'small');
+if (display_user_icon() || $full) {
+    $news_icon = elgg_view_entity_icon($owner, 'small');
 }
 else {
-    $owner_icon = elgg_view('output/img', array(
-        'src' => elgg_get_simplecache_url('amapnews/icon/amapnews.png'),
-        'alt' => elgg_echo('amapnews'),
-    ));
+    $news_icon = $entity->getNewsIcon();
 }
 
 $featured = '';
@@ -106,19 +103,13 @@ if ($full && !elgg_in_context('gallery')) {
 
     echo elgg_view('object/elements/full', array(
         'entity' => $entity,
-        'icon' => $owner_icon,
+        'icon' => $news_icon,
         'summary' => $summary,
         'body' => $body,
     ));
 } 
 else {
-    if ($entity->photo) {
-        $owner_icon = elgg_view('output/img', array(
-            'src' => amapnews_getEntityIconUrl($entity->getGUID(), 'small'),
-            'alt' => $entity->title,
-            'class' => 'elgg-photo',
-        ));        
-    }
+
     
     $display_text = $url;
    
@@ -132,6 +123,6 @@ else {
     $params = $params + $vars;
     $body = elgg_view('object/elements/summary', $params);
 
-    echo elgg_view_image_block($owner_icon, $body);
+    echo elgg_view_image_block($news_icon, $body);
     
 }

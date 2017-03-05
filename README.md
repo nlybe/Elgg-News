@@ -1,8 +1,9 @@
-# Elgg News Plugin
+Elgg News Plugin
+================
 
-![Elgg 2.2](https://img.shields.io/badge/Elgg-2.2-orange.svg?style=flat-square)
+![Elgg 2.3](https://img.shields.io/badge/Elgg-2.3-orange.svg?style=flat-square)
 
-Free Elgg plugin for posting news and announcements by administrators, group owners or news staff.
+Elgg plugin for posting news and announcements by administrators, group owners or news staff.
 
 ## Features
 

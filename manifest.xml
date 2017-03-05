@@ -3,17 +3,17 @@
     <name>News Plugin</name>
     <id>amapnews</id>
     <author>Nikos Lyberakis</author>
-    <version>2.0.6</version>
+    <version>2.3.7</version>
     <category>bundled</category>
     <category>content</category>
     <category>widget</category>
     <description>News and announcements by administrators, news staff and group owners</description>
     <website>https://github.com/nlybe/</website>
-    <copyright>(C) Nikos Lyberakis 2012 - 2016</copyright>
+    <copyright>(C) Nikos Lyberakis 2012 - 2017</copyright>
     <license>GNU General Public License version 2</license>
     <requires>
         <type>elgg_release</type>
-        <version>2.0</version>
+        <version>2.3</version>
     </requires>
     <activate_on_install>false</activate_on_install>
 </plugin_manifest>
