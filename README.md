@@ -58,4 +58,4 @@ Site administrators are able to select in plugin settings the icons to use for:
 1. Default news icon
 2. Featured news icon
 
-If need to add a custom icon, just uploaded it to folders **mod/amapnews/graphics/icons** for default news icon or to **mod/amapnews/graphics/featured** for featured news icon. All uploads will be available for selection in plugin settings.
+If need to add a custom icon, just uploaded it to folders **mod/amapnews/graphics/icons** for default news icon or to **mod/amapnews/graphics/featured** for featured news icon. All file uploads will be available for selection in plugin settings.
