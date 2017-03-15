@@ -34,8 +34,10 @@ echo elgg_view('amapnews/custom_list_view', array(
 ));
 ```
 
-You can see an example about how to customize this view at **amapnews/views/default/resources/amapnews/custom_list_view.php**.
-This view will be accessible at http://www.example.com/news/custom_list
+You can see an example about how to customize this view at:
+- **amapnews/views/default/resources/amapnews/custom_list_view.php**.
+
+This view will be accessible at http://www.YOURCOMMUNITYURL.com/news/custom_list
 
 Especially about photo size, you can use any of the predefined photo size, which are:
 ```php
