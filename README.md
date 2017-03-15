@@ -35,7 +35,7 @@ echo elgg_view('amapnews/custom_list_view', array(
 ```
 
 You can see an example about how to use this view at:
-- **amapnews/views/default/resources/amapnews/custom_list_view.php**.
+- amapnews/views/default/resources/amapnews/custom_list_view.php
 
 This sample view will be accessible at http://www.YOURCOMMUNITYURL.com/news/custom_list
 
