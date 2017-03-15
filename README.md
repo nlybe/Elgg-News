@@ -20,12 +20,19 @@ As an example for 2nd case, if there is blog post by any user, administrator can
 Also administrator can allow to group owners for posting new/announcements inside the group only.
 
 
-## How to change the default icon
-Site administrators are able to select in plugin settings the icons to use for:
-1. Default news icon
-2. Featured news icon
+## How to use a customizable news list view
+If need to have a different view for listing news, e.g. in a custom front page, you could use the following code:
 
-If need to add a custom icon, just uploaded it to folders **mod/amapnews/graphics/icons** for default news icon or to **mod/amapnews/graphics/featured** for featured news icon. All uploads will be available for selection in plugin settings.
+```php
+echo elgg_view('amapnews/custom_list_view', array(
+    'entities' => $entities,    // list of news entities, previously selected
+    'read_more' => true,        // set true if want to add a "Read more" link for each news item
+    'item_class' => '',         // set a custom class on news items, so it could be customized through CSS
+    'photo_size' => 'custom',   // set the size of the news photo, see more details below
+    'photo_cover' => false,     // set true if want to use the news as cover image, otherwise it will be displayed inline with title and intro
+    'photo_class' => '',        // set a custom class on news photo
+));
+```
 
 Especially about photo size, you can use any of the predefined photo size, which are:
 ```php
@@ -41,16 +48,9 @@ elgg_set_config('amapnews_photo_sizes', array(
 
 Or you can set a custom photo size (width and height) in plugin settings, so for each photo upload on news item, it will be saved in this size too.
 
-## How to use a customizable news list view
-If need to have a different view for listing news, e.g. in a custom front page, you could use the following code:
+## How to change the default icon
+Site administrators are able to select in plugin settings the icons to use for:
+1. Default news icon
+2. Featured news icon
 
-```php
-echo elgg_view('amapnews/custom_list_view', array(
-    'entities' => $entities,    // list of news entities, previously selected
-    'read_more' => true,        // set true if want to add a "Read more" link for each news item
-    'item_class' => '',         // set a custom class on news items, so it could be customized through CSS
-    'photo_size' => 'custom',   // set the size of the news photo, see more details below
-    'photo_cover' => false,     // set true if want to use the news as cover image, otherwise it will be displayed inline with title and intro
-    'photo_class' => '',        // set a custom class on news photo
-));
-```
+If need to add a custom icon, just uploaded it to folders **mod/amapnews/graphics/icons** for default news icon or to **mod/amapnews/graphics/featured** for featured news icon. All uploads will be available for selection in plugin settings.
