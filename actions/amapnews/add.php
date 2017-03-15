@@ -61,29 +61,6 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
         }    
     }
     
-//    OBS
-//    Check if photo uploaded
-//    if ($_FILES["photo"]["error"] != 4) {
-//        $allowedExts = array("gif", "jpeg", "jpg", "png", "GIF", "JPEG", "JPG", "PNG");
-//        $temp = explode(".", $_FILES["photo"]["name"]);
-//        $extension = end($temp);
-//        if (((	$_FILES["photo"]["type"] == "image/gif") 
-//            || ($_FILES["photo"]["type"] == "image/jpeg") 
-//            || ($_FILES["photo"]["type"] == "image/jpg")
-//            || ($_FILES["photo"]["type"] == "image/pjpeg") 
-//            || ($_FILES["photo"]["type"] == "image/x-png") 
-//            || ($_FILES["photo"]["type"] == "image/png"))
-//            && (in_array($extension, $allowedExts))	)	 {
-//
-//            $photo_sizes = elgg_get_config('amapnews_photo_sizes');
-//        }
-//        else
-//        {
-//            register_error(elgg_echo('amapnews:add:photo:invalid'));  
-//            forward(REFERER); 
-//        } 
-//    }    
-    
     // if not admin but group owners, check if a access level is limited only to group
     if (!elgg_is_admin_logged_in() && elgg_instanceof($group_entity, 'group') && $group_entity->canEdit())	{
         if ($access_id > 0 && $access_id < 3)	{
@@ -168,20 +145,27 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
                 }
 
                 unset($resized);                 
-//                OBS
-//                $resized = get_resized_image_from_uploaded_file('photo', $photo_info['w'], $photo_info['h'], $photo_info['square'], $photo_info['upscale']);
-//
-//                if ($resized) {
-//                    $file = new ElggFile();
-//                    $file->owner_guid = $entity->owner_guid;
-//                    $file->container_guid = $entity->getGUID();
-//                    $file->access_id = $access_id;
-//                    $file->setFilename("amapnews/".$entity->getGUID().$name.".jpg");
-//                    $file->open('write');
-//                    $file->write($resized);
-//                    $file->close();
-//                    $files[] = $file;
-//                } 
+            }
+            
+            // check also if custom size has been set in settings
+            $cWidth = amapnews_getCustomPhotoWidth();
+            $cHeight = amapnews_getCustomPhotoHeight();
+            if ($cWidth && $cHeight) {
+                $image = new ElggFile();
+                $image->owner_guid = $entity->owner_guid;
+                $image->container_guid = $entity->getGUID();
+                $image->access_id = $access_id;
+                $image->setFilename("amapnews/".$entity->getGUID().'custom'.".jpg");
+                $image->open('write');
+                $image->close();
+
+                $resized = elgg_save_resized_image($uploaded_file->getPathname(), $image->getFilenameOnFilestore(), array(
+                    'w' => $cWidth,
+                    'h' => $cHeight,
+                    'square' => false,
+                    'upscale' => false,
+                )); 
+                unset($resized);                 
             }
 	}          
         
@@ -202,7 +186,8 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
             forward(elgg_get_site_url() . "news/group/".$group_entity->guid."/all");
         }
         else {
-            forward($entity->getURL());
+            // forward($entity->getURL()); //
+            forward(elgg_get_site_url() . "news");
         }
 		
     } 

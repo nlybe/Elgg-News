@@ -25,7 +25,7 @@ else {
 $featured = '';
 if ($entity->is_featured()) {
     $featured_icon = elgg_view('output/img', array(
-        'src' => elgg_get_simplecache_url('amapnews/icon/featured.png'),
+        'src' => amapnews_getFeaturedIcon(),
         'alt' => elgg_echo('amapnews:featured'),
     ));    
     $featured = elgg_format_element('div', array('style' => "float:right;"), $featured_icon);

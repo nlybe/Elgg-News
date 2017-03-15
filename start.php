@@ -135,7 +135,13 @@ function amapnews_page_handler($page) {
             
         case "all":
             echo elgg_view_resource('amapnews/all');
-            break;   
+            break;
+        
+        case "custom_list":
+            // this is a demonstration on how to get a custom view, e.g. in front page
+            $resource_vars['limit'] = elgg_extract(1, $page);
+            echo elgg_view_resource('amapnews/custom_list_view', $resource_vars);
+            break;        
             
         default:
             echo elgg_view_resource('amapnews/all');

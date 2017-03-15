@@ -1,4 +1,10 @@
-### 2.3.7	(March 2017)
+### 2.3.8	(March 2017)
+- Added option to set custom size on news photos
+- Added a customizable news list view
+- Added option in settings to change the default news icon and featured news icon
+- Fixed: when saving a news post, the user is redirected to list of news
+
+### 2.3.8	(March 2017)
 - Added compatibility with Elgg 2.3.x
 - Added line break on summary input/output 
 - Improved view news posts on widgets

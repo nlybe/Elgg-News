@@ -4,6 +4,7 @@
  * @package amapnews
  */
 	
+elgg_load_library('elgg:amapnews');
 $plugin = elgg_get_plugin_from_id('amapnews');
 
 $potential_yes_no = array(
@@ -47,14 +48,47 @@ echo  elgg_view_input('dropdown', array(
     'required' => false,
 ));
 
+
+$custom_icon_size .= elgg_format_element('p', [], elgg_echo('amapnews:settings:custom_icon:intro'));
+$custom_icon_size .= elgg_view_input('text', array(
+    'id' => 'custom_icon_width',
+    'name' => 'params[custom_icon_width]',
+    'value' => $plugin->custom_icon_width,
+    'label' => elgg_echo('amapnews:settings:custom_icon_width'),
+    'help' => elgg_echo('amapnews:settings:custom_icon_width:note'),
+    'required' => false,
+));
+
+$custom_icon_size .= elgg_view_input('text', array(
+    'id' => 'custom_icon_height',
+    'name' => 'params[custom_icon_height]',
+    'value' => $plugin->custom_icon_height,
+    'label' => elgg_echo('amapnews:settings:custom_icon_height'),
+    'help' => elgg_echo('amapnews:settings:custom_icon_height:note'),
+    'required' => false,
+));
+echo elgg_view_module("inline", elgg_echo('amapnews:settings:custom_icon'), $custom_icon_size);
+
+// default news icon
+$icons_path = elgg_get_plugins_path().'amapnews/graphics/icons';
+$icons_icon = elgg_format_element('p', [], elgg_echo('amapnews:settings:icon:icons:intro'));
+$icons_icon .= amapnews_getFiles($icons_path, $plugin->icons_icon, 'icons_icon', 'amapnews/icons/');
+echo elgg_view_module("inline", elgg_echo('amapnews:settings:icon:icons'), $icons_icon);
+
+// featured news icon
+$featured_path = elgg_get_plugins_path().'amapnews/graphics/featured';
+$featured_icon = elgg_format_element('p', [], elgg_echo('amapnews:settings:icon:featured:intro'));
+$featured_icon .= amapnews_getFiles($featured_path, $plugin->featured_icon, 'featured_icon', 'amapnews/featured/');
+echo elgg_view_module("inline", elgg_echo('amapnews:settings:icon:featured'), $featured_icon);
+
 // manage news-staff
 $staff = elgg_list_entities_from_metadata(array(
     'type' => 'user',
     'subtype'=> null,
     'metadata_name_value_pairs' => array (
-            'name'	=> 'news_staff',
-            'value'	=> '1',
-            'operand' => '>',
+        'name'	=> 'news_staff',
+        'value'	=> '1',
+        'operand' => '>',
     ),
     'full_view' => FALSE
 ));

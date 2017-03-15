@@ -104,8 +104,9 @@ function allow_post_on_groups() {
 function amapnews_getEntityIconUrl($entity_guid, $size = 'master', $ignore_access = false) {
     $entity = get_entity($entity_guid);
 
-    if (!elgg_instanceof($entity)) 
+    if (!elgg_instanceof($entity)) {
         return false;
+    }
 
     // Get the size
     $size = amapnews_getIconSize($size);
@@ -127,9 +128,109 @@ function amapnews_getIconSize($size = 'master') {
     foreach ($photo_sizes as $name => $photo_info) {
         array_push($sizenames, $name);
     }
+    
+    // push also custom tag
+    array_push($sizenames, 'custom');
     if (!in_array($size, $sizenames)) {
-        $size = 'medium';
+        $size = 'large';
     }
 
     return $size;
 }
+
+/**
+ * Get custom photo width as is set in setting
+ * 
+ * @return int as width or 0
+ */
+function amapnews_getCustomPhotoWidth() {
+    $custom_icon_width = trim(elgg_get_plugin_setting('custom_icon_width', 'amapnews'));
+    
+    if ($custom_icon_width && is_numeric($custom_icon_width) && $custom_icon_width>0)   {
+        return $custom_icon_width;
+    } 
+    
+    return 0;
+}
+
+/**
+ * Get custom photo height as is set in setting
+ * 
+ * @return int as height or 0
+ */
+function amapnews_getCustomPhotoHeight() {
+    $custom_icon_height = trim(elgg_get_plugin_setting('custom_icon_height', 'amapnews'));
+    
+    if ($custom_icon_height && is_numeric($custom_icon_height) && $custom_icon_height>0)   {
+        return $custom_icon_height;
+    } 
+    
+    return 0;
+}
+
+/**
+ * Get the featured as has been set in settings or default
+ * 
+ * @return string: icon path
+ */
+function amapnews_getFeaturedIcon() {
+    $featured_icon = trim(elgg_get_plugin_setting('featured_icon', 'amapnews'));
+    
+    if ($featured_icon)   {
+        return elgg_get_simplecache_url("amapnews/featured/{$featured_icon}");
+    } 
+    
+    return elgg_get_simplecache_url("amapnews/graphics/featured.png");
+}
+
+/**
+ * Get the featured as has been set in settings or default
+ * 
+ * @return string: icon path
+ */
+function amapnews_getDefaultIcon() {
+    $icons_icon = trim(elgg_get_plugin_setting('icons_icon', 'amapnews'));
+    
+    if ($icons_icon)   {
+        return elgg_get_simplecache_url("amapnews/icons/{$icons_icon}");
+    } 
+    
+    return elgg_get_simplecache_url("amapnews/graphics/amapnews.png");
+}
+
+/**
+ * Get all files on a given directory
+ * 
+ * @param type $dir
+ * @return string: list of files found
+ */
+function amapnews_getFiles($dir, $current_value, $field_name, $plugin_path) {
+    $files_list = '';
+    
+    if (is_dir($dir)) {
+        if ($dh = opendir($dir)) {
+            $allowedExts = array("png", "PNG", "jpg", "JPG", "jpeg", "JPEG", "gif", "GIF");
+
+            while (false !== ($file = readdir($dh))) {
+                if (is_dir($dir.'/'.$file) && $file!='.' && $file!='..') {
+                    // do nothing
+                }
+                else {
+                    $tmp_arr = explode('.', $file);
+                    $extension = end($tmp_arr);
+                    if (in_array($extension, $allowedExts))	{
+                        $files_list .= "<input type='radio' name='params[$field_name]' value='$file' ".($current_value==$file?'checked':'').">";
+                        $files_list .= elgg_view('output/img', array(
+                            'src' => elgg_get_simplecache_url($plugin_path.$file),
+                            'style' => 'margin-right: 15px;',
+                        ));
+                    }
+                }
+            }
+            closedir($dh);
+        }
+    }	
+
+    return $files_list;
+}
+

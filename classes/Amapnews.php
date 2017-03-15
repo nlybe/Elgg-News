@@ -42,6 +42,8 @@ class Amapnews extends ElggObject {
      * @return icon photo
      */
     function getNewsIcon() {
+        elgg_load_library('elgg:amapnews');
+        
         if ($this->photo) {
             $icon = elgg_view('output/img', array(
                 'src' => amapnews_getEntityIconUrl($this->getGUID(), 'small'),
@@ -51,7 +53,7 @@ class Amapnews extends ElggObject {
         }
         else {
             $icon = elgg_view('output/img', array(
-                'src' => elgg_get_simplecache_url('amapnews/icon/amapnews.png'),
+                'src' => amapnews_getDefaultIcon(),
                 'alt' => elgg_echo('amapnews'),
             ));
         }

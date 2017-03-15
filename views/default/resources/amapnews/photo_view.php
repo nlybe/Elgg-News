@@ -45,7 +45,8 @@ catch (InvalidParameterException $e) {
 }
 
 if (!$success) {
-    $size = ($size=='master'?'large':$size);    // size hack as user master icon is 1x1px on elgg 
+    $size = ($size=='custom'?'large':$size); 
+    $size = ($size=='master'?'large':$size);   
     $url = elgg_get_simplecache_url("icons/user/default{$size}.gif");
     forward($url);
 }

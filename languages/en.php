@@ -12,6 +12,7 @@ $lang = array(
     'amapnews:edit' => "Edit post",
     'item:object:amapnews' => "News",
     'amapnews:featured' => "Featured",
+    'amapnews:read_more' => "Read more ",
  
     // submit form
     'news:add' => "Post News",
@@ -56,13 +57,22 @@ $lang = array(
     'amapnews:settings:show_username:note' => "Display username on list or single view",   
     'amapnews:settings:post_on_groups' => "Post news on groups",    
     'amapnews:settings:post_on_groups:note' => "Allow group's owners to post news/announcements inside groups", 
-
     'amapnews:settings:post_users' => "Regular User can post News",    
     'amapnews:settings:post_users:note' => "Allow users  to post site-news/announcements. Restict this with user-roles.", 
+    'amapnews:settings:custom_icon' => "Custom size for news photos",  
+    'amapnews:settings:custom_icon:intro' => "If need to customize news photo size for using a custom view (e.g. in index page), determine width and height below.",  
+    'amapnews:settings:custom_icon_width' => "Width",    
+    'amapnews:settings:custom_icon_width:note' => "Set custom photo's width in px", 
+    'amapnews:settings:custom_icon_height' => "Height",    
+    'amapnews:settings:custom_icon_height:note' => "Set custom photo's height in px", 
 
     'amapnews:settings:staff' => 'News staff',
     'amapnews:settings:nostaff' => "No participants selected. You can add users via the user menu.",    
     'amapnews:settings:managestaff' => "You can remove participants via the user menu.", 
+    'amapnews:settings:icon:icons' => 'Default News Icon',
+    'amapnews:settings:icon:icons:intro' => 'Select the default icon to use on news list, when not uploading photo',
+    'amapnews:settings:icon:featured' => 'Featured News Icon',
+    'amapnews:settings:icon:featured:intro' => 'Select an icon to use for featured news',    
      
     // river
     'river:create:object:amapnews' => '%s posted a news item with title %s',

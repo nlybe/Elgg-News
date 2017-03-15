@@ -6,6 +6,8 @@
 
 return [
     'default' => [
-        'amapnews/icon/' => __DIR__ . '/graphics',
+        'amapnews/graphics/' => __DIR__ . '/graphics',
+        'amapnews/icons/' => __DIR__ . '/graphics/icons',
+        'amapnews/featured/' => __DIR__ . '/graphics/featured',
     ],
 ];
