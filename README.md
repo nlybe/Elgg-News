@@ -25,7 +25,7 @@ If need to have a different view for listing news, e.g. in a custom front page, 
 
 ```php
 echo elgg_view('amapnews/custom_list_view', array(
-    'entities' => $entities,    // list of news entities, previously selected
+    'entities' => $entities,    // list of news entities, previously retrieved
     'read_more' => true,        // set true if want to add a "Read more" link for each news item
     'item_class' => '',         // set a custom class on news items, so it could be customized through CSS
     'photo_size' => 'custom',   // set the size of the news photo, see more details below
@@ -33,6 +33,9 @@ echo elgg_view('amapnews/custom_list_view', array(
     'photo_class' => '',        // set a custom class on news photo
 ));
 ```
+
+You can see an example about how to customize this view at **amapnews/views/default/resources/amapnews/custom_list_view.php**.
+This view will be accessible at http://www.example.com/news/custom_list
 
 Especially about photo size, you can use any of the predefined photo size, which are:
 ```php
