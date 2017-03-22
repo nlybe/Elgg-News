@@ -35,7 +35,7 @@ else {
         'read_more' => true,
         'item_class' => '',
         'photo_size' => 'custom',
-        'photo_cover' => false,
+        'photo_cover' => true,
         'photo_class' => '',
     ));
 }

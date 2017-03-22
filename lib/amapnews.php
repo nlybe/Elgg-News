@@ -79,6 +79,32 @@ function display_username() {
 }
 
 /**
+ * Check if current user can set news as featured, according settings
+ * 
+ * @return boolean
+ */
+function can_set_featured_news() {
+    if (elgg_is_admin_logged_in()) {
+        return true;
+    }
+    error_log('111');    
+    $user = elgg_get_logged_in_user_entity();
+    if (!$user) {
+        return false;
+    }
+    error_log('222');
+    $featured_by_admin_only = trim(elgg_get_plugin_setting('featured_by_admin_only', 'amapnews'));
+    
+    error_log('---->'.$featured_by_admin_only);
+    if ($user && $featured_by_admin_only === AMAPNEWS_GENERAL_NO)   {
+        error_log('333');
+        return true;
+    } 
+    
+    return false;
+}
+
+/**
  * Check if allow group's owners to post news/announcements inside groups
  * 
  * @return boolean

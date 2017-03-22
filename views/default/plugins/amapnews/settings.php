@@ -9,7 +9,7 @@ $plugin = elgg_get_plugin_from_id('amapnews');
 
 $potential_yes_no = array(
     AMAPNEWS_GENERAL_YES => elgg_echo('amapnews:settings:yes'),
-    AMAPNEWS_GENERAL_no => elgg_echo('amapnews:settings:no'),
+    AMAPNEWS_GENERAL_NO => elgg_echo('amapnews:settings:no'),
 ); 
 
 // set if display user icon on list or single view
@@ -48,6 +48,17 @@ echo  elgg_view_input('dropdown', array(
     'required' => false,
 ));
 
+// set if allow group's owners to post news/announcements inside groups
+$featured_by_admin_only = $plugin->featured_by_admin_only;
+echo  elgg_view_input('dropdown', array(
+    'id' => 'featured_by_admin_only',
+    'name' => 'params[featured_by_admin_only]',
+    'value' => empty($featured_by_admin_only)?AMAPNEWS_GENERAL_YES:$featured_by_admin_only,
+    'options_values' => $potential_yes_no,
+    'label' => elgg_echo('amapnews:settings:featured_by_admin_only'),
+    'help' => elgg_echo('amapnews:settings:featured_by_admin_only:note'),
+    'required' => false,
+));
 
 $custom_icon_size .= elgg_format_element('p', [], elgg_echo('amapnews:settings:custom_icon:intro'));
 $custom_icon_size .= elgg_view_input('text', array(

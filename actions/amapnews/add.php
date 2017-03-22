@@ -102,7 +102,9 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
     $entity->title = $title;
     $entity->description = $description;
     $entity->excerpt = $excerpt;
-    $entity->featured = $featured;
+    if (can_set_featured_news()) {
+        $entity->featured = $featured;
+    }
     $entity->tags = $tagarray;
     $entity->connected_guid = $connected_guid;
     $entity->container_guid = $container_guid;

@@ -1,3 +1,6 @@
+### 2.3.9	(March 2017)
+- Added option to restrict setting news as featured by administrators only
+
 ### 2.3.8	(March 2017)
 - Added option to set custom size on news photos
 - Added a customizable news list view

@@ -102,14 +102,16 @@ if ($connected_entity_guid) {
         'help' => elgg_echo('amapnews:add:photo:help'),
     )));    
 
-    echo elgg_format_element('div', ['class' => 'amapnews_featured'], elgg_view_input('checkbox', array(
-        'name' => 'featured',
-        'value' => AMAPNEWS_GENERAL_YES,
-        'default' => AMAPNEWS_GENERAL_NO,
-        'checked' => ($featured === AMAPNEWS_GENERAL_YES) ? true : false,
-        'label' => elgg_echo('amapnews:add:featured'),
-        'help' => elgg_echo('amapnews:add:featured:help'),
-    )));
+    if (can_set_featured_news()) {
+        echo elgg_format_element('div', ['class' => 'amapnews_featured'], elgg_view_input('checkbox', array(
+            'name' => 'featured',
+            'value' => AMAPNEWS_GENERAL_YES,
+            'default' => AMAPNEWS_GENERAL_NO,
+            'checked' => ($featured === AMAPNEWS_GENERAL_YES) ? true : false,
+            'label' => elgg_echo('amapnews:add:featured'),
+            'help' => elgg_echo('amapnews:add:featured:help'),
+        )));
+    }
     
     echo elgg_format_element('div', [], elgg_view_input('tags', array(
         'name' => 'tags',
