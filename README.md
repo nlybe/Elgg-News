@@ -9,15 +9,34 @@ Elgg plugin for posting news and announcements by administrators, group owners o
 
 This plugin offers admins the options:
 
-1. Post news items
-2. Add other Elgg entities as news items
-3. Option to determine more users who can post news/announcements
-4. Option to change the default news icon and featured news icon in settings
-5. Customizable news list view
+- Post news items
+- Add other Elgg entities as news items
+- Option to determine more users who can post news/announcements
+- Option to allow post news/announcements on groups, only by group owners
+- Option to change the default news icon and featured news icon in settings
+- Customizable news list view
+- Option to allow or not staff news to set/unset news as featured
 
 As an example for 2nd case, if there is blog post by any user, administrator can add this as news post. So it will be displayed in list of news but if users click on this item, will redirected to original blog post. The same action could apply to any post like pages, bookmarks, videos etc. 
 
 Also administrator can allow to group owners for posting new/announcements inside the group only.
+
+Summarizing permissions, the following options are available:
+#### Who can post site news
+- Administrators
+- News Staff
+
+#### Who can set/unset site news as featured
+- Administrators
+- News Staff (if enabled in settings)
+
+#### Who can post group news (if enabled in settings)
+- Administrators
+- Group owner/managers
+
+#### Who can set/unset group news as featured (if enabled in settings)
+- Administrators
+- Group owner/managers
 
 
 ## How to use a customizable news list view

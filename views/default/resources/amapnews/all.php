@@ -6,6 +6,7 @@
 
 elgg_load_library('elgg:amapnews');
 
+$page_owner = elgg_get_page_owner_entity();
 $user = elgg_get_logged_in_user_entity();
 $staff = $user->news_staff;
 
@@ -22,7 +23,8 @@ elgg_push_breadcrumb(elgg_echo('amapnews'));
 $content = elgg_list_entities($options);
 $title = elgg_echo('amapnews');
 
-if (elgg_is_admin_logged_in()||$staff)	{
+
+if (allow_post($page_owner, $user)) {
     elgg_register_title_button();
 }
 

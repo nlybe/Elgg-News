@@ -12,10 +12,9 @@ if (!$page_owner) {
 }
 
 $user = elgg_get_logged_in_user_entity();
-$staff = $user->news_staff;
 
 // post news only for admins or groups owners (if allowed by admins)
-if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($page_owner, 'group') && $page_owner->canEdit()) || $staff)	{
+if (allow_post($page_owner, $user))	{
     elgg_register_title_button();
 }
 

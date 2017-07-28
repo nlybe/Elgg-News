@@ -16,31 +16,40 @@
  * @return type
  */
 function amapnews_entity_menu_setup($hook, $type, $return, $params) {
-	
+    elgg_load_library('elgg:amapnews');
+    
     $user = elgg_get_logged_in_user_entity();
     $staff = $user->news_staff;
 
-    if (elgg_is_admin_logged_in() || $staff) { 
-        $entity = $params['entity'];
+    $entity = $params['entity'];
+        
+    if (!elgg_instanceof($entity, 'object', 'amapnews') && (elgg_is_admin_logged_in() || $staff))	{
+        elgg_load_js('lightbox');
+        elgg_load_css('lightbox');	
 
-        if (!elgg_instanceof($entity, 'object', 'amapnews'))	{
-            elgg_load_js('lightbox');
-            elgg_load_css('lightbox');	
+        $url = elgg_normalize_url("news/add_existed/{$entity->guid}");
 
-            $url = elgg_normalize_url("news/add_existed/{$entity->guid}");
+        $options = array(
+            'name' => 'setasnew',
+            'text' => elgg_echo("amapnews:add:tonews"),
+            'href' =>  $url,
+            'priority' => 50,
+            'link_class' => 'elgg-lightbox',
+        );
+        $return[] = ElggMenuItem::factory($options);
+    }
+    else if (elgg_instanceof($entity, 'object', 'amapnews')) {
+        $featured_menu_item = false;
+        $container = $entity->getContainerEntity();
 
-            $options = array(
-                'name' => 'setasnew',
-                'text' => elgg_echo("amapnews:add:tonews"),
-                'href' =>  $url,
-                'priority' => 50,
-                'link_class' => 'elgg-lightbox',
-            );
-            $return[] = ElggMenuItem::factory($options);
-            return $return;
+        if (elgg_instanceof($container, 'group')) {
+            $featured_menu_item = $container->canEdit()?true:false;
+        }
+        else if (can_set_featured_news()) {
+            $featured_menu_item = true;
         }
 
-        if (elgg_instanceof($entity, 'object', 'amapnews') && $entity->canEdit())	{
+        if ($featured_menu_item) {  // amapnews entity
             $url = elgg_normalize_url("action/amapnews/set_featured/?guid={$entity->guid}");
             $text = ($entity->is_featured()?elgg_echo("amapnews:add:unfeatured"):elgg_echo("amapnews:add:featured"));
 
@@ -52,9 +61,8 @@ function amapnews_entity_menu_setup($hook, $type, $return, $params) {
                 'is_action' => true,
             );
             $return[] = ElggMenuItem::factory($options);
-            return $return;
-        }        
-    }
+        }
+    }        
 
     return $return;
 }

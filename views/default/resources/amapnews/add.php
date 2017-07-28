@@ -10,10 +10,9 @@ $guid = elgg_extract('guid', $vars, '');
 $submitter = get_entity($guid);
 
 $user = elgg_get_logged_in_user_entity();
-$staff = $user->news_staff;
 
 // post news only for admins or groups owners (if allowed by admins)
-if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($submitter, 'group') && $submitter->canEdit()) || $staff)	{
+if (allow_post($submitter, $user)) {
 
     $title = elgg_echo('amapnews:add');
 	$page_owner = elgg_get_page_owner_entity();

@@ -116,60 +116,60 @@ if (elgg_is_admin_logged_in() || (allow_post_on_groups() && elgg_instanceof($gro
 
     if ($entity->save()) {
         elgg_clear_sticky_form('amapnews');
-	// upload photo if any
-	if ($uploaded_file) {
-            $photo_sizes = elgg_get_config('amapnews_photo_sizes');
+        // upload photo if any
+        if ($uploaded_file) {
+                $photo_sizes = elgg_get_config('amapnews_photo_sizes');
 
-            // get the images and save their file handlers into an array, so we can do clean up if one fails.
-            $files = array();
-            foreach ($photo_sizes as $name => $photo_info) {
-                $image = new ElggFile();
-                $image->owner_guid = $entity->owner_guid;
-                $image->container_guid = $entity->getGUID();
-                $image->access_id = $access_id;
-                $image->setFilename("amapnews/".$entity->getGUID().$name.".jpg");
-                $image->open('write');
-                $image->close();
+                // get the images and save their file handlers into an array, so we can do clean up if one fails.
+                $files = array();
+                foreach ($photo_sizes as $name => $photo_info) {
+                    $image = new ElggFile();
+                    $image->owner_guid = $entity->owner_guid;
+                    $image->container_guid = $entity->getGUID();
+                    $image->access_id = $access_id;
+                    $image->setFilename("amapnews/".$entity->getGUID().$name.".jpg");
+                    $image->open('write');
+                    $image->close();
 
-                $resized = elgg_save_resized_image($uploaded_file->getPathname(), $image->getFilenameOnFilestore(), array(
-                    'w' => $photo_info['w'],
-                    'h' => $photo_info['h'],
-                    'square' => $photo_info['square'],
-                    'upscale' => $photo_info['upscale'],
-                ));           
+                    $resized = elgg_save_resized_image($uploaded_file->getPathname(), $image->getFilenameOnFilestore(), array(
+                        'w' => $photo_info['w'],
+                        'h' => $photo_info['h'],
+                        'square' => $photo_info['square'],
+                        'upscale' => $photo_info['upscale'],
+                    ));           
 
-                if ($resized) {
-                    $files[] = $file;
-                } else { // cleanup on fail
-                    foreach ($files as $file) {
-                        $file->delete();
+                    if ($resized) {
+                        $files[] = $file;
+                    } else { // cleanup on fail
+                        foreach ($files as $file) {
+                            $file->delete();
+                        }
                     }
+
+                    unset($resized);                 
                 }
+                
+                // check also if custom size has been set in settings
+                $cWidth = amapnews_getCustomPhotoWidth();
+                $cHeight = amapnews_getCustomPhotoHeight();
+                if ($cWidth && $cHeight) {
+                    $image = new ElggFile();
+                    $image->owner_guid = $entity->owner_guid;
+                    $image->container_guid = $entity->getGUID();
+                    $image->access_id = $access_id;
+                    $image->setFilename("amapnews/".$entity->getGUID().'custom'.".jpg");
+                    $image->open('write');
+                    $image->close();
 
-                unset($resized);                 
-            }
-            
-            // check also if custom size has been set in settings
-            $cWidth = amapnews_getCustomPhotoWidth();
-            $cHeight = amapnews_getCustomPhotoHeight();
-            if ($cWidth && $cHeight) {
-                $image = new ElggFile();
-                $image->owner_guid = $entity->owner_guid;
-                $image->container_guid = $entity->getGUID();
-                $image->access_id = $access_id;
-                $image->setFilename("amapnews/".$entity->getGUID().'custom'.".jpg");
-                $image->open('write');
-                $image->close();
-
-                $resized = elgg_save_resized_image($uploaded_file->getPathname(), $image->getFilenameOnFilestore(), array(
-                    'w' => $cWidth,
-                    'h' => $cHeight,
-                    'square' => false,
-                    'upscale' => false,
-                )); 
-                unset($resized);                 
-            }
-	}          
+                    $resized = elgg_save_resized_image($uploaded_file->getPathname(), $image->getFilenameOnFilestore(), array(
+                        'w' => $cWidth,
+                        'h' => $cHeight,
+                        'square' => false,
+                        'upscale' => false,
+                    )); 
+                    unset($resized);                 
+                }
+        }          
         
         system_message(elgg_echo('amapnews:save:success'));
 

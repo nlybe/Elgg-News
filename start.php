@@ -76,7 +76,7 @@ function amapnews_init() {
     elgg_register_action('amapnews/add', "$action_path/add.php");    
     elgg_register_action('amapnews/delete', "$action_path/delete.php");
     elgg_register_action('amapnews/staff', "$action_path/staff.php", "admin");
-    elgg_register_action('amapnews/set_featured', "$action_path/set_featured.php", "admin");    
+    elgg_register_action('amapnews/set_featured', "$action_path/set_featured.php");    
 }
 
 /**

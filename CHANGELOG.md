@@ -1,3 +1,7 @@
+### 2.3.10	(July 2017)
+- Added option for staff news to set news as featured
+- Fixed news permission issues
+
 ### 2.3.9	(March 2017)
 - Added option to restrict setting news as featured by administrators only
 

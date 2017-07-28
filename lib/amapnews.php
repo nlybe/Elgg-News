@@ -87,17 +87,15 @@ function can_set_featured_news() {
     if (elgg_is_admin_logged_in()) {
         return true;
     }
-    error_log('111');    
+   
     $user = elgg_get_logged_in_user_entity();
-    if (!$user) {
+    if (!$user || !$user->news_staff) {
         return false;
     }
-    error_log('222');
+
     $featured_by_admin_only = trim(elgg_get_plugin_setting('featured_by_admin_only', 'amapnews'));
     
-    error_log('---->'.$featured_by_admin_only);
     if ($user && $featured_by_admin_only === AMAPNEWS_GENERAL_NO)   {
-        error_log('333');
         return true;
     } 
     
@@ -258,5 +256,35 @@ function amapnews_getFiles($dir, $current_value, $field_name, $plugin_path) {
     }	
 
     return $files_list;
+}
+
+/**
+ * Check if current user can post news on site or on current group
+ * 
+ * @param type $page_owner
+ * @param type $user
+ * @return boolean
+ */
+function allow_post($page_owner = null, $user = null) {
+    if (!$user) {
+        $user = elgg_get_logged_in_user_entity();
+    }
+    
+    if (!$user) {
+        return false;
+    }
+    
+    if (elgg_is_admin_logged_in() ) {
+        return true;
+    }
+    
+    if (elgg_instanceof($page_owner, 'group')) {
+        return allow_post_on_groups() && $page_owner->canEdit()?true:false;
+    }
+    else {
+        return $user->news_staff?true:false;
+    }
+    
+    return false;
 }
 
