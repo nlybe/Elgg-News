@@ -1,3 +1,6 @@
+### 2.3.11	(Feb 2018)
+- Removed unused code
+
 ### 2.3.10	(July 2017)
 - Added option for staff news to set news as featured
 - Fixed news permission issues

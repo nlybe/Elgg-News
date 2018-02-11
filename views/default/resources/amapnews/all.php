@@ -36,7 +36,6 @@ $body = elgg_view_layout('content', array(
     'filter_context' => 'all',
     'content' => $content,
     'title' => $title,
-    'sidebar' => elgg_view('amapnews/sidebar', array('selected' => $vars['page'], 'category' => $selected_category)),
     'filter_override' => elgg_view('amapnews/nav', array('selected' => $vars['page'])),
 ));
 

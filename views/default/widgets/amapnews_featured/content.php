@@ -29,8 +29,9 @@ $options = array(
 );
 
 if (elgg_instanceof($owner, 'user')) {
-    if (!elgg_in_context('dashboard'))
+    if (!elgg_in_context('dashboard')) {
         $options['owner_guid'] = $owner->guid;
+    }
     
     $posts = elgg_get_entities_from_metadata($options);	
 	
