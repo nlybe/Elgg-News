@@ -23,12 +23,13 @@ function amapnews_init() {
     // register extra css
     elgg_extend_view('elgg.css', 'amapnews/amapnews.css');
         
-    // Register entity_type for search
-    elgg_register_entity_type('object', Amapnews::SUBTYPE);
-    
-    // Site navigation
-    $item = new ElggMenuItem('amapnews', elgg_echo('amapnews:menu'), 'news');
-    elgg_register_menu_item('site', $item); 
+    // add a site navigation item
+    elgg_register_menu_item('site', [
+            'name' => 'amapnews',
+            'icon' => 'pencil-square-o',
+            'text' => elgg_echo('amapnews:menu'),
+            'href' => elgg_generate_url('collection:object:amapnews:all'),
+    ]);    
     
     // add option to all site entities for adding to news
     elgg_register_plugin_hook_handler('register', 'menu:entity', 'amapnews_entity_menu_setup', 400);
@@ -48,19 +49,12 @@ function amapnews_init() {
     // We don't want people commenting on news posts in the river
     elgg_register_plugin_hook_handler('permissions_check:comment', 'object', 'amapnews_comment_override');    
     
-    // Register a page handler, so we can have nice URLs
-    elgg_register_page_handler('news', 'amapnews_page_handler');
-    elgg_register_page_handler('amapnews', 'amapnews_page_handler');
-
     // extend group main page 
     elgg_extend_view('groups/tool_latest', 'amapnews/group_module');
     
     // add the group news tool option
     add_group_tool_option('amapnews', elgg_echo('amapnews:group:enable'), true);   
 	
-    // loads the widgets
-    amapnews_widgets_init();
-    
     // set photo sizes for news posts
     elgg_set_config('amapnews_photo_sizes', array(
         'tiny' => array('w' => 25, 'h' => 25, 'square' => TRUE, 'upscale' => FALSE),
@@ -69,14 +63,7 @@ function amapnews_init() {
         'large' => array('w' => 150, 'h' => 150, 'square' => TRUE, 'upscale' => FALSE),
         'master' => array('w' => 215, 'h' => 215, 'square' => TRUE, 'upscale' => FALSE),
         'default' => array('w' => 1200, 'h' => 1200, 'square' => FALSE, 'upscale' => FALSE),
-    ));    
-    
-    // Register actions
-    $action_path = elgg_get_plugins_path() . 'amapnews/actions/amapnews';
-    elgg_register_action('amapnews/add', "$action_path/add.php");    
-    elgg_register_action('amapnews/delete', "$action_path/delete.php");
-    elgg_register_action('amapnews/staff', "$action_path/staff.php", "admin");
-    elgg_register_action('amapnews/set_featured', "$action_path/set_featured.php");    
+    ));   
 }
 
 /**

@@ -1,3 +1,6 @@
+### 3.12	(May 2018)
+- Upgraded to be compatible with Elgg 3.x
+
 ### 2.3.11	(Feb 2018)
 - Removed unused code
 
