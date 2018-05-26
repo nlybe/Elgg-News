@@ -1,6 +1,8 @@
 Elgg News Plugin
 ================
 
+This version is NOT recommended for any production Elgg site.
+
 ![Elgg 3.0](https://img.shields.io/badge/Elgg-3.0-orange.svg?style=flat-square)
 
 Elgg plugin for posting news and announcements by administrators, group owners or news staff.
