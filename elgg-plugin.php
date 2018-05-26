@@ -9,7 +9,7 @@ return [
         [
             'type' => 'object',
             'subtype' => 'amapnews',
-            'class' => 'Amapnews',
+            'class' => 'ElggNews',
             'searchable' => true,
         ],
     ],

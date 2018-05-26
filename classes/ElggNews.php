@@ -4,7 +4,7 @@
  * @package amapnews
  */
 
-class Amapnews extends ElggObject {
+class ElggNews extends ElggObject {
     const SUBTYPE = "amapnews";
     
     protected $meta_defaults = array(
