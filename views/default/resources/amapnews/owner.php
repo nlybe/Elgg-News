@@ -4,8 +4,6 @@
  * @package amapnews
  */
 
-elgg_load_library('elgg:amapnews');
-
 $page_owner = elgg_get_page_owner_entity();
 if (!$page_owner) {
     forward('amapnews/all');

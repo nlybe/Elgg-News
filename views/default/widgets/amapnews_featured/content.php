@@ -4,8 +4,6 @@
  * @package amapnews
  */
 
-elgg_load_library('elgg:amapnews');
-
 // modified to be compatible with widget manager
 $owner = get_entity($vars['entity']->owner_guid);
 $url = elgg_normalize_url('amapnews');

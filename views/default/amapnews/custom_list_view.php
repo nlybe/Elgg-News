@@ -4,8 +4,6 @@
  * @package amapnews
  */
 
-elgg_load_library('elgg:amapnews');
-
 $entities = elgg_extract('entities', $vars);
 $read_more = elgg_extract('read_more', $vars, true);
 $custom_item_class = elgg_extract('item_class', $vars, '');

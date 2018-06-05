@@ -16,8 +16,6 @@
  * @return type
  */
 function amapnews_entity_menu_setup($hook, $type, $return, $params) {
-    elgg_load_library('elgg:amapnews');
-    
     $user = elgg_get_logged_in_user_entity();
     $staff = $user->news_staff;
 
@@ -128,13 +126,16 @@ function amapnews_set_url($hook, $type, $url, $params) {
             $connected_entity = get_entity($entity->connected_guid);
             $friendly_title = elgg_get_friendly_title($entity->title);
 
-            if ($connected_entity) 
+            if ($connected_entity) {
                 return $connected_entity->getURL();
-            else	
+            }
+            else	 {
                 return "news/view/{$entity->guid}/$friendly_title";
+            }
         }
-        else
+        else {
             return "news/view/{$entity->guid}/$friendly_title";
+        }
     }
 }
 

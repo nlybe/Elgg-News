@@ -6,6 +6,7 @@
  
 require_once(dirname(__FILE__) . '/lib/hooks.php');
 require_once(dirname(__FILE__) . '/lib/widgets.php');
+require_once(dirname(__FILE__) . '/lib/functions.php');
 
 elgg_register_event_handler('init', 'system', 'amapnews_init');
 
@@ -17,18 +18,15 @@ define('AMAPNEWS_GENERAL_NO', 'no');	// general purpose string for no
  */
 function amapnews_init() {
  	
-    // register a library of helper functions
-    elgg_register_library('elgg:amapnews', elgg_get_plugins_path() . 'amapnews/lib/amapnews.php');
-    
     // register extra css
     elgg_extend_view('elgg.css', 'amapnews/amapnews.css');
         
     // add a site navigation item
     elgg_register_menu_item('site', [
-            'name' => 'amapnews',
-            'icon' => 'pencil-square-o',
-            'text' => elgg_echo('amapnews:menu'),
-            'href' => elgg_generate_url('collection:object:amapnews:all'),
+        'name' => 'amapnews',
+        'icon' => 'pencil-square-o',
+        'text' => elgg_echo('amapnews:menu'),
+        'href' => elgg_generate_url('collection:object:amapnews:all'),
     ]);    
     
     // add option to all site entities for adding to news
@@ -67,76 +65,76 @@ function amapnews_init() {
 }
 
 /**
- *  Dispatches amapnews pages.
+ *  Dispatches amapnews pages - OBS
  *
  * @param array $page
  * @return bool
  */
-function amapnews_page_handler($page) {
-    elgg_push_breadcrumb(elgg_echo('amapnews'), 'news');
-    
-    if (!isset($page[0])) {
-        $page[0] = 'all';
-    }    
-    $vars = array();
-    $vars['page'] = $page[0];	
-
-    $resource_vars = array();
-    switch ($page[0]) {
-        case "add":
-            $resource_vars['guid'] = elgg_extract(1, $page);
-            echo elgg_view_resource('amapnews/add', $resource_vars);
-            break;
-        
-        case "photo_view":
-            $resource_vars['guid'] = elgg_extract(1, $page);
-            $resource_vars['size'] = elgg_extract(2, $page);
-            $resource_vars['tu'] = elgg_extract(3, $page);
-            $resource_vars['ia'] = elgg_extract(4, $page);
-            echo elgg_view_resource('amapnews/photo_view', $resource_vars);
-            break;        
-            
-        case "add_existed":
-            $resource_vars['cguid'] = elgg_extract(1, $page);
-            echo elgg_view_resource('amapnews/add_existed', $resource_vars);
-            break;            
-            
-        case "edit":
-            $resource_vars['guid'] = elgg_extract(1, $page);
-            echo elgg_view_resource('amapnews/edit', $resource_vars);
-            break;
-            
-        case "view":
-            $resource_vars['guid'] = elgg_extract(1, $page);
-            echo elgg_view_resource('amapnews/view', $resource_vars);
-            break;   
-            
-        case "owner":
-            echo elgg_view_resource('amapnews/owner');
-            break;   
-            
-        case "group":
-            group_gatekeeper();
-            echo elgg_view_resource('amapnews/owner');
-            break;
-            
-        case "all":
-            echo elgg_view_resource('amapnews/all');
-            break;
-        
-        case "custom_list":
-            // this is a demonstration on how to get a custom view, e.g. in front page
-            $resource_vars['limit'] = elgg_extract(1, $page);
-            echo elgg_view_resource('amapnews/custom_list_view', $resource_vars);
-            break;        
-            
-        default:
-            echo elgg_view_resource('amapnews/all');
-            return false;
-    }
-
-    elgg_pop_context();
-    return true;
-}
+//function amapnews_page_handler($page) {
+//    elgg_push_breadcrumb(elgg_echo('amapnews'), 'news');
+//    
+//    if (!isset($page[0])) {
+//        $page[0] = 'all';
+//    }    
+//    $vars = array();
+//    $vars['page'] = $page[0];	
+//
+//    $resource_vars = array();
+//    switch ($page[0]) {
+//        case "add":
+//            $resource_vars['guid'] = elgg_extract(1, $page);
+//            echo elgg_view_resource('amapnews/add', $resource_vars);
+//            break;
+//        
+//        case "photo_view":
+//            $resource_vars['guid'] = elgg_extract(1, $page);
+//            $resource_vars['size'] = elgg_extract(2, $page);
+//            $resource_vars['tu'] = elgg_extract(3, $page);
+//            $resource_vars['ia'] = elgg_extract(4, $page);
+//            echo elgg_view_resource('amapnews/photo_view', $resource_vars);
+//            break;        
+//            
+//        case "add_existed":
+//            $resource_vars['cguid'] = elgg_extract(1, $page);
+//            echo elgg_view_resource('amapnews/add_existed', $resource_vars);
+//            break;            
+//            
+//        case "edit":
+//            $resource_vars['guid'] = elgg_extract(1, $page);
+//            echo elgg_view_resource('amapnews/edit', $resource_vars);
+//            break;
+//            
+//        case "view":
+//            $resource_vars['guid'] = elgg_extract(1, $page);
+//            echo elgg_view_resource('amapnews/view', $resource_vars);
+//            break;   
+//            
+//        case "owner":
+//            echo elgg_view_resource('amapnews/owner');
+//            break;   
+//            
+//        case "group":
+//            group_gatekeeper();
+//            echo elgg_view_resource('amapnews/owner');
+//            break;
+//            
+//        case "all":
+//            echo elgg_view_resource('amapnews/all');
+//            break;
+//        
+//        case "custom_list":
+//            // this is a demonstration on how to get a custom view, e.g. in front page
+//            $resource_vars['limit'] = elgg_extract(1, $page);
+//            echo elgg_view_resource('amapnews/custom_list_view', $resource_vars);
+//            break;        
+//            
+//        default:
+//            echo elgg_view_resource('amapnews/all');
+//            return false;
+//    }
+//
+//    elgg_pop_context();
+//    return true;
+//}
 
 ?>

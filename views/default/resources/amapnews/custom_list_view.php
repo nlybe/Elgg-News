@@ -4,8 +4,6 @@
  * @package amapnews
  */
 
-elgg_load_library('elgg:amapnews');
-
 $limit = elgg_extract('limit', $vars, elgg_get_config('default_limit'));
 $featured = get_input('featured', false);
 

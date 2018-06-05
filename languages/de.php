@@ -76,4 +76,4 @@ $lang = array(
 
 );
 
-add_translation("de", $lang);
+return $lang;

@@ -4,8 +4,6 @@
  * @package amapnews
  */
 
-elgg_load_library('elgg:amapnews');
-
 $page_owner = elgg_get_page_owner_entity();
 $user = elgg_get_logged_in_user_entity();
 $staff = $user->news_staff;

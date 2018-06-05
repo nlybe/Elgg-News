@@ -59,4 +59,4 @@ $lang = array(
 
 );
 
-add_translation("el", $lang);
+return $lang;

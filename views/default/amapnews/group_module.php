@@ -4,7 +4,6 @@
  * @package amapnews
  */
 
-elgg_load_library('elgg:amapnews');
 $group = elgg_get_page_owner_entity();
 
 if ($group->amapnews_enable == "no") {

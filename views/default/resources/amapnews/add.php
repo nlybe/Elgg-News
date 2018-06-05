@@ -4,8 +4,6 @@
  * @package amapnews
  */
 
-elgg_load_library('elgg:amapnews');
-
 $guid = elgg_extract('guid', $vars, '');
 $submitter = get_entity($guid);
 

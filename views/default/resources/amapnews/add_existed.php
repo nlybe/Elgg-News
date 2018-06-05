@@ -4,7 +4,6 @@
  * @package amapnews
  */
 
-elgg_load_library('elgg:amapnews');
 elgg_load_css('amapnews_css');
 
 $connected_guid = elgg_extract('cguid', $vars, '');

@@ -91,4 +91,4 @@ $lang = array(
 
 );
 
-add_translation("es", $lang);
+return $lang;

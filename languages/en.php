@@ -103,4 +103,4 @@ $lang = array(
 
 );
 
-add_translation("en", $lang);
+return $lang;

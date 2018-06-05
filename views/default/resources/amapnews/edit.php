@@ -4,8 +4,6 @@
  * @package amapnews
  */
 
-elgg_load_library('elgg:amapnews');
-
 $entity_guid = elgg_extract('guid', $vars, '');
 $entity_unit = get_entity($entity_guid);
 

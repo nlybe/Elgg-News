@@ -4,8 +4,6 @@
  * @package amapnews
  */
 
-elgg_load_library('elgg:amapnews');
-
 $ignore_access = elgg_extract('ia', $vars, '');
 if ($ignore_access) {
     // set ignore access for loading non public objexts

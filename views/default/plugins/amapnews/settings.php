@@ -4,7 +4,6 @@
  * @package amapnews
  */
 	
-elgg_load_library('elgg:amapnews');
 $plugin = elgg_get_plugin_from_id('amapnews');
 
 $potential_yes_no = array(
