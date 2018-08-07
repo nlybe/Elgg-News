@@ -1,3 +1,6 @@
+### 2.3.12	(Aug 2018)
+- Removed deprecated function elgg_load_js('lightbox')
+
 ### 2.3.11	(Feb 2018)
 - Removed unused code
 

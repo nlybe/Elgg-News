@@ -24,8 +24,6 @@ function amapnews_entity_menu_setup($hook, $type, $return, $params) {
     $entity = $params['entity'];
         
     if (!elgg_instanceof($entity, 'object', 'amapnews') && (elgg_is_admin_logged_in() || $staff))	{
-        elgg_load_js('lightbox');
-        elgg_load_css('lightbox');	
 
         $url = elgg_normalize_url("news/add_existed/{$entity->guid}");
 
