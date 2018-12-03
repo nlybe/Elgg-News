@@ -3,7 +3,7 @@
     <name>News</name>
     <id>amapnews</id>
     <author>Nikos Lyberakis</author>
-    <version>3.12-alpha</version>
+    <version>3.12</version>
     <category>bundled</category>
     <category>content</category>
     <category>widget</category>
