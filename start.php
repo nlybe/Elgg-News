@@ -91,10 +91,9 @@ function amapnews_page_handler($page) {
     if (!isset($page[0])) {
         $page[0] = 'all';
     }    
-    $vars = array();
-    $vars['page'] = $page[0];	
-
+    
     $resource_vars = array();
+    $resource_vars['page'] = $page[0];	
     switch ($page[0]) {
         case "add":
             $resource_vars['guid'] = elgg_extract(1, $page);
@@ -134,7 +133,7 @@ function amapnews_page_handler($page) {
             break;
             
         case "all":
-            echo elgg_view_resource('amapnews/all');
+            echo elgg_view_resource('amapnews/all', $resource_vars);
             break;
         
         case "custom_list":
