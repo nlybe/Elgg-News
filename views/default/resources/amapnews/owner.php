@@ -6,19 +6,18 @@
 
 $page_owner = elgg_get_page_owner_entity();
 if (!$page_owner) {
-    forward('amapnews/all');
+    forward('news/all');
 }
 
 $user = elgg_get_logged_in_user_entity();
-
 // post news only for admins or groups owners (if allowed by admins)
-if (allow_post($page_owner, $user))	{
+if (NewsOptions::allowPost($page_owner, $user))	{
     elgg_register_title_button();
 }
 
 $options = array(
     'type' => 'object',
-    'subtype' => 'amapnews',
+    'subtype' => 'news',
     'container_guid' => $page_owner->guid,
     'limit' => 10,
     'full_view' => false,
@@ -29,6 +28,8 @@ $crumbs_title = $page_owner->name;
 $title = elgg_echo('amapnews:owner', array($page_owner->name));
 
 if (elgg_instanceof($page_owner, 'group')) {
+    elgg_push_breadcrumb(elgg_echo('groups'), 'groups');
+    elgg_push_breadcrumb($page_owner->name, $page_owner->getURL());
     elgg_push_breadcrumb($crumbs_title);
 } else {
     elgg_push_breadcrumb($crumbs_title);

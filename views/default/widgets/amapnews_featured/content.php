@@ -6,7 +6,6 @@
 
 // modified to be compatible with widget manager
 $owner = get_entity($vars['entity']->owner_guid);
-$url = elgg_normalize_url('amapnews');
 
 //the number of files to display
 $num = (int) $vars['entity']->num_display;
@@ -16,13 +15,13 @@ if (!$num) {
 
 $options = array(
     'type'=>'object',
-    'subtype'=>'amapnews', 
+    'subtype'=>'news', 
     'limit'=>$num,
     'full_view' => false,
     'pagination' => false,
     'size' => 'small',
     'metadata_name_value_pairs' => array(
-        array('name' => 'featured','value' => AMAPNEWS_GENERAL_YES, 'operand' => '='),
+        array('name' => 'featured','value' => NewsOptions::NEWS_YES, 'operand' => '='),
     ),
 );
 
@@ -31,31 +30,25 @@ if (elgg_instanceof($owner, 'user')) {
         $options['owner_guid'] = $owner->guid;
     }
     
-    $posts = elgg_get_entities_from_metadata($options);	
+    $posts = elgg_get_entities($options);	
 	
     if (is_array($posts) && sizeof($posts) > 0) {
         $content =  '<ul class="elgg-list">';	
 
         foreach($posts as $post) {
-            $featured = '';
-            if ($post->is_featured()) {
-                $featured_icon = elgg_view('output/img', array(
-                    'src' => amapnews_getFeaturedIcon(),
-                    'alt' => elgg_echo('amapnews:featured'),
-                ));    
-                $featured = elgg_format_element('div', array('style' => "float:right;"), $featured_icon);
-            }             
             $content .=  "<li class=\"pvs\">";
 
             $owner = $post->getOwnerEntity();		
-            if (display_user_icon()) 
+            if (NewsOptions::displayUserIcon())  {
                 $news_icon = elgg_view_entity_icon($owner, 'small');
-            else
+            }
+            else {
                 $news_icon = $post->getNewsIcon();
+            }
 
-            if (display_username()) {
+            if (NewsOptions::displayUsername()) {
                 $owner_link = elgg_view('output/url', array(
-                    'href' => "amapnews/owner/$owner->username",
+                    'href' => "news/owner/$owner->username",
                     'text' => $owner->name,
                     'is_trusted' => true,
                 ));
@@ -66,7 +59,7 @@ if (elgg_instanceof($owner, 'user')) {
 
             $date = elgg_view_friendly_time($post->time_created);			
 
-            $subtitle = "{$author_text} {$date} {$featured}";
+            $subtitle = "{$author_text} {$date}";
             $subtitle .= '<br />'.$post->excerpt;
             $params = array('entity' => $post,'subtitle' => $subtitle);
             $params = $params + $vars;
@@ -83,27 +76,25 @@ elseif (elgg_instanceof($owner, 'group')) {
     $options['container_guid']= $groupGUID;
 
     elgg_push_context('widgets');
-    $content = elgg_list_entities_from_metadata($options);
+    $content = elgg_list_entities($options);
     elgg_pop_context();	
 } 
 else {
     elgg_push_context('widgets');
-    $content = elgg_list_entities_from_metadata($options);
+    $content = elgg_list_entities($options);
     elgg_pop_context();	
 }
 
 
 if (!$content) {
-    $content = '<p>' . elgg_echo('amapnews:none') . '</p>';
+    $content = elgg_format_element('p', [], elgg_echo('amapnews:none'));
 }
 
 echo $content;
 
-$more_link = elgg_view('output/url', array(
-    'href' => $url,
-    'text' => elgg_echo("amapnews:widget:viewall"),
+$text = elgg_echo("amapnews:widget:amapnews_featured:viewall").elgg_view_icon('angle-double-right');
+echo elgg_format_element('div', ['class' => 'elgg-widget-more'], elgg_view('output/url', [
+    'href' => elgg_normalize_url('news'),
+    'text' => $text,
     'is_trusted' => true,
-));
-echo "<span class=\"elgg-widget-more\">$more_link</span>";
-
-
+]));

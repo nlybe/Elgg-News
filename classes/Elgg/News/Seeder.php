@@ -19,7 +19,7 @@ class Seeder extends Seed {
         $count_news = function () {
             return elgg_get_entities([
                 'types' => 'object',
-                'subtypes' => 'amapnews',
+                'subtypes' => 'news',
                 'metadata_names' => '__faker',
                 'count' => true,
             ]);
@@ -31,7 +31,7 @@ class Seeder extends Seed {
             ];
 
             $attributes = [
-                'subtype' => 'amapnews',
+                'subtype' => 'news',
             ];
 
             $new = $this->createObject($attributes, $metadata);
@@ -44,7 +44,7 @@ class Seeder extends Seed {
             $this->createLikes($new);
 
             elgg_create_river_item([
-                'view' => 'river/object/amapnews/create',
+                'view' => 'river/object/news/create',
                 'action_type' => 'create',
                 'subject_guid' => $new->owner_guid,
                 'object_guid' => $new->guid,
@@ -60,7 +60,7 @@ class Seeder extends Seed {
 
         $news = elgg_get_entities([
             'types' => 'object',
-            'subtypes' => 'amapnews',
+            'subtypes' => 'news',
             'metadata_names' => '__faker',
             'limit' => 0,
             'batch' => true,

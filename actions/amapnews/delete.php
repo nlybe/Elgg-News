@@ -7,18 +7,12 @@
 $user = elgg_get_logged_in_user_entity();
 $staff = $user->news_staff;
 
-// check if admin user is loggedin or staff
-//if ( !(elgg_is_admin_logged_in() ||$staff) )
-//    forward(REFERER);
-
 $guid = get_input('guid');
 $entity = get_entity($guid);
 
-if (elgg_instanceof($entity, 'object', 'amapnews') && $entity->canEdit()) {
+if (elgg_instanceof($entity, 'object', 'news') && $entity->canEdit()) {
     //delete files connected with this entity
-    if ($entity->photo) {
-        $entity->del_photo();
-    }
+    $entity->delPhotos();
     
     $container = $entity->getContainerEntity();
         
@@ -29,7 +23,7 @@ if (elgg_instanceof($entity, 'object', 'amapnews') && $entity->canEdit()) {
             forward(elgg_normalize_url("news/group/{$container->getGUID()}/all"));
         }
         else {
-            forward("amapnews/all");
+            forward("news/all");
         }
     }
 }

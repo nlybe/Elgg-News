@@ -5,29 +5,30 @@
  */
 
 //get entity
-$entity_guid = elgg_extract('guid', $vars, '');
-$entity_unit = get_entity($entity_guid);
+$guid = elgg_extract('guid', $vars, '');
+$entity = get_entity($guid);
 
-if (!$entity_unit) {
+if (!$entity) {
     register_error(elgg_echo('noaccess'));
     $_SESSION['last_forward_from'] = current_page_url();
     forward('');
 }
 
 $page_owner = elgg_get_page_owner_entity();
-$crumbs_title = $page_owner->name;
 if (elgg_instanceof($page_owner, 'group')) {
-    elgg_push_breadcrumb($crumbs_title, "news/group/$page_owner->guid/all");
+    elgg_push_breadcrumb(elgg_echo('groups'), 'groups');
+    elgg_push_breadcrumb($page_owner->name, $page_owner->getURL());
+    elgg_push_breadcrumb(elgg_echo('amapnews:menu'), "news/group/$page_owner->guid/all");
 } else {
-    elgg_push_breadcrumb($crumbs_title, "news/owner/$page_owner->username");
+    elgg_push_breadcrumb(elgg_echo('amapnews:menu'), 'news');
 }
 
-$title = $entity_unit->title; 
+$title = $entity->title; 
 elgg_push_breadcrumb($title);
 
-$content = elgg_view_entity($entity_unit, array('full_view' => true));
-if ($entity_unit->comments_on != 'Off') {
-    $content .= elgg_view_comments($entity_unit);
+$content = elgg_view_entity($entity, array('full_view' => true));
+if ($entity->comments_on != 'Off') {
+    $content .= elgg_view_comments($entity);
 }     
 
 $sidebar = '';

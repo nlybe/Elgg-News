@@ -4,14 +4,21 @@
  * @package amapnews
  */
 
-$group = elgg_get_page_owner_entity();
+if (!NewsOptions::allowPostOnGroups()) {
+    return;
+}
 
-if ($group->amapnews_enable == "no") {
-    return true;
+$group = elgg_extract('entity', $vars);
+if (!($group instanceof ElggGroup)) {
+    return;
+}
+
+if (!$group->isToolEnabled('news')) {
+    return;
 }
 
 $all_link = elgg_view('output/url', array(
-    'href' => "amapnews/group/$group->guid/all",
+    'href' => "news/group/$group->guid/all",
     'text' => elgg_echo('link:view:all'),
     'is_trusted' => true,
 ));
@@ -19,7 +26,7 @@ $all_link = elgg_view('output/url', array(
 elgg_push_context('widgets');
 $options = array(
     'type' => 'object',
-    'subtypes' => 'amapnews',
+    'subtypes' => 'news',
     'container_guid' => elgg_get_page_owner_guid(),
     'limit' => 6,
     'full_view' => false,
@@ -29,11 +36,11 @@ $content = elgg_list_entities($options);
 elgg_pop_context();
 
 if (!$content) {
-    $content = '<p>' . elgg_echo('amapnews:none') . '</p>';
+    $content = elgg_format_element('p', [], elgg_echo('amapnews:none'));
 }
 
 $post_link = elgg_view('output/url', array(
-    'href' => "amapnews/add/$group->guid",
+    'href' => "news/add/$group->guid",
     'text' => elgg_echo('amapnews:add'),
     'is_trusted' => true,
 ));

@@ -10,8 +10,11 @@ $lang = array(
     'amapnews' => "Noticias",
     'amapnews:menu' => "Noticias",
     'amapnews:edit' => "Editar publicación",
-    'item:object:amapnews' => "Noticia",
+    'item:object:news' => "Noticia",
+    'collection:object:news' => "Noticias",
     'amapnews:featured' => "Destacado",
+    'amapnews:read_more' => "Read more ",
+    'amapnews_featured' => "Featured News",
  
     // submit form
     'news:add' => "Publicar Noticia",
@@ -50,23 +53,36 @@ $lang = array(
     // settings
     'amapnews:settings:no' => "No",
     'amapnews:settings:yes' => "Si",    
+    'amapnews:settings:general' => "General Settings", 
     'amapnews:settings:show_user_icon' => "Mostrar avatar",    
     'amapnews:settings:show_user_icon:note' => "Muestra el avatar en lista y vista principal. Si se selecciona No, un ícono de Noticias se verá en su lugar.",    
     'amapnews:settings:show_username' => "Mostrar nombre de usuario",    
     'amapnews:settings:show_username:note' => "Muestra nombre de usuario en lista y vista principal.",   
     'amapnews:settings:post_on_groups' => "Publicar noticias en grupos",    
     'amapnews:settings:post_on_groups:note' => "Autoriza a los administradores de grupo a publicar noticias/anuncios en los mismos.", 
-
+    'amapnews:settings:featured_by_admin_only' => "Restrict featured news to admin",    
+    'amapnews:settings:featured_by_admin_only:note' => "Select Yes if want to restrict setting Featured News only to administrators", 
     'amapnews:settings:post_users' => "Usuario regular puede publicar Noticias",    
     'amapnews:settings:post_users:note' => "Autoriza a usuarios regulares a publicar noticias y anuncios en el sitio. Puede restringir esta opción con roles de usuario", 
-
+    'amapnews:settings:custom_icon' => "Custom size for news photos",  
+    'amapnews:settings:custom_icon:intro' => "If need to customize news photo size for using a custom view (e.g. in index page), determine width and height below.",  
+    'amapnews:settings:custom_icon_width' => "Width",    
+    'amapnews:settings:custom_icon_width:note' => "Set custom photo's width in px", 
+    'amapnews:settings:custom_icon_height' => "Height",    
+    'amapnews:settings:custom_icon_height:note' => "Set custom photo's height in px", 
+    'amapnews:settings:show_featured_on_sidebar' => 'Show Featured News on Sidebar',
+    'amapnews:settings:show_featured_on_sidebar:note' => 'Check this if want to display latest featured news on list sidebar', 
     'amapnews:settings:staff' => 'Equipo de Noticias',
     'amapnews:settings:nostaff' => "No hay participantes seleccionados. Puedes agregar usuarios mediante el menú de usuarios.",    
     'amapnews:settings:managestaff' => "Puedes borrar usuarios mediante el menú de usuarios.", 
+    'amapnews:settings:icon:icons' => 'Default News Icon',
+    'amapnews:settings:icon:icons:intro' => 'Select the default icon to use on news list, when not uploading photo',
+    'amapnews:settings:icon:featured' => 'Featured News Icon',
+    'amapnews:settings:icon:featured:intro' => 'Select an icon to use for featured news',
      
     // river
-    'river:create:object:amapnews' => '%s publicó una noticia con el título %s',
-    'river:comment:object:amapnews' => '%s comentó en %s',
+    'river:object:news:create' => '%s publicó una noticia con el título %s',
+    'river:comment:object:news' => '%s comentó en %s',
     'vouchers:river:annotate' => 'un comentario en ',
     'vouchers:river:item' => 'una noticia',  
     
@@ -77,10 +93,11 @@ $lang = array(
     'amapnews:widget:viewall' => 'Ver todas',  
     'amapnews:widget:amapnews_featured' => 'Noticias Destacadas', 
     'amapnews:widget:amapnews_featured:description' => 'Muestra las últimas noticias o anuncios destacados.',     
+    'amapnews:widget:amapnews_featured:viewall' => 'View all news',
     
     // groups
     'amapnews:group' => 'Noticias de Grupo', 
-    'amapnews:group:enable' => 'Activar Noticias en Grupos', 
+    'groups:tool:news' => 'Activar Noticias en Grupos', 
     'amapnews:owner' => "Noticias de %s",
 
     // staff
@@ -88,6 +105,13 @@ $lang = array(
     'amapnews:menu_user_hover:remove_staff' => "Quitar del Equipo de Noticias",
     'amapnews:action:news_staff:removed' => "El usuario fue removido del Equipo de Noticias",
     'amapnews:action:news_staff:added' => "El usuario fue agregado al Equipo de Noticias",
+
+    // upgrades
+   'amapnews:upgrade:2017110700:title' => "Migrate amapnews to news entities",
+   'amapnews:upgrade:2017110700:description' => "Changes the subtype of all amapnews to 'news'.",
+
+   'amapnews:upgrade:2017110701:title' => "Migrate amapnews river entries",
+   'amapnews:upgrade:2017110701:description' => "Changes the subtype of all river items for amapnews to 'news'.",
 
 );
 

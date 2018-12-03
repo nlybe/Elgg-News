@@ -8,7 +8,7 @@ return [
     'entities' => [
         [
             'type' => 'object',
-            'subtype' => 'amapnews',
+            'subtype' => 'news',
             'class' => 'ElggNews',
             'searchable' => true,
         ],
@@ -17,14 +17,14 @@ return [
         'amapnews/add' => [],
         'amapnews/delete' => [],
         'amapnews/set_featured' => [],
-        'amapnews/staff' => [],
+        'amapnews/set_staff' => [],
     ],
     'routes' => [
-        'default:object:amapnews' => [
+        'default:object:news' => [
             'path' => '/news',
             'resource' => 'amapnews/all',
         ],
-        'collection:object:amapnews:all' => [
+        'collection:object:news:all' => [
             'path' => '/news/all/{lower?}/{upper?}',
             'resource' => 'amapnews/all',
             'requirements' => [
@@ -32,7 +32,7 @@ return [
                 'upper' => '\d+',
             ],
         ],        
-        'collection:object:blog:owner' => [
+        'collection:object:news:owner' => [
             'path' => '/news/owner/{username?}/{lower?}/{upper?}',
             'resource' => 'amapnews/owner',
             'requirements' => [
@@ -40,14 +40,11 @@ return [
                 'upper' => '\d+',
             ],
         ],
-        'add:object:amapnews' => [
+        'add:object:news' => [
             'path' => '/news/add/{guid?}',
             'resource' => 'amapnews/add',
-            'middleware' => [
-                \Elgg\Router\Middleware\Gatekeeper::class,
-            ],
         ],
-        'edit:object:amapnews' => [
+        'edit:object:news' => [
             'path' => '/news/edit/{guid}',
             'resource' => 'amapnews/edit',
             'requirements' => [
@@ -57,11 +54,19 @@ return [
                 \Elgg\Router\Middleware\Gatekeeper::class,
             ],
         ],
-        'add:object:amapnews' => [
-            'path' => '/news/add_existed/{guid?}',
+        'add_existed:object:news' => [
+            'path' => '/news/add_existed/{guid}',
             'resource' => 'amapnews/add_existed',
-            'middleware' => [
-                \Elgg\Router\Middleware\Gatekeeper::class,
+        ],
+        'view:object:news' => [
+            'path' => '/news/view/{guid}/{title?}',
+            'resource' => 'amapnews/view',
+        ],
+        'collection:object:news:group' => [
+            'path' => '/news/group/{guid}/{subpage?}',
+            'resource' => 'amapnews/owner',
+            'defaults' => [
+                'subpage' => 'all',
             ],
         ],
     ],
@@ -79,7 +84,9 @@ return [
         'default' => [
             'amapnews/graphics/' => __DIR__ . '/graphics',
             'amapnews/icons/' => __DIR__ . '/graphics/icons',
-            'amapnews/featured/' => __DIR__ . '/graphics/featured',
         ],
+    ],
+    'upgrades' => [
+        '\Elgg\News\Upgrades\MigrateNews',
     ],
 ];

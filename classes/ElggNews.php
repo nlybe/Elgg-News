@@ -1,70 +1,91 @@
 <?php
+
 /**
  * Elgg News plugin
  * @package amapnews
  */
-
 class ElggNews extends ElggObject {
-    const SUBTYPE = "amapnews";
-    
+
+    const SUBTYPE = "news";
+
     protected $meta_defaults = array(
-        "title"             => NULL,
-        "description"       => NULL,
-        "excerpt"           => NULL,
-        "featured"          => NULL, 
-        "photo"             => NULL,
-        "tags"              => NULL,
-        "connected_guid"    => NULL,
-        "comments_on"       => NULL,
-    );    
+        "title" => NULL,
+        "description" => NULL,
+        "excerpt" => NULL,
+        "featured" => NULL,
+        "photo" => NULL,
+        "tags" => NULL,
+        "connected_guid" => NULL,
+        "comments_on" => NULL,
+    );
 
     protected function initializeAttributes() {
         parent::initializeAttributes();
 
         $this->attributes["subtype"] = self::SUBTYPE;
     }
-    
+
+    /**
+     * Can a user comment on this News post?
+     *
+     * @see ElggObject::canComment()
+     *
+     * @param int  $user_guid User guid (default is logged in user)
+     * @param bool $default   Default permission
+     *
+     * @return bool
+     *
+     * @since 1.8.0
+     */
+    public function canComment($user_guid = 0, $default = null) {
+        $result = parent::canComment($user_guid, $default);
+        if ($result == false) {
+            return $result;
+        }
+
+        if ($this->comments_on === 'Off') {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Check if current item is featured
      * @return boolean
      */
-    function is_featured() {
-        if ($this->featured === AMAPNEWS_GENERAL_YES) {
+    function isFeatured() {
+        if ($this->featured === NewsOptions::NEWS_YES) {
             return true;
         }
-        
+
         return false;
-    }    
-    
+    }
+
     /**
      * Get icon of entity
      * 
      * @return icon photo
      */
     function getNewsIcon() {
-        if ($this->photo) {
+        if ($this->hasIcon('small')) {
+            $icon = elgg_view_entity_icon($this, 'small', ['img_class' => 'elgg-photo']);
+        } else {
             $icon = elgg_view('output/img', array(
-                'src' => amapnews_getEntityIconUrl($this->getGUID(), 'small'),
-                'alt' => $this->title,
-                'class' => 'elgg-photo',
-            ));        
-        }
-        else {
-            $icon = elgg_view('output/img', array(
-                'src' => amapnews_getDefaultIcon(),
+                'src' => NewsOptions::getDefaultIcon(),
                 'alt' => elgg_echo('amapnews'),
             ));
         }
-        
+
         return $icon;
-    }    
-    
+    }
+
     /**
-     * Delete item photo from diskspace
+     * Delete item photo from disk space
      * 
      * @return boolean
      */
-    public function del_photo() {
+    public function delPhotos() {
         $photo_sizes = elgg_get_config('amapnews_photo_sizes');
         foreach ($photo_sizes as $name => $photo_info) {
             $file = new ElggFile();
@@ -77,5 +98,6 @@ class ElggNews extends ElggObject {
         }
 
         return true;
-    }    
+    }
+
 }

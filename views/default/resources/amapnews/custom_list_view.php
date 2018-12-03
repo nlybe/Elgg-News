@@ -9,19 +9,17 @@ $featured = get_input('featured', false);
 
 $options = array(
     'type' => 'object',
-    'subtype' => 'amapnews',
+    'subtype' => 'news',
     'limit' => $limit,
 );
 
 if ($featured) {
     $options['metadata_name_value_pairs'] = array(
-        array('name' => 'featured','value' => AMAPNEWS_GENERAL_YES, 'operand' => '='),
+        array('name' => 'featured','value' => NewsOptions::NEWS_YES, 'operand' => '='),
     );
 }
 
-//elgg_pop_breadcrumb();
-//elgg_push_breadcrumb(elgg_echo('amapnews'));
-$entities = elgg_get_entities_from_metadata($options);
+$entities = elgg_get_entities($options);
 $title = elgg_echo('amapnews');
 
 if (!$entities) {

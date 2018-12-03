@@ -6,15 +6,11 @@
  
 require_once(dirname(__FILE__) . '/lib/hooks.php');
 require_once(dirname(__FILE__) . '/lib/widgets.php');
-require_once(dirname(__FILE__) . '/lib/functions.php');
 
 elgg_register_event_handler('init', 'system', 'amapnews_init');
 
-define('AMAPNEWS_GENERAL_YES', 'yes');	// general purpose string for yes
-define('AMAPNEWS_GENERAL_NO', 'no');	// general purpose string for no
-
 /**
- * amapnews plugin initialization functions.
+ * Initialization functions
  */
 function amapnews_init() {
  	
@@ -24,117 +20,93 @@ function amapnews_init() {
     // add a site navigation item
     elgg_register_menu_item('site', [
         'name' => 'amapnews',
-        'icon' => 'pencil-square-o',
+        'icon' => 'newspaper',
         'text' => elgg_echo('amapnews:menu'),
-        'href' => elgg_generate_url('collection:object:amapnews:all'),
+        'href' => elgg_generate_url('collection:object:news:all'),
     ]);    
     
     // add option to all site entities for adding to news
     elgg_register_plugin_hook_handler('register', 'menu:entity', 'amapnews_entity_menu_setup', 400);
+    
+    // show featured icon, if news entity is featured
+    elgg_register_plugin_hook_handler('register', 'menu:social', 'amapnews_social_menu_setup');
 
     // add option for admin to add/remove user from news-staff
-    elgg_register_plugin_hook_handler("register", "menu:user_hover", "news_staff_user_hover_menu_hook");
+    elgg_register_plugin_hook_handler("register", "menu:user_hover", "amapnews_staff_user_hover_menu_hook");
     
     // Register menu item to an ownerblock. It is used to  register news menu item to groups
     elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'amapnews_owner_block_menu');
     
     // allow to be liked
-    elgg_register_plugin_hook_handler('likes:is_likable', 'object:amapnews', 'Elgg\Values::getTrue');
+    elgg_register_plugin_hook_handler('likes:is_likable', 'object:news', 'Elgg\Values::getTrue');
     
     // Register a URL handler for news
     elgg_register_plugin_hook_handler('entity:url', 'object', 'amapnews_set_url');
     
     // We don't want people commenting on news posts in the river
-    elgg_register_plugin_hook_handler('permissions_check:comment', 'object', 'amapnews_comment_override');    
+    elgg_register_plugin_hook_handler('permissions_check:comment', 'object', 'amapnews_comment_override');  
     
-    // extend group main page 
-    elgg_extend_view('groups/tool_latest', 'amapnews/group_module');
+    // register database seed
+    elgg_register_plugin_hook_handler('seeds', 'database', 'amapnews_register_db_seeds');
     
-    // add the group news tool option
-    add_group_tool_option('amapnews', elgg_echo('amapnews:group:enable'), true);   
-	
+    // shop images custom sizes
+    elgg_register_plugin_hook_handler('entity:icon:sizes', 'object', 'amapnews_set_custom_icon_sizes');
+    
+    if (NewsOptions::allowPostOnGroups()) {
+        // Add group option
+	elgg()->group_tools->register('news');  
+    }
+    
     // set photo sizes for news posts
     elgg_set_config('amapnews_photo_sizes', array(
-        'tiny' => array('w' => 25, 'h' => 25, 'square' => TRUE, 'upscale' => FALSE),
-        'small' => array('w' => 40, 'h' => 40, 'square' => TRUE, 'upscale' => FALSE),
-        'medium' => array('w' => 100, 'h' => 100, 'square' => TRUE, 'upscale' => FALSE),
-        'large' => array('w' => 150, 'h' => 150, 'square' => TRUE, 'upscale' => FALSE),
-        'master' => array('w' => 215, 'h' => 215, 'square' => TRUE, 'upscale' => FALSE),
-        'default' => array('w' => 1200, 'h' => 1200, 'square' => FALSE, 'upscale' => FALSE),
-    ));   
+        'topbar' => array('w' => 16, 'h' => 16, 'square' => true, 'upscale' => false),
+        'tiny' => array('w' => 25, 'h' => 25, 'square' => true, 'upscale' => false),
+        'small' => array('w' => 40, 'h' => 40, 'square' => true, 'upscale' => false),
+        'medium' => array('w' => 100, 'h' => 100, 'square' => true, 'upscale' => false),
+        'large' => array('w' => 200, 'h' => 200, 'square' => true, 'upscale' => false),
+        'master' => array('w' => 2048, 'h' => 2048, 'square' => false, 'upscale' => false),
+    ));  
 }
 
 /**
- *  Dispatches amapnews pages - OBS
- *
- * @param array $page
- * @return bool
+ * Add amapnews form parameters
+ * 
+ * @param type $entity
+ * @return type
  */
-//function amapnews_page_handler($page) {
-//    elgg_push_breadcrumb(elgg_echo('amapnews'), 'news');
-//    
-//    if (!isset($page[0])) {
-//        $page[0] = 'all';
-//    }    
-//    $vars = array();
-//    $vars['page'] = $page[0];	
-//
-//    $resource_vars = array();
-//    switch ($page[0]) {
-//        case "add":
-//            $resource_vars['guid'] = elgg_extract(1, $page);
-//            echo elgg_view_resource('amapnews/add', $resource_vars);
-//            break;
-//        
-//        case "photo_view":
-//            $resource_vars['guid'] = elgg_extract(1, $page);
-//            $resource_vars['size'] = elgg_extract(2, $page);
-//            $resource_vars['tu'] = elgg_extract(3, $page);
-//            $resource_vars['ia'] = elgg_extract(4, $page);
-//            echo elgg_view_resource('amapnews/photo_view', $resource_vars);
-//            break;        
-//            
-//        case "add_existed":
-//            $resource_vars['cguid'] = elgg_extract(1, $page);
-//            echo elgg_view_resource('amapnews/add_existed', $resource_vars);
-//            break;            
-//            
-//        case "edit":
-//            $resource_vars['guid'] = elgg_extract(1, $page);
-//            echo elgg_view_resource('amapnews/edit', $resource_vars);
-//            break;
-//            
-//        case "view":
-//            $resource_vars['guid'] = elgg_extract(1, $page);
-//            echo elgg_view_resource('amapnews/view', $resource_vars);
-//            break;   
-//            
-//        case "owner":
-//            echo elgg_view_resource('amapnews/owner');
-//            break;   
-//            
-//        case "group":
-//            group_gatekeeper();
-//            echo elgg_view_resource('amapnews/owner');
-//            break;
-//            
-//        case "all":
-//            echo elgg_view_resource('amapnews/all');
-//            break;
-//        
-//        case "custom_list":
-//            // this is a demonstration on how to get a custom view, e.g. in front page
-//            $resource_vars['limit'] = elgg_extract(1, $page);
-//            echo elgg_view_resource('amapnews/custom_list_view', $resource_vars);
-//            break;        
-//            
-//        default:
-//            echo elgg_view_resource('amapnews/all');
-//            return false;
-//    }
-//
-//    elgg_pop_context();
-//    return true;
-//}
+function amapnews_prepare_form_vars($entity = null) {
+    // input names => defaults
+    $values = array(
+        'title' => '',
+        'description' => '',
+        'excerpt' => '',
+        'featured' => '',
+        'photo' => '',
+        'tags' => '',
+        'connected_guid' => null,	// guid of entity connected
+        'access_id' => ACCESS_DEFAULT,
+        'container_guid' => elgg_get_page_owner_guid(),
+        'entity' => $entity,
+        'guid' => null,
+        'comments_on' => NULL,
+    ); 
 
-?>
+    if ($entity) {
+        foreach (array_keys($values) as $field) {
+            if (isset($entity->$field)) {
+                $values[$field] = $entity->$field;
+            }
+        }
+    }
+
+    if (elgg_is_sticky_form('amapnews')) {
+        $sticky_values = elgg_get_sticky_values('amapnews');
+        foreach ($sticky_values as $key => $value) {
+            $values[$key] = $value;
+        }
+    }
+
+    elgg_clear_sticky_form('amapnews');
+
+    return $values;
+}

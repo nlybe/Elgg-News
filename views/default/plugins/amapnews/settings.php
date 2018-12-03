@@ -7,92 +7,94 @@
 $plugin = elgg_get_plugin_from_id('amapnews');
 
 $potential_yes_no = array(
-    AMAPNEWS_GENERAL_YES => elgg_echo('amapnews:settings:yes'),
-    AMAPNEWS_GENERAL_NO => elgg_echo('amapnews:settings:no'),
+    NewsOptions::NEWS_YES => elgg_echo('amapnews:settings:yes'),
+    NewsOptions::NEWS_NO => elgg_echo('amapnews:settings:no'),
 ); 
 
 // set if display user icon on list or single view
-$show_user_icon = $plugin->show_user_icon;
-echo  elgg_view_input('dropdown', array(
+$general_settings .= elgg_view_field([
     'id' => 'show_user_icon',
+    '#type' => 'checkbox',
     'name' => 'params[show_user_icon]',
-    'value' => empty($show_user_icon)?AMAPNEWS_GENERAL_YES:$show_user_icon,
-    'options_values' => $potential_yes_no,
-    'label' => elgg_echo('amapnews:settings:show_user_icon'),
-    'help' => elgg_echo('amapnews:settings:show_user_icon:note'),
-    'required' => false,
-));
+    '#label' => elgg_echo('amapnews:settings:show_user_icon'),
+    '#help' => elgg_echo('amapnews:settings:show_user_icon:note'),
+    'checked' => ($plugin->show_user_icon || !isset($plugin->show_user_icon) ? true : false),
+]);
 
 // set if display username on list or single view
-$show_username = $plugin->show_username;
-echo  elgg_view_input('dropdown', array(
+$general_settings .= elgg_view_field([
     'id' => 'show_username',
+    '#type' => 'checkbox',
     'name' => 'params[show_username]',
-    'value' => empty($show_username)?AMAPNEWS_GENERAL_YES:$show_username,
-    'options_values' => $potential_yes_no,
-    'label' => elgg_echo('amapnews:settings:show_username'),
-    'help' => elgg_echo('amapnews:settings:show_username:note'),
-    'required' => false,
-));
+    '#label' => elgg_echo('amapnews:settings:show_username'),
+    '#help' => elgg_echo('amapnews:settings:show_username:note'),
+    'checked' => ($plugin->show_username || !isset($plugin->show_username) ? true : false),
+]);
 
 // set if allow group's owners to post news/announcements inside groups
-$post_on_groups = $plugin->post_on_groups;
-echo  elgg_view_input('dropdown', array(
+$general_settings .= elgg_view_field([
     'id' => 'post_on_groups',
+    '#type' => 'checkbox',
     'name' => 'params[post_on_groups]',
-    'value' => empty($post_on_groups)?AMAPNEWS_GENERAL_YES:$post_on_groups,
-    'options_values' => $potential_yes_no,
-    'label' => elgg_echo('amapnews:settings:post_on_groups'),
-    'help' => elgg_echo('amapnews:settings:post_on_groups:note'),
-    'required' => false,
-));
+    '#label' => elgg_echo('amapnews:settings:post_on_groups'),
+    '#help' => elgg_echo('amapnews:settings:post_on_groups:note'),
+    'checked' => ($plugin->post_on_groups || !isset($plugin->post_on_groups) ? true : false),
+]);
 
 // set if allow group's owners to post news/announcements inside groups
-$featured_by_admin_only = $plugin->featured_by_admin_only;
-echo  elgg_view_input('dropdown', array(
+$general_settings .= elgg_view_field([
     'id' => 'featured_by_admin_only',
+    '#type' => 'checkbox',
     'name' => 'params[featured_by_admin_only]',
-    'value' => empty($featured_by_admin_only)?AMAPNEWS_GENERAL_YES:$featured_by_admin_only,
-    'options_values' => $potential_yes_no,
-    'label' => elgg_echo('amapnews:settings:featured_by_admin_only'),
-    'help' => elgg_echo('amapnews:settings:featured_by_admin_only:note'),
-    'required' => false,
-));
+    '#label' => elgg_echo('amapnews:settings:featured_by_admin_only'),
+    '#help' => elgg_echo('amapnews:settings:featured_by_admin_only:note'),
+    'checked' => ($plugin->featured_by_admin_only || !isset($plugin->featured_by_admin_only) ? true : false),
+]);
 
+// set if allow group's owners to post news/announcements inside groups
+$general_settings .= elgg_view_field([
+    'id' => 'show_featured_on_sidebar',
+    '#type' => 'checkbox',
+    'name' => 'params[show_featured_on_sidebar]',
+    '#label' => elgg_echo('amapnews:settings:show_featured_on_sidebar'),
+    '#help' => elgg_echo('amapnews:settings:show_featured_on_sidebar:note'),
+    'checked' => ($plugin->show_featured_on_sidebar || !isset($plugin->show_featured_on_sidebar) ? true : false),
+]);
+echo elgg_view_module("inline", elgg_echo('amapnews:settings:general'), $general_settings);
+
+
+// custom icon size
 $custom_icon_size .= elgg_format_element('p', [], elgg_echo('amapnews:settings:custom_icon:intro'));
-$custom_icon_size .= elgg_view_input('text', array(
+$custom_icon_size .= elgg_view_field([
     'id' => 'custom_icon_width',
+    '#type' => 'text',
     'name' => 'params[custom_icon_width]',
     'value' => $plugin->custom_icon_width,
-    'label' => elgg_echo('amapnews:settings:custom_icon_width'),
-    'help' => elgg_echo('amapnews:settings:custom_icon_width:note'),
-    'required' => false,
-));
+    '#label' => elgg_echo('amapnews:settings:custom_icon_width'),
+    '#help' => elgg_echo('amapnews:settings:custom_icon_width:note'),
+]);
 
-$custom_icon_size .= elgg_view_input('text', array(
+$custom_icon_size .= elgg_view_field([
     'id' => 'custom_icon_height',
+    '#type' => 'text',
     'name' => 'params[custom_icon_height]',
     'value' => $plugin->custom_icon_height,
-    'label' => elgg_echo('amapnews:settings:custom_icon_height'),
-    'help' => elgg_echo('amapnews:settings:custom_icon_height:note'),
-    'required' => false,
-));
+    '#label' => elgg_echo('amapnews:settings:custom_icon_height'),
+    '#help' => elgg_echo('amapnews:settings:custom_icon_height:note'),
+]);
+
 echo elgg_view_module("inline", elgg_echo('amapnews:settings:custom_icon'), $custom_icon_size);
+
 
 // default news icon
 $icons_path = elgg_get_plugins_path().'amapnews/graphics/icons';
 $icons_icon = elgg_format_element('p', [], elgg_echo('amapnews:settings:icon:icons:intro'));
-$icons_icon .= amapnews_getFiles($icons_path, $plugin->icons_icon, 'icons_icon', 'amapnews/icons/');
+$icons_icon .= NewsOptions::getFiles($icons_path, $plugin->icons_icon, 'icons_icon', 'amapnews/icons/');
 echo elgg_view_module("inline", elgg_echo('amapnews:settings:icon:icons'), $icons_icon);
 
-// featured news icon
-$featured_path = elgg_get_plugins_path().'amapnews/graphics/featured';
-$featured_icon = elgg_format_element('p', [], elgg_echo('amapnews:settings:icon:featured:intro'));
-$featured_icon .= amapnews_getFiles($featured_path, $plugin->featured_icon, 'featured_icon', 'amapnews/featured/');
-echo elgg_view_module("inline", elgg_echo('amapnews:settings:icon:featured'), $featured_icon);
 
 // manage news-staff
-$staff = elgg_list_entities_from_metadata(array(
+$staff = elgg_list_entities(array(
     'type' => 'user',
     'subtype'=> null,
     'metadata_name_value_pairs' => array (
@@ -100,12 +102,14 @@ $staff = elgg_list_entities_from_metadata(array(
         'value'	=> '1',
         'operand' => '>',
     ),
-    'full_view' => FALSE
+    'full_view' => false,
 ));
+
 if($staff) {
-    $output = '<p class="elgg-subtext">'.elgg_echo('amapnews:settings:managestaff').'</p>';
+    $output = elgg_format_element('p', ['class' => 'elgg-subtext'], elgg_echo('amapnews:settings:managestaff'));
     $output.= $staff;
-} else {
-    $output = '<p class="elgg-subtext">'.elgg_echo('amapnews:settings:nostaff').'</p>';
+} 
+else {
+    $output = elgg_format_element('p', ['class' => 'elgg-subtext'], elgg_echo('amapnews:settings:nostaff'));
 }
 echo elgg_view_module("inline", elgg_echo('amapnews:settings:staff'), $output);

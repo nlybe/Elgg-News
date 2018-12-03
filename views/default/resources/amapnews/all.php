@@ -10,7 +10,7 @@ $staff = $user->news_staff;
 
 $options = array(
     'type' => 'object',
-    'subtype' => 'amapnews',
+    'subtype' => 'news',
     'limit' => 10,
     'full_view' => false,
     'view_toggle_type' => false 
@@ -18,23 +18,32 @@ $options = array(
 
 elgg_pop_breadcrumb();
 elgg_push_breadcrumb(elgg_echo('amapnews'));
+
 $content = elgg_list_entities($options);
 $title = elgg_echo('amapnews');
 
 
-if (allow_post($page_owner, $user)) {
+if (NewsOptions::allowPost($page_owner, $user)) {
     elgg_register_title_button();
 }
 
 if (!$content) {
     $content = elgg_echo('amapnews:none');
 } 
- 
-$body = elgg_view_layout('content', array(
+
+$layout_options = [
     'filter_context' => 'all',
     'content' => $content,
     'title' => $title,
     'filter_override' => elgg_view('amapnews/nav', array('selected' => $vars['page'])),
-));
+];
 
-echo elgg_view_page($title, $body);
+$template = 'one_column';
+if (NewsOptions::showFeaturedOnSidebar()) {
+    $template = 'default';
+    $layout_options['sidebar'] = elgg_view('amapnews/sidebar', ['page' => 'all']);
+}
+
+$layout = elgg_view_layout($template, $layout_options);
+
+echo elgg_view_page($title, $layout);

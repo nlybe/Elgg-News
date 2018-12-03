@@ -13,23 +13,23 @@ if (elgg_instanceof($container, 'group') && !$container->canEdit()) {
     register_error(elgg_echo('amapnews:add:noaccessforpost'));  
     forward(REFERER);
 }
-else if (!$entity->canEdit() && !can_set_featured_news()) {
+else if (!$entity->canEdit() && !NewsOptions::canSetFeaturedNews()) {
     register_error(elgg_echo('amapnews:add:noaccessforpost'));  
     forward(REFERER);
 }
 
-if (elgg_instanceof($entity, 'object', 'amapnews')) {
+if (elgg_instanceof($entity, 'object', 'news')) {
     if (!$entity->canEdit()) {
         // enable ignore access for staff news
         $ia = elgg_get_ignore_access();
         elgg_set_ignore_access(true);
     }
     
-    if ($entity->is_featured()) {
-        $entity->featured = AMAPNEWS_GENERAL_NO;
+    if ($entity->isFeatured()) {
+        $entity->featured = NewsOptions::NEWS_NO;
     }
     else {
-        $entity->featured = AMAPNEWS_GENERAL_YES;
+        $entity->featured = NewsOptions::NEWS_YES;
     }
     
     if ($entity->save())  {

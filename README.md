@@ -1,25 +1,24 @@
 Elgg News Plugin
 ================
 
-This version is NOT recommended for any production Elgg site.
-
 ![Elgg 3.0](https://img.shields.io/badge/Elgg-3.0-orange.svg?style=flat-square)
 
 Elgg plugin for posting news and announcements by administrators, group owners or news staff.
 
 ## Features
 
-This plugin offers admins the options:
+This plugin offers administrators the following options:
 
 - Post news items
 - Add other Elgg entities as news items
+- Customizable news list view
 - Option to determine more users who can post news/announcements
 - Option to allow post news/announcements on groups, only by group owners
 - Option to change the default news icon and featured news icon in settings
-- Customizable news list view
 - Option to allow or not staff news to set/unset news as featured
+- Option to display featured news on sidebar
 
-As an example for 2nd case, if there is blog post by any user, administrator can add this as news post. So it will be displayed in list of news but if users click on this item, will redirected to original blog post. The same action could apply to any post like pages, bookmarks, videos etc. 
+As an example of "adding other Elgg entities as news items", if there is blog post by any user, administrator can add this as news post. So it will be displayed in list of news but if users click on this item, will redirected to original blog post. The same action could apply to any post like pages, bookmarks, videos etc. 
 
 Also administrator can allow to group owners for posting new/announcements inside the group only.
 
@@ -60,15 +59,16 @@ You can see an example about how to use this view at:
 
 This sample view will be accessible at http://www.YOURCOMMUNITYURL.com/news/custom_list
 
-Especially about photo size, you can use any of the predefined photo size, which are:
+Especially about photo sizes, you can use any of the predefined photo size, which are:
+
 ```php
 elgg_set_config('amapnews_photo_sizes', array(
-    'tiny' => array('w' => 25, 'h' => 25, 'square' => TRUE, 'upscale' => FALSE),
-    'small' => array('w' => 40, 'h' => 40, 'square' => TRUE, 'upscale' => FALSE),
-    'medium' => array('w' => 100, 'h' => 100, 'square' => TRUE, 'upscale' => FALSE),
-    'large' => array('w' => 150, 'h' => 150, 'square' => TRUE, 'upscale' => FALSE),
-    'master' => array('w' => 215, 'h' => 215, 'square' => TRUE, 'upscale' => FALSE),
-    'default' => array('w' => 1200, 'h' => 1200, 'square' => FALSE, 'upscale' => FALSE),
+    'topbar' => array('w' => 16, 'h' => 16, 'square' => true, 'upscale' => false),
+    'tiny' => array('w' => 25, 'h' => 25, 'square' => true, 'upscale' => false),
+    'small' => array('w' => 40, 'h' => 40, 'square' => true, 'upscale' => false),
+    'medium' => array('w' => 100, 'h' => 100, 'square' => true, 'upscale' => false),
+    'large' => array('w' => 200, 'h' => 200, 'square' => true, 'upscale' => false),
+    'master' => array('w' => 2048, 'h' => 2048, 'square' => false, 'upscale' => false),
 ));
 ```
 

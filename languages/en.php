@@ -10,9 +10,11 @@ $lang = array(
     'amapnews' => "News",
     'amapnews:menu' => "News",
     'amapnews:edit' => "Edit post",
-    'item:object:amapnews' => "News",
+    'item:object:news' => "News",
+    'collection:object:news' => "News",
     'amapnews:featured' => "Featured",
     'amapnews:read_more' => "Read more ",
+    'amapnews_featured' => "Featured News",
  
     // submit form
     'news:add' => "Post News",
@@ -50,7 +52,8 @@ $lang = array(
     
     // settings
     'amapnews:settings:no' => "No",
-    'amapnews:settings:yes' => "Yes",    
+    'amapnews:settings:yes' => "Yes",
+    'amapnews:settings:general' => "General Settings",    
     'amapnews:settings:show_user_icon' => "Display user icon",    
     'amapnews:settings:show_user_icon:note' => "Display user icon on list or single view. If select no, a news icon will be displayed.",    
     'amapnews:settings:show_username' => "Display username",    
@@ -67,19 +70,20 @@ $lang = array(
     'amapnews:settings:custom_icon_width:note' => "Set custom photo's width in px", 
     'amapnews:settings:custom_icon_height' => "Height",    
     'amapnews:settings:custom_icon_height:note' => "Set custom photo's height in px", 
-
+    'amapnews:settings:show_featured_on_sidebar' => 'Show Featured News on Sidebar',
+    'amapnews:settings:show_featured_on_sidebar:note' => 'Check this if want to display latest featured news on list sidebar', 
     'amapnews:settings:staff' => 'News staff',
     'amapnews:settings:nostaff' => "No participants selected. You can add users via the user menu.",    
     'amapnews:settings:managestaff' => "You can remove participants via the user menu.", 
     'amapnews:settings:icon:icons' => 'Default News Icon',
     'amapnews:settings:icon:icons:intro' => 'Select the default icon to use on news list, when not uploading photo',
     'amapnews:settings:icon:featured' => 'Featured News Icon',
-    'amapnews:settings:icon:featured:intro' => 'Select an icon to use for featured news',    
+    'amapnews:settings:icon:featured:intro' => 'Select an icon to use for featured news',
      
     // river
-    'river:create:object:amapnews' => '%s posted a news item with title %s',
-    'river:comment:object:amapnews' => '%s commented on %s',
-    'vouchers:river:annotate' => 'a comment on ',
+    'river:object:news:create' => '%s posted a news item with title %s',
+    'river:comment:object:news' => '%s commented on %s',
+    'vouchers:river:annotate' => ' a comment on ',
     'vouchers:river:item' => 'an item',  
     
     // widget
@@ -89,17 +93,25 @@ $lang = array(
     'amapnews:widget:viewall' => 'View all',  
     'amapnews:widget:amapnews_featured' => 'Featured News', 
     'amapnews:widget:amapnews_featured:description' => 'Display latest featured/important news and announcements',     
+    'amapnews:widget:amapnews_featured:viewall' => 'View all news',
     
     // groups
     'amapnews:group' => 'Group news', 
-    'amapnews:group:enable' => 'Enable News on group', 
+    'groups:tool:news' => 'Enable group news', 
     'amapnews:owner' => "%s's news",
 
     // staff
-    'amapnews:menu_user_hover:make_staff' => "Add to news staff",
-    'amapnews:menu_user_hover:remove_staff' => "Remove from news staff",
+    'amapnews:menu_user_hover:make_staff' => "Set news staff",
+    'amapnews:menu_user_hover:remove_staff' => "Unset news staff",
     'amapnews:action:news_staff:removed' => "User was removed from news staff",
     'amapnews:action:news_staff:added' => "User added to news staff",
+    
+    // upgrades
+   'amapnews:upgrade:2017110700:title' => "Migrate amapnews to news entities",
+   'amapnews:upgrade:2017110700:description' => "Changes the subtype of all amapnews to 'news'.",
+
+   'amapnews:upgrade:2017110701:title' => "Migrate amapnews river entries",
+   'amapnews:upgrade:2017110701:description' => "Changes the subtype of all river items for amapnews to 'news'.",
 
 );
 
