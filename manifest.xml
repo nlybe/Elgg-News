@@ -4,12 +4,12 @@
     <id>amapnews</id>
     <author>Nikos Lyberakis</author>
     <version>3.13</version>
-    <category>bundled</category>
     <category>content</category>
     <category>widget</category>
     <category>nlybe</category>
     <description>News and announcements by administrators, news staff and group owners</description>
-    <website>https://github.com/nlybe/</website>
+    <repository>https://github.com/nlybe/Elgg-News</repository>
+    <website>https://github.com/nlybe</website>
     <copyright>(C) Nikos Lyberakis 2012 - 2018</copyright>
     <license>GNU General Public License version 2</license>
     <requires>
