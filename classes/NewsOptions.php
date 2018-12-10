@@ -1,7 +1,7 @@
 <?php
 /**
- * Elgg PayPal API
- * @package paypal_api 
+ * Elgg News plugin
+ * @package amapnews
  */
 
 class NewsOptions {

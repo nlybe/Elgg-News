@@ -1,9 +1,9 @@
 <?php
-
 /**
  * Elgg News plugin
  * @package amapnews
  */
+
 class ElggNews extends ElggObject {
 
     const SUBTYPE = "news";
