@@ -5,7 +5,6 @@
  */
  
 require_once(dirname(__FILE__) . '/lib/hooks.php');
-require_once(dirname(__FILE__) . '/lib/widgets.php');
 
 elgg_register_event_handler('init', 'system', 'amapnews_init');
 
