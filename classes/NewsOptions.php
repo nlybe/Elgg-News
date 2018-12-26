@@ -210,50 +210,5 @@ class NewsOptions {
 
         return false;
     }
-    
-    /**
-     * Get entity icon size
-     * 
-     * @param string $size
-     * @return string
-     */
-//    function getIconSize($size = 'master') {
-//        $photo_sizes = elgg_get_config('amapnews_photo_sizes');
-//        $sizenames = [];
-//        foreach ($photo_sizes as $name => $photo_info) {
-//            array_push($sizenames, $name);
-//        }
-//
-//        // push also custom tag
-//        array_push($sizenames, 'custom');
-//        if (!in_array($size, $sizenames)) {
-//            $size = 'large';
-//        }
-//
-//        return $size;
-//    }
-
-    /**
-     * Get entity icon URL
-     * 
-     * @param type $entity_guid
-     * @param type $size
-     * @param boolean $ignore_access: if is true, news photo will be displayed in walled garden sites
-     * @return boolean
-     */
-//    function getEntityIconUrl($entity_guid, $size = 'master', $ignore_access = false) {
-//        $entity = get_entity($entity_guid);
-//
-//        if (!elgg_instanceof($entity)) {
-//            return false;
-//        }
-//
-//        // Get the size
-//        $size = self::getIconSize($size);
-//        $icon_time = $entity->time_updated;
-//        $icon_url = "amapnews/photo_view/$entity->guid/{$size}/{$icon_time}".($ignore_access?'/'.$ignore_access:'');
-//
-//        return elgg_normalize_url($icon_url);
-//    }    
       
 }

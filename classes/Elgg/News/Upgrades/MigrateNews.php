@@ -1,4 +1,8 @@
 <?php
+/**
+ * Elgg News plugin
+ * @package amapnews
+ */
 
 namespace Elgg\News\Upgrades;
 
