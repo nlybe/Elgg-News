@@ -10,12 +10,10 @@ $entity = get_entity($entity_guid);
 $container = $entity->getContainerEntity();
 if (elgg_instanceof($container, 'group') && !$container->canEdit()) {
     // only administrators or group admins can handle featured news
-    register_error(elgg_echo('amapnews:add:noaccessforpost'));  
-    forward(REFERER);
+    return elgg_error_response(elgg_echo('amapnews:add:noaccessforpost'));
 }
 else if (!$entity->canEdit() && !NewsOptions::canSetFeaturedNews()) {
-    register_error(elgg_echo('amapnews:add:noaccessforpost'));  
-    forward(REFERER);
+    return elgg_error_response(elgg_echo('amapnews:add:noaccessforpost'));
 }
 
 if (elgg_instanceof($entity, 'object', 'news')) {
@@ -33,18 +31,16 @@ if (elgg_instanceof($entity, 'object', 'news')) {
     }
     
     if ($entity->save())  {
-        system_message(elgg_echo("amapnews:save:success"));
+        if (!$entity->canEdit()) {
+            elgg_set_ignore_access($ia);
+        }
+        return elgg_ok_response('', elgg_echo('amapnews:save:success'), REFERER);
     }
     else {
-        system_message(elgg_echo("amapnews:save:failed"));
+        return elgg_error_response(elgg_echo('amapnews:save:failed'));
     }
-    
-    if (!$entity->canEdit()) {
-        elgg_set_ignore_access($ia);
-    }
+        
 } 
 else {
-    register_error(elgg_echo("InvalidParameterException:NoEntityFound"));
+    return elgg_error_response(elgg_echo('InvalidParameterException:NoEntityFound'));
 }
-
-forward(REFERER);

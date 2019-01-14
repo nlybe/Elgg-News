@@ -33,9 +33,6 @@ else {
     $author_text = '';
 }
 
-$date = elgg_view_friendly_time($entity->time_created);
-$subtitle = "$author_text $date $comments_link";
-
 if ($full) {    
     // Check if entity has photo
     if ($entity->hasIcon('large')) {
@@ -53,10 +50,8 @@ if ($full) {
     $params = [
         'icon' => $news_icon,
         'show_summary' => true,
-        'body' => $body, //elgg_format_element('div', ['class' => 'clearfix'], $body),
-        'show_responses' => elgg_extract('show_responses', $vars, false),
+        'body' => $body, 
         'show_navigation' => false,
-        'subtitle' => $subtitle,
     ];
     $params = $params + $vars;
 
@@ -80,7 +75,6 @@ else if ($simplified_view) {
 else {  // brief view
     $params = [
         'content' => $entity->excerpt,
-        'subtitle' => $subtitle,
         'icon' => false,
     ];
     $params = $params + $vars;

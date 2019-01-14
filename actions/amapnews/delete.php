@@ -17,16 +17,13 @@ if (elgg_instanceof($entity, 'object', 'news') && $entity->canEdit()) {
     $container = $entity->getContainerEntity();
         
     if ($entity->delete()) {
-        system_message(elgg_echo("amapnews:delete:success"));
-        
+        $forward_url = "news/all";
         if (elgg_instanceof($container, 'group')) {
-            forward(elgg_normalize_url("news/group/{$container->getGUID()}/all"));
+            $forward_url = elgg_normalize_url("news/group/{$container->getGUID()}/all");
         }
-        else {
-            forward("news/all");
-        }
+        
+        return elgg_ok_response('', elgg_echo('amapnews:delete:success'), $forward_url);
     }
 }
 
-register_error(elgg_echo("amapnews:delete:failed"));
-forward(REFERER);
+return elgg_error_response(elgg_echo('amapnews:delete:failed'));

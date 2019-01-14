@@ -81,8 +81,7 @@ if ($guid == 0) {
     $new = false;
     $entity = get_entity($guid);
     if (!$entity->canEdit()) {
-        system_message(elgg_echo('amapnews:save:failed'));
-        forward(REFERRER);
+        return elgg_error_response(elgg_echo('amapnews:save:failed'));
     }
     if (!$title) {
         // user blanked title, but we need one
@@ -130,10 +129,9 @@ if ($entity->save()) {
         $forward_url = $entity->getURL();
     }
 
-    return elgg_ok_response('', elgg_echo('amapnews:save:success'), $forward_url);        
+    return elgg_ok_response('', elgg_echo('amapnews:save:success'), $forward_url);
 
 } 
 else {
-    register_error(elgg_echo('amapnews:save:failed'));
-    forward(REFERER);
+    return elgg_error_response(elgg_echo('amapnews:save:failed'));
 }

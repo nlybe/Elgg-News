@@ -42,8 +42,8 @@ if (NewsOptions::allowPost($submitter, $user)) {
     echo elgg_view_page($title, $body);
 } 
 else    {  
-    register_error(elgg_echo('amapnews:add:noaccessforpost'));  
-    forward(REFERER);    
+    elgg_error_response(elgg_echo('amapnews:add:noaccessforpost'));
+    forward(REFERRER);
 }
 
 

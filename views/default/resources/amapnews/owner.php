@@ -19,7 +19,6 @@ $options = array(
     'type' => 'object',
     'subtype' => 'news',
     'container_guid' => $page_owner->guid,
-    'limit' => 10,
     'full_view' => false,
     'view_toggle_type' => false
 );

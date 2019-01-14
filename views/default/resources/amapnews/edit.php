@@ -8,7 +8,7 @@ $guid = elgg_extract('guid', $vars, '');
 $entity = get_entity($guid);
 
 if (!elgg_instanceof($entity, 'object', 'news') || !$entity->canEdit()) {
-    register_error(elgg_echo('amapnews:unknown_amapnews'));
+    elgg_error_response(elgg_echo('amapnews:unknown_amapnews'));
     forward(REFERRER);
 }
 

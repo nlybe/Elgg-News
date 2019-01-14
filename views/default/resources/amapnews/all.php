@@ -11,7 +11,6 @@ $staff = $user->news_staff;
 $options = array(
     'type' => 'object',
     'subtype' => 'news',
-    'limit' => 10,
     'full_view' => false,
     'view_toggle_type' => false 
 );

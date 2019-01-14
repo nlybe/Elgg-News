@@ -4,7 +4,7 @@
  * @package amapnews
  */
 
-$lang = array(
+return [
 
     // menu items and titles
     'amapnews' => "Ανακοινώσεις",
@@ -113,6 +113,4 @@ $lang = array(
    'amapnews:upgrade:2017110701:title' => "Migrate amapnews river entries",
    'amapnews:upgrade:2017110701:description' => "Changes the subtype of all river items for amapnews to 'news'.",
     
-);
-
-return $lang;
+];

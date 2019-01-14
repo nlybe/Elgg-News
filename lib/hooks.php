@@ -173,12 +173,12 @@ function amapnews_owner_block_menu($hook, $type, $return, $params) {
  */
 function amapnews_comment_override($hook, $type, $return, $params) {
     if (elgg_instanceof($params['entity'], 'object', 'amapnews')) {
-        if ($params['entity']->comments_on == 'On') {
+        if ($params['entity']->canComment()) {
             return true;
         }
-        
-        return false;
     }
+    
+    return false;
 }
 
 /**

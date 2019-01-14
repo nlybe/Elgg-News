@@ -9,9 +9,10 @@ $guid = elgg_extract('guid', $vars, '');
 $entity = get_entity($guid);
 
 if (!$entity) {
-    register_error(elgg_echo('noaccess'));
-    $_SESSION['last_forward_from'] = current_page_url();
-    forward('');
+    elgg_error_response(elgg_echo('noaccess'));
+    forward(REFERRER);
+//    $_SESSION['last_forward_from'] = current_page_url();
+//    forward('');
 }
 
 $page_owner = elgg_get_page_owner_entity();
@@ -26,18 +27,13 @@ if (elgg_instanceof($page_owner, 'group')) {
 $title = $entity->title; 
 elgg_push_breadcrumb($title);
 
-$content = elgg_view_entity($entity, array('full_view' => true));
-if ($entity->comments_on != 'Off') {
-    $content .= elgg_view_comments($entity);
-}     
-
-$sidebar = '';
+$content = elgg_view_entity($entity, ['full_view' => true]);
 
 $body = elgg_view_layout('content', array(
     'content' => $content,
     'title' => $title,
     'filter' => '',
-    'sidebar' => $sidebar,
+    'sidebar' => '',
 ));
 echo elgg_view_page($title, $body);
 

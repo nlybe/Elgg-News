@@ -1,3 +1,9 @@
+### 3.14 (Jan 2019) - NOT PUBLISHED YET
+- Improved: comments display according Elgg 3 API
+- Fixed: issue for comment form display for non-admin users
+- Fixed: redirect issue on resource files
+- Minor code improvements
+
 ### 3.13 (Dec 2018)
 - Upgraded to be compatible with Elgg 3.x
 - Added option to display featured news on sidebar
