@@ -17,7 +17,7 @@ return [
         'amapnews/add' => [],
         'amapnews/delete' => [],
         'amapnews/set_featured' => [],
-        'amapnews/set_staff' => [],
+        'amapnews/set_staff' => ['access' => 'admin'],
     ],
     'routes' => [
         'default:object:news' => [
