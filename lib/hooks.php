@@ -105,7 +105,7 @@ function amapnews_staff_user_hover_menu_hook($hook, $type, $return, $params) {
         'section' => 'admin'
     ]);
 
-    return $return_value;
+    return $return;
 }
 
 /**

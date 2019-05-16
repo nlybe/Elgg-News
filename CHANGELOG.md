@@ -3,6 +3,7 @@
 ## 3.15 (May 2019)
 
 - Fixed: secured admin actions by setting 'access' => 'admin' on elgg-plugins.php
+- Fixed: issue on return value for staff menu item
 
 ## 3.14 (Jan 2019)
 
