@@ -17,9 +17,9 @@
 - Upgraded to be compatible with Elgg 3.x
 - Added option to display featured news on sidebar
 - Fixed issue on group news option when is disabled by administrator
-- Code cleanup 
+- Code cleanup
 
-## 2.3.12	(Aug 2018)
+## 2.3.12 (Aug 2018)
 
 - Removed deprecated function elgg_load_js('lightbox')
 

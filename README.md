@@ -5,7 +5,7 @@ Elgg News Plugin
 
 Elgg plugin for posting news and announcements by administrators, group owners or news staff.
 
-## Features
+# Features
 
 This plugin offers administrators the following options:
 
@@ -23,24 +23,29 @@ As an example of "adding other Elgg entities as news items", if there is blog po
 Also administrator can allow to group owners for posting new/announcements inside the group only.
 
 Summarizing permissions, the following options are available:
-#### Who can post site news
+
+## Who can post site news
+
 - Administrators
 - News Staff
 
-#### Who can set/unset site news as featured
+## Who can set/unset site news as featured
+
 - Administrators
 - News Staff (if enabled in settings)
 
-#### Who can post group news (if enabled in settings)
+## Who can post group news (if enabled in settings)
+
 - Administrators
 - Group owner/managers
 
-#### Who can set/unset group news as featured (if enabled in settings)
+## Who can set/unset group news as featured (if enabled in settings)
+
 - Administrators
 - Group owner/managers
 
+# How to use a customizable news list view
 
-## How to use a customizable news list view
 If need to have a different view for listing news, e.g. in a custom front page, you could use the following code:
 
 ```php
@@ -55,6 +60,7 @@ echo elgg_view('amapnews/custom_list_view', array(
 ```
 
 You can see an example about how to use this view at:
+
 - amapnews/views/default/resources/amapnews/custom_list_view.php
 
 This sample view will be accessible at http://www.YOURCOMMUNITYURL.com/news/custom_list
@@ -75,7 +81,9 @@ elgg_set_config('amapnews_photo_sizes', array(
 Or you can set a custom photo size (width and height) in plugin settings, so for each photo upload on news item, it will be saved in this size too.
 
 ## How to change the default icon
+
 Site administrators are able to select in plugin settings the icons to use for:
+
 1. Default news icon
 2. Featured news icon
 
