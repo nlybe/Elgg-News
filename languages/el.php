@@ -83,8 +83,6 @@ return [
     // river
     'river:object:news:create' => '%s δημοσίευσε νέα ανακοίνωση με τίτλο %s',
     'river:comment:object:news' => '%s σχολίασε την ανακοίνωση %s',
-    'vouchers:river:annotate' => 'σχόλιο στην ανακοίνωση ',
-    'vouchers:river:item' => 'μία εγγραφή',  
     
     // widget
     'amapnews:widget' => 'Νέα / Ανακοινώσεις', 

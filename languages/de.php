@@ -83,8 +83,6 @@ return [
     // river
     'river:object:news:create' => '%s hat eine Neuigkeit mit dem Titel %s veröffentlicht',
     'river:comment:object:news' => '%s kommentierte %s',
-    'vouchers:river:annotate' => 'ein Kommentar zu ',
-    'vouchers:river:item' => 'ein Artikel',  
     
     // widget
     'amapnews:widget' => 'Neuigkeiten & Ankündigungen', 

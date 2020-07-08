@@ -35,7 +35,7 @@ function amapnews_entity_menu_setup($hook, $type, $return, $params) {
                 'guid' => $entity->guid,
             ]),
             'link_class' => 'elgg-lightbox',
-	]);
+	    ]);
     }
     else if (elgg_instanceof($entity, 'object', 'news')) {
         $featured_menu_item = false;
@@ -162,24 +162,25 @@ function amapnews_owner_block_menu($hook, $type, $return, $params) {
     return $return;
 }
 
-/**
- * We don't want people commenting on news posts in the river
- *
- * @param string $hook
- * @param string $type
- * @param string $return
- * @param array  $params
- * @return bool
- */
-function amapnews_comment_override($hook, $type, $return, $params) {
-    if (elgg_instanceof($params['entity'], 'object', 'amapnews')) {
-        if ($params['entity']->canComment()) {
-            return true;
-        }
-    }
+// /**
+//  * We don't want people commenting on news posts in the river - OBS since 20200708
+//  *
+//  * @param string $hook
+//  * @param string $type
+//  * @param string $return
+//  * @param array  $params
+//  * @return bool
+//  */
+// function amapnews_comment_override($hook, $type, $return, $params) {
+//     $entity = elgg_instanceof($params['entity']);
+//     if ($entity instanceof \ElggNews) {
+//         if ($entity->canComment()) {
+//             return true;
+//         }
+//     }
     
-    return false;
-}
+//     return $return;
+// }
 
 /**
  * Register database seed

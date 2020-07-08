@@ -1,5 +1,10 @@
 # Change Log
 
+## 3.16 (July 2020)
+
+- Fix comments issue for other entities
+- Removed unused code and messages
+
 ## 3.15 (May 2019)
 
 - Fixed: secured admin actions by setting 'access' => 'admin' on elgg-plugins.php

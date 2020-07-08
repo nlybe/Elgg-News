@@ -34,7 +34,8 @@ $layout_options = [
     'filter_context' => 'all',
     'content' => $content,
     'title' => $title,
-    'filter_override' => elgg_view('amapnews/nav', array('selected' => $vars['page'])),
+    // 'filter_override' => elgg_view('amapnews/nav', array('selected' => $vars['page'])), // 20200423 probably OBS
+    'filter_override' => '',
 ];
 
 $template = 'one_column';

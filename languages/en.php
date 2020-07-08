@@ -83,8 +83,6 @@ return [
     // river
     'river:object:news:create' => '%s posted a news item with title %s',
     'river:comment:object:news' => '%s commented on %s',
-    'vouchers:river:annotate' => ' a comment on ',
-    'vouchers:river:item' => 'an item',  
     
     // widget
     'amapnews:widget' => 'News & Announcements', 

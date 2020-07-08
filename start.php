@@ -42,8 +42,8 @@ function amapnews_init() {
     // Register a URL handler for news
     elgg_register_plugin_hook_handler('entity:url', 'object', 'amapnews_set_url');
     
-    // We don't want people commenting on news posts in the river
-    elgg_register_plugin_hook_handler('permissions_check:comment', 'object', 'amapnews_comment_override');  
+    // We don't want people commenting on news posts in the river - OBS since 20200708
+    // elgg_register_plugin_hook_handler('permissions_check:comment', 'object', 'amapnews_comment_override');  
     
     // register database seed
     elgg_register_plugin_hook_handler('seeds', 'database', 'amapnews_register_db_seeds');
