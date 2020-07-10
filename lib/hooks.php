@@ -6,27 +6,28 @@
  * All hooks are here
  */
  
+use Amapnews\NewsOptions;
+
 /**
  * Add option to set as new by admin to entity menu at end of the menu
  * 
- * @param type $hook
- * @param type $type
- * @param type $return
- * @param type $params
- * @return type
+ * @param \Elgg\Hook $hook 'register', 'menu:entity'
+ *
+ * @return void|ElggMenuItem[]
  */
-function amapnews_entity_menu_setup($hook, $type, $return, $params) {
+function amapnews_entity_menu_setup(\Elgg\Hook $hook) {
     $user = elgg_get_logged_in_user_entity();
     if (!$user) {
         return;
     }
     
-    $entity = $params['entity'];
-    if (!$entity || ($entity instanceof \ElggUser)) {
+    $return = $hook->getValue();
+    $entity = $hook->getEntityParam();
+    if (!$entity || $entity instanceof \ElggUser) {
         return;
     }
     
-    if (!($entity instanceof ElggNews) && (elgg_is_admin_logged_in() || $user->news_staff))    {        
+    if (!($entity instanceof \ElggNews) && (elgg_is_admin_logged_in() || $user->news_staff))    {        
         $return[] = \ElggMenuItem::factory([
             'name' => 'setasnew',
             'icon' => 'plus-circle',
@@ -37,11 +38,11 @@ function amapnews_entity_menu_setup($hook, $type, $return, $params) {
             'link_class' => 'elgg-lightbox',
 	    ]);
     }
-    else if (elgg_instanceof($entity, 'object', 'news')) {
+    else if ($entity instanceof \ElggNews) {
         $featured_menu_item = false;
         $container = $entity->getContainerEntity();
 
-        if (elgg_instanceof($container, 'group')) {
+        if ($container instanceof \ElggGroup) {
             $featured_menu_item = $container->canEdit()?true:false;
         }
         else if (NewsOptions::canSetFeaturedNews()) {
@@ -73,20 +74,18 @@ function amapnews_entity_menu_setup($hook, $type, $return, $params) {
  * @param type $params
  * @return type
  */
-function amapnews_staff_user_hover_menu_hook($hook, $type, $return, $params) {
-	
-    $user = elgg_get_logged_in_user_entity();
+function amapnews_staff_user_hover_menu_hook(\Elgg\Hook $hook) {
+    
+    $return = $hook->getValue();
 
+    $user = elgg_get_logged_in_user_entity();
     if (empty($user) || !$user->isAdmin()) {
         return $return;
     }
 
-    if (empty($params) || !is_array($params)) {
-        return $return;
-    }
-
-    $entity = elgg_extract("entity", $params);
-
+    // $entity_subtype = $hook->getParam('entity_subtype');
+    // $entity = elgg_extract("entity", $params);
+    $entity = $hook->getEntityParam();
     if ($entity->getGUID() == $user->getGUID()) {
         return $return;
     }
@@ -117,46 +116,48 @@ function amapnews_staff_user_hover_menu_hook($hook, $type, $return, $params) {
  * @param array  $params
  * @return string URL of amapnews
  */
-function amapnews_set_url($hook, $type, $url, $params) {
-    $entity = $params['entity'];
+function amapnews_set_url(\Elgg\Hook $hook) {
+    $entity = $hook->getEntityParam();
 
-    if (elgg_instanceof($entity, 'object', 'news')) {
-        if ($entity->connected_guid) {
-            $connected_entity = get_entity($entity->connected_guid);
-            $friendly_title = elgg_get_friendly_title($entity->title);
+    if (!$entity instanceof \ElggNews) {
+		return;
+	}
 
-            if ($connected_entity) {
-                return $connected_entity->getURL();
-            }
-            else	 {
-                return "news/view/{$entity->guid}/$friendly_title";
-            }
+    $friendly_title = elgg_get_friendly_title($entity->title);
+    if ($entity->connected_guid) {
+        $connected_entity = get_entity($entity->connected_guid);
+        
+        if ($connected_entity) {
+            return $connected_entity->getURL();
         }
         else {
             return "news/view/{$entity->guid}/$friendly_title";
         }
     }
+    else {
+        return "news/view/{$entity->guid}/$friendly_title";
+    }
+    
 }
 
 /**
  * Add a menu item to an ownerblock
- * 
- * @param type $hook
- * @param type $type
- * @param type $return
- * @param type $params
- * @return boolean|\ElggMenuItem
+ *
+ * @param \Elgg\Hook $hook 'register', 'menu:owner_block'
+ *
+ * @return ElggMenuItem[]
  */
-function amapnews_owner_block_menu($hook, $type, $return, $params) {
-    if (elgg_instanceof($params['entity'], 'user')) {
+function amapnews_owner_block_menu(\Elgg\Hook $hook) {
+	$entity = $hook->getEntityParam();
+	$return = $hook->getValue();
+	
+	if ($entity instanceof \ElggUser) {
         return $return;
     } 
-    else {
-        if (NewsOptions::allowPostOnGroups() && $params['entity']->isToolEnabled('news')) {
-            $url = "news/group/{$params['entity']->guid}/all";
-            $item = new ElggMenuItem('amapnews', elgg_echo('amapnews:group'), $url);
-            $return[] = $item;
-        }
+    elseif ($entity instanceof \ElggGroup && NewsOptions::allowPostOnGroups() && $entity->isToolEnabled('news')) {
+        $url = "news/group/{$entity->guid}/all";
+        $item = new ElggMenuItem('amapnews', elgg_echo('amapnews:group'), $url);
+        $return[] = $item;
     }
 
     return $return;
@@ -172,7 +173,7 @@ function amapnews_owner_block_menu($hook, $type, $return, $params) {
 //  * @return bool
 //  */
 // function amapnews_comment_override($hook, $type, $return, $params) {
-//     $entity = elgg_instanceof($params['entity']);
+//     $entity = $params['entity'];
 //     if ($entity instanceof \ElggNews) {
 //         if ($entity->canComment()) {
 //             return true;
@@ -208,9 +209,10 @@ function amapnews_register_db_seeds(\Elgg\Hook $hook) {
  * @param array  $params Hook params
  * @return array
  */
-function amapnews_set_custom_icon_sizes($hook, $type, $return, $params) {
+function amapnews_set_custom_icon_sizes(\Elgg\Hook $hook) {
 
-    $entity_subtype = elgg_extract('entity_subtype', $params);
+    // $entity_subtype = elgg_extract('entity_subtype', $params);
+    $entity_subtype = $hook->getParam('entity_subtype');
     if ($entity_subtype !== ElggNews::SUBTYPE) {
         return;
     }

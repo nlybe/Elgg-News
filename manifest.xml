@@ -3,7 +3,7 @@
     <name>News</name>
     <id>amapnews</id>
     <author>Nikos Lyberakis</author>
-    <version>3.16</version>
+    <version>3.17</version>
     <category>content</category>
     <category>widget</category>
     <category>nlybe</category>
@@ -14,7 +14,7 @@
     <license>GNU General Public License version 2</license>
     <requires>
         <type>elgg_release</type>
-        <version>3.3.0</version>
+        <version>3.3</version>
     </requires>
     <activate_on_install>false</activate_on_install>
 </plugin_manifest>

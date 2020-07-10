@@ -4,8 +4,15 @@
  * @package amapnews
  */
 
+use Amapnews\NewsOptions;
+
 $page_owner = elgg_get_page_owner_entity();
-if (!$page_owner) {
+if (!$page_owner || $page_owner instanceof \ElggUser) { // not allow owner view if user
+    forward('news/all');
+}
+
+// not display group news view if not allowed in settings
+if ($page_owner instanceof \ElggGroup && !NewsOptions::allowPostOnGroups()) {
     forward('news/all');
 }
 
@@ -26,7 +33,7 @@ $options = array(
 $crumbs_title = $page_owner->name;
 $title = elgg_echo('amapnews:owner', array($page_owner->name));
 
-if (elgg_instanceof($page_owner, 'group')) {
+if ($page_owner instanceof \ElggGroup) {
     elgg_push_breadcrumb(elgg_echo('groups'), 'groups');
     elgg_push_breadcrumb($page_owner->name, $page_owner->getURL());
     elgg_push_breadcrumb($crumbs_title);
@@ -39,14 +46,9 @@ if (!$content) {
     $content = elgg_echo('amapnews:none');
 }
 
-$filter_context = '';
-if ($page_owner->getGUID() == elgg_get_logged_in_user_guid()) {
-    $filter_context = 'mine';
-}
-
 $vars = array(
-    'filter_context' => $filter_context,
-    'filter_override' => elgg_view('amapnews/nav', array('selected' => $vars['page'], 'page_owner_guid' => $page_owner->getGUID())),
+    'filter' => false,
+    // 'filter_override' => elgg_view('amapnews/nav', array('selected' => $vars['page'], 'page_owner_guid' => $page_owner->getGUID())),
     'content' => $content,
     'title' => $title,
 );
@@ -56,6 +58,6 @@ if ($page_owner instanceof ElggGroup) {
     $vars['filter'] = false;
 }
 
-$body = elgg_view_layout('content', $vars);
+$body = elgg_view_layout('default', $vars);
 
 echo elgg_view_page($title, $body);

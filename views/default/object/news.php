@@ -4,6 +4,8 @@
  * @package amapnews
  */
 
+use Amapnews\NewsOptions;
+
 $full = elgg_extract('full_view', $vars, false);
 $simplified_view = elgg_extract('simplified_view', $vars, false);
 
@@ -21,16 +23,9 @@ else {
     $news_icon = $entity->getNewsIcon();
 }
 
-if (NewsOptions::displayUsername()) {
-    $owner_link = elgg_view('output/url', array(
-        'href' => "news/owner/$owner->username",
-        'text' => $owner->name,
-        'is_trusted' => true,
-    ));
-    $author_text = elgg_echo('byline', array($owner_link));
-}
-else {
-    $author_text = '';
+$byline = true;
+if (!NewsOptions::displayUsername()) {
+    $byline = false;
 }
 
 if ($full) {    
@@ -53,6 +48,9 @@ if ($full) {
         'body' => $body, 
         'show_navigation' => false,
     ];
+    if (!$byline) {
+        $params['byline'] = false;
+    }
     $params = $params + $vars;
 
     echo elgg_view('object/elements/full', $params);
@@ -77,6 +75,9 @@ else {  // brief view
         'content' => $entity->excerpt,
         'icon' => false,
     ];
+    if (!$byline) {
+        $params['byline'] = false;
+    }
     $params = $params + $vars;
     $body = elgg_view('object/elements/summary', $params);
     

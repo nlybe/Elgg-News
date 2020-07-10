@@ -4,6 +4,8 @@
  * @package amapnews
  */
 
+use Amapnews\NewsOptions;
+
 // modified to be compatible with widget manager
 $owner = get_entity($vars['entity']->owner_guid);
 
@@ -22,7 +24,7 @@ $options = array(
     'size' => 'small'
 );
 
-if (elgg_instanceof($owner, 'user')) {
+if ($owner instanceof \ElggUser) {
     if (!elgg_in_context('dashboard')) {
         $options['owner_guid'] = $owner->guid;
     }
@@ -65,7 +67,7 @@ if (elgg_instanceof($owner, 'user')) {
         $content .= "</ul>";
     }	
 } 
-elseif (elgg_instanceof($owner, 'group')) {
+elseif ($owner instanceof \ElggGroup) {
     $options['container_guid']= elgg_get_page_owner_guid();
 
     elgg_push_context('widgets');

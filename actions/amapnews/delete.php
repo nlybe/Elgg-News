@@ -10,7 +10,7 @@ $staff = $user->news_staff;
 $guid = get_input('guid');
 $entity = get_entity($guid);
 
-if (elgg_instanceof($entity, 'object', 'news') && $entity->canEdit()) {
+if ($entity instanceof \ElggNews && $entity->canEdit()) {
     //delete files connected with this entity
     $entity->delPhotos();
     
@@ -18,7 +18,7 @@ if (elgg_instanceof($entity, 'object', 'news') && $entity->canEdit()) {
         
     if ($entity->delete()) {
         $forward_url = "news/all";
-        if (elgg_instanceof($container, 'group')) {
+        if ($container instanceof \ElggGroup) {
             $forward_url = elgg_normalize_url("news/group/{$container->getGUID()}/all");
         }
         

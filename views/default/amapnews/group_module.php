@@ -4,6 +4,8 @@
  * @package amapnews
  */
 
+use Amapnews\NewsOptions;
+
 if (!NewsOptions::allowPostOnGroups()) {
     return;
 }

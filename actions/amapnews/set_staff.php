@@ -11,7 +11,7 @@ if (empty($user_guid)) {
 }
 
 $user = get_user($user_guid);
-if (!($user instanceof ElggUser)) {
+if (!($user instanceof \ElggUser)) {
     return elgg_error_response(elgg_echo('InvalidParameterException:NoEntityFound'));
 }
 

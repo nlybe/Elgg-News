@@ -4,6 +4,8 @@
  * @package amapnews
  */
 
+namespace Amapnews;
+
 class NewsOptions {
 
     const PLUGIN_ID = 'amapnews';                   // current plugin ID
@@ -109,8 +111,8 @@ class NewsOptions {
             return false;
         }
 
-        if (elgg_instanceof($page_owner, 'group')) {
-            return NewsOptions::allowPostOnGroups() && $page_owner->canEdit()?true:false;
+        if ($page_owner instanceof \ElggGroup) {
+            return self::allowPostOnGroups() && $page_owner->canEdit()?true:false;
         }
         else {
             return $user->news_staff?true:false;

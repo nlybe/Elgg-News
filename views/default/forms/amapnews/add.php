@@ -4,6 +4,8 @@
  * @package amapnews
  */
 
+use Amapnews\NewsOptions;
+
 $title = elgg_extract('title', $vars, '');
 $description = elgg_extract('description', $vars, '');
 $excerpt = elgg_extract('excerpt', $vars, '');

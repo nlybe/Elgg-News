@@ -4,7 +4,13 @@
  * @package amapnews
  */
 
+use Amapnews\Elgg\Bootstrap;
+
+require_once(dirname(__FILE__) . '/lib/hooks.php');
+require_once(dirname(__FILE__) . '/lib/functions.php');
+
 return [
+    'bootstrap' => Bootstrap::class,
     'entities' => [
         [
             'type' => 'object',
@@ -43,6 +49,9 @@ return [
         'add:object:news' => [
             'path' => '/news/add/{guid?}',
             'resource' => 'amapnews/add',
+            'middleware' => [
+                \Elgg\Router\Middleware\Gatekeeper::class,
+            ],
         ],
         'edit:object:news' => [
             'path' => '/news/edit/{guid}',
@@ -57,6 +66,9 @@ return [
         'add_existed:object:news' => [
             'path' => '/news/add_existed/{guid}',
             'resource' => 'amapnews/add_existed',
+            'middleware' => [
+                \Elgg\Router\Middleware\Gatekeeper::class,
+            ],
         ],
         'view:object:news' => [
             'path' => '/news/view/{guid}/{title?}',

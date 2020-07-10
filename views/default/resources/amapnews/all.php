@@ -4,6 +4,8 @@
  * @package amapnews
  */
 
+use Amapnews\NewsOptions;
+
 $page_owner = elgg_get_page_owner_entity();
 $user = elgg_get_logged_in_user_entity();
 $staff = $user->news_staff;
@@ -31,7 +33,7 @@ if (!$content) {
 } 
 
 $layout_options = [
-    'filter_context' => 'all',
+    'filter' => false,
     'content' => $content,
     'title' => $title,
     // 'filter_override' => elgg_view('amapnews/nav', array('selected' => $vars['page'])), // 20200423 probably OBS

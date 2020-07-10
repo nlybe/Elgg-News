@@ -3,7 +3,9 @@
  * Elgg News plugin
  * @package amapnews
  */
-	
+
+use Amapnews\NewsOptions;
+
 $plugin = elgg_get_plugin_from_id('amapnews');
 
 $potential_yes_no = array(

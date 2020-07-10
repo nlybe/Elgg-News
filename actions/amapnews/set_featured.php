@@ -4,11 +4,13 @@
  * @package amapnews
  */
 
+use Amapnews\NewsOptions;
+
 $entity_guid = (int) get_input("guid");
 $entity = get_entity($entity_guid);
 
 $container = $entity->getContainerEntity();
-if (elgg_instanceof($container, 'group') && !$container->canEdit()) {
+if (($container instanceof \ElggGroup) && !$container->canEdit()) {
     // only administrators or group admins can handle featured news
     return elgg_error_response(elgg_echo('amapnews:add:noaccessforpost'));
 }
@@ -16,7 +18,7 @@ else if (!$entity->canEdit() && !NewsOptions::canSetFeaturedNews()) {
     return elgg_error_response(elgg_echo('amapnews:add:noaccessforpost'));
 }
 
-if (elgg_instanceof($entity, 'object', 'news')) {
+if ($entity instanceof \ElggNews) {
     if (!$entity->canEdit()) {
         // enable ignore access for staff news
         $ia = elgg_get_ignore_access();

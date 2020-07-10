@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.17 (July 2020)
+
+- Removed deprecated file start.php
+- Replaced deprecated Elgg functions
+- Fixed issue when unselect the option "Display username on list or single view"
+- Minor code improvements
+
 ## 3.16 (July 2020)
 
 - Fix comments issue for other entities

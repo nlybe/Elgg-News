@@ -4,6 +4,8 @@
  * @package amapnews
  */
 
+use Amapnews\NewsOptions;
+
 class ElggNews extends ElggObject {
 
     const SUBTYPE = "news";

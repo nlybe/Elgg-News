@@ -4,6 +4,8 @@
  * @package amapnews
  */
 
+use Amapnews\NewsOptions;
+
 $group_guid = (int) get_input('group_guid');
 $group_entity = get_entity($group_guid);
 
@@ -11,7 +13,7 @@ $user = elgg_get_logged_in_user_entity();
 $staff = $user->news_staff;
 
 if (    !elgg_is_admin_logged_in() && 
-        !(NewsOptions::allowPostOnGroups() && elgg_instanceof($group_entity, 'group') && $group_entity->canEdit()) && 
+        !(NewsOptions::allowPostOnGroups() && ($group_entity instanceof \ElggGroup) && $group_entity->canEdit()) && 
         !$staff) {
     return elgg_error_response(elgg_echo('amapnews:add:noaccessforpost'));
 }
@@ -53,7 +55,8 @@ if ($uploaded_files) {
             'image/gif',
         ];
 
-        $mime_type = ElggFile::detectMimeType($uploaded_file->getPathname(), $uploaded_file->getClientMimeType());
+        // $mime_type = ElggFile::detectMimeType($uploaded_file->getPathname(), $uploaded_file->getClientMimeType());
+        $mime_type = elgg()->mimetype->getMimeType($uploaded_file->getPathname());
         if (!in_array($mime_type, $supported_mimes)) {
             return elgg_error_response(elgg_echo('amapnews:add:photo:invalid'));
         }    
@@ -61,7 +64,7 @@ if ($uploaded_files) {
 }
     
 // if not admin but group owners, check if a access level is limited only to group
-if (!elgg_is_admin_logged_in() && elgg_instanceof($group_entity, 'group') && $group_entity->canEdit())	{
+if (!elgg_is_admin_logged_in() && ($group_entity instanceof \ElggGroup) && $group_entity->canEdit())	{
     if ($access_id > 0 && $access_id < 3)	{
         return elgg_error_response(elgg_echo('amapnews:save:notvalid_access_id'));
     }
@@ -122,7 +125,7 @@ if ($entity->save()) {
         ]);
     }        
 
-    if (elgg_instanceof($group_entity, 'group')) {
+    if ($group_entity instanceof \ElggGroup) {
         $forward_url = elgg_get_site_url() . "news/group/".$group_entity->guid."/all";
     }
     else {

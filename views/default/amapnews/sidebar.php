@@ -4,6 +4,8 @@
  * @package amapnews
  */
 
+use Amapnews\NewsOptions;
+
 $options = array(
     'type' => 'object',
     'subtype' => 'news', 
