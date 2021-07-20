@@ -73,8 +73,7 @@ if (!elgg_is_admin_logged_in() && ($group_entity instanceof \ElggGroup) && $grou
 $new = true;
 if ($guid == 0) {
     $entity = new ElggObject;
-    $entity->subtype = "news";
-
+    $entity->setSubtype("news");
     $entity->container_guid = $container_guid;
     // if no title on new upload, grab filename
     if (empty($title)) {
