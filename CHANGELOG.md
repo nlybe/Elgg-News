@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.18 (Sep 2021)
+
+- Minor code improvements
+
 ## 3.17 (July 2020)
 
 - Removed deprecated file start.php
