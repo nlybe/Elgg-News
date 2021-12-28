@@ -1,15 +1,15 @@
 {
+    
     "name": "nlybe/elgg-news",
     "description": "News and announcements by administrators, news staff and group owners",
     "type": "elgg-plugin",
-    "keywords": [
-        "elgg", 
-        "plugin",
-        "news",
-        "announcements"
-    ],
+    "keywords": [ "elgg", "plugin", "news", "announcements" ],
     "homepage": "https://github.com/nlybe/Elgg-News",
     "license": "GPL-2.0",
+    "support": {
+		"source": "https://github.com/nlybe/Elgg-News",
+		"issues": "https://github.com/nlybe/Elgg-News/issues"
+	},
     "authors": [
         {
             "name": "Nikos Lyberakis",
@@ -18,9 +18,12 @@
         }
     ],
     "require": {
-        "composer/installers": ">=1.0.8"
+        "composer/installers": "^1.0.8"
     },
     "extra": {
-        "installer-name": "amapnews"
-    }
+        "installer-name": "elgg-news"
+    },
+	"conflict": {
+		"elgg/elgg": "<4.0"
+	}
 }

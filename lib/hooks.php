@@ -1,12 +1,12 @@
 <?php
 /**
  * Elgg News plugin
- * @package amapnews
+ * @package elgg-news
  *
  * All hooks are here
  */
  
-use Amapnews\NewsOptions;
+use ElggNews\NewsOptions;
 
 /**
  * Add option to set as new by admin to entity menu at end of the menu
@@ -15,7 +15,7 @@ use Amapnews\NewsOptions;
  *
  * @return void|ElggMenuItem[]
  */
-function amapnews_entity_menu_setup(\Elgg\Hook $hook) {
+function elggnews_entity_menu_setup(\Elgg\Hook $hook) {
     $user = elgg_get_logged_in_user_entity();
     if (!$user) {
         return;
@@ -31,7 +31,7 @@ function amapnews_entity_menu_setup(\Elgg\Hook $hook) {
         $return[] = \ElggMenuItem::factory([
             'name' => 'setasnew',
             'icon' => 'plus-circle',
-            'text' => elgg_echo("amapnews:add:tonews"),
+            'text' => elgg_echo("elggnews:add:tonews"),
             'href' => elgg_generate_url('add_existed:object:news', [
                 'guid' => $entity->guid,
             ]),
@@ -49,13 +49,13 @@ function amapnews_entity_menu_setup(\Elgg\Hook $hook) {
             $featured_menu_item = true;
         }
 
-        if ($featured_menu_item) {  // amapnews entity
-            $text = ($entity->isFeatured()?elgg_echo("amapnews:add:unfeatured"):elgg_echo("amapnews:add:featured"));
+        if ($featured_menu_item) {  
+            $text = ($entity->isFeatured()?elgg_echo("elggnews:add:unfeatured"):elgg_echo("elggnews:add:featured"));
             $return[] = \ElggMenuItem::factory([
                 'name' => 'setasfeatured',
                 'icon' => 'star',
                 'text' => $text,
-                'href' => elgg_normalize_url("action/amapnews/set_featured/?guid={$entity->guid}"),
+                'href' => elgg_normalize_url("action/elgg-news/set_featured/?guid={$entity->guid}"),
                 'priority' => 40,
                 'is_action' => true,
             ]);
@@ -74,7 +74,7 @@ function amapnews_entity_menu_setup(\Elgg\Hook $hook) {
  * @param type $params
  * @return type
  */
-function amapnews_staff_user_hover_menu_hook(\Elgg\Hook $hook) {
+function elggnews_staff_user_hover_menu_hook(\Elgg\Hook $hook) {
     
     $return = $hook->getValue();
 
@@ -90,16 +90,16 @@ function amapnews_staff_user_hover_menu_hook(\Elgg\Hook $hook) {
         return $return;
     }
 
-    $text = elgg_echo("amapnews:menu_user_hover:make_staff");
+    $text = elgg_echo("elggnews:menu_user_hover:make_staff");
     if ($entity->news_staff) {
-        $text = elgg_echo("amapnews:menu_user_hover:remove_staff");
+        $text = elgg_echo("elggnews:menu_user_hover:remove_staff");
     }
     
     $return[] = \ElggMenuItem::factory([
-        'name' => 'amapnews_staff',
+        'name' => 'elggnews_staff',
         'icon' => 'plus-circle',
         'text' => $text,
-        'href' => elgg_normalize_url("action/amapnews/set_staff?guid=" . $entity->getGUID()),
+        'href' => elgg_normalize_url("action/elgg-news/set_staff?guid=" . $entity->getGUID()),
         'confirm' => elgg_echo("question:areyousure"),
         'section' => 'admin'
     ]);
@@ -114,9 +114,9 @@ function amapnews_staff_user_hover_menu_hook(\Elgg\Hook $hook) {
  * @param string $type
  * @param string $url
  * @param array  $params
- * @return string URL of amapnews
+ * @return string URL of news
  */
-function amapnews_set_url(\Elgg\Hook $hook) {
+function elggnews_set_url(\Elgg\Hook $hook) {
     $entity = $hook->getEntityParam();
 
     if (!$entity instanceof \ElggNews) {
@@ -147,7 +147,7 @@ function amapnews_set_url(\Elgg\Hook $hook) {
  *
  * @return ElggMenuItem[]
  */
-function amapnews_owner_block_menu(\Elgg\Hook $hook) {
+function elggnews_owner_block_menu(\Elgg\Hook $hook) {
 	$entity = $hook->getEntityParam();
 	$return = $hook->getValue();
 	
@@ -156,32 +156,12 @@ function amapnews_owner_block_menu(\Elgg\Hook $hook) {
     } 
     elseif ($entity instanceof \ElggGroup && NewsOptions::allowPostOnGroups() && $entity->isToolEnabled('news')) {
         $url = "news/group/{$entity->guid}/all";
-        $item = new ElggMenuItem('amapnews', elgg_echo('amapnews:group'), $url);
+        $item = new ElggMenuItem('elggnews', elgg_echo('elggnews:group'), $url);
         $return[] = $item;
     }
 
     return $return;
 }
-
-// /**
-//  * We don't want people commenting on news posts in the river - OBS since 20200708
-//  *
-//  * @param string $hook
-//  * @param string $type
-//  * @param string $return
-//  * @param array  $params
-//  * @return bool
-//  */
-// function amapnews_comment_override($hook, $type, $return, $params) {
-//     $entity = $params['entity'];
-//     if ($entity instanceof \ElggNews) {
-//         if ($entity->canComment()) {
-//             return true;
-//         }
-//     }
-    
-//     return $return;
-// }
 
 /**
  * Register database seed
@@ -191,7 +171,7 @@ function amapnews_owner_block_menu(\Elgg\Hook $hook) {
  * @param \Elgg\Hook $hook Hook
  * @return array
  */
-function amapnews_register_db_seeds(\Elgg\Hook $hook) {
+function elggnews_register_db_seeds(\Elgg\Hook $hook) {
 
     $seeds = $hook->getValue();
 
@@ -209,19 +189,20 @@ function amapnews_register_db_seeds(\Elgg\Hook $hook) {
  * @param array  $params Hook params
  * @return array
  */
-function amapnews_set_custom_icon_sizes(\Elgg\Hook $hook) {
+function elggnews_set_custom_icon_sizes(\Elgg\Hook $hook) {
 
-    // $entity_subtype = elgg_extract('entity_subtype', $params);
     $entity_subtype = $hook->getParam('entity_subtype');
     if ($entity_subtype !== ElggNews::SUBTYPE) {
         return;
     }
     
+    $photo_sizes = elgg_get_config('elggnews_photo_sizes');
+
     $cWidth = NewsOptions::getCustomPhotoWidth();
     $cHeight = NewsOptions::getCustomPhotoHeight();
-    
-    $photo_sizes = elgg_get_config('amapnews_photo_sizes');
-    $photo_sizes['custom'] = array('w' => $cWidth, 'h' => $cHeight, 'square' => false, 'upscale' => false);
+    if (is_numeric($cWidth) && is_numeric($cHeight)) {
+        $photo_sizes['custom'] = ['w' => $cWidth, 'h' => $cHeight, 'square' => false, 'upscale' => false];
+    }
     
     return $photo_sizes;
 }
@@ -233,7 +214,7 @@ function amapnews_set_custom_icon_sizes(\Elgg\Hook $hook) {
  * @return void|ElggMenuItem[]
  * @since 3.0
  */
-function amapnews_social_menu_setup(\Elgg\Hook $hook) {
+function elggnews_social_menu_setup(\Elgg\Hook $hook) {
     $entity = $hook->getEntityParam();
     if (!$entity) {
         return;
@@ -248,7 +229,7 @@ function amapnews_social_menu_setup(\Elgg\Hook $hook) {
         $return[] = \ElggMenuItem::factory([
             'name' => 'featured_news',
             'icon' => 'star',
-            'text' => elgg_echo('amapnews:featured'),
+            'text' => elgg_echo('elggnews:featured'),
             'href' => '#',
             'priority' => 40,
         ]);

@@ -1,18 +1,18 @@
 <?php
 /**
  * Elgg News plugin
- * @package amapnews
+ * @package elgg-news
  */
  
 /**
- * Add amapnews form parameters
+ * Add elggnews form parameters
  * 
  * @param type $entity
  * @return type
  */
-function amapnews_prepare_form_vars($entity = null) {
+function elggnews_prepare_form_vars($entity = null) {
     // input names => defaults
-    $values = array(
+    $values = [
         'title' => '',
         'description' => '',
         'excerpt' => '',
@@ -25,7 +25,7 @@ function amapnews_prepare_form_vars($entity = null) {
         'entity' => $entity,
         'guid' => null,
         'comments_on' => NULL,
-    ); 
+    ];
 
     if ($entity) {
         foreach (array_keys($values) as $field) {
@@ -35,14 +35,14 @@ function amapnews_prepare_form_vars($entity = null) {
         }
     }
 
-    if (elgg_is_sticky_form('amapnews')) {
-        $sticky_values = elgg_get_sticky_values('amapnews');
+    if (elgg_is_sticky_form('elggnews')) {
+        $sticky_values = elgg_get_sticky_values('elggnews');
         foreach ($sticky_values as $key => $value) {
             $values[$key] = $value;
         }
     }
 
-    elgg_clear_sticky_form('amapnews');
+    elgg_clear_sticky_form('elggnews');
 
     return $values;
 }

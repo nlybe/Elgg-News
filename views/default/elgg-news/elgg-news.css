@@ -1,0 +1,107 @@
+/**
+ * Elgg News plugin
+ * @package elgg-news
+ */
+
+.elgg-menu-social li.elgg-menu-item-featured-news a.elgg-menu-content  {
+    cursor: default;
+    color: #faac17;
+    font-size: 130%;
+}
+
+.elgg-menu-social li.elgg-menu-item-featured-news a:hover  {
+    cursor: default;
+    color: #faac17;
+}
+
+.elgg-widget-instance-elggnews-featured .elgg-widget-more .elgg-icon {
+    margin-right:10px;    
+}
+
+#cboxLoadedContent .add_existed {
+    padding:20px;
+    display:block;
+    min-width:500px;
+    border: 1px solid #eaeaea;
+}
+
+#cboxLoadedContent .add_existed input[type="text"] {
+    width: 100%;
+}
+
+#cboxLoadedContent .add_existed input[type="submit"] {
+    float: right;
+}
+
+.elgg-form-elggnews-add .elgg-input-file {
+    width: 75%;
+}
+
+div.entity_photo {
+    float:left; 
+    margin: 0 10px 0 0;
+    display: inline;
+}
+
+.news-content {
+    display: inline;
+}
+
+div.news_item, div.news_item_cover {
+    float: left;
+    min-height: 215px;
+    display: inline-block;
+    flex-direction: row;
+    background-color: #fff;
+    width: 48%;
+    margin: 10px 1%;
+}
+
+div.news_item {
+    display: flex;
+}
+div.news_item .photo_box img {
+    max-width: initial;
+}
+
+div.news_item_cover {
+    display: inline-block;
+}
+
+div.news_item_cover .photo_box {
+    clear: both;
+    display: block;
+    margin: 0 5px 10px;
+    width: 100%;
+    padding: 0!important;
+}
+div.news_item_cover .photo_box img {
+    width: 100%;
+}
+
+div.news_item a.thumbnail, div.news_item_cover a.thumbnail {
+    flex-grow: 0;
+    flex-shrink: 0;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 0;
+}
+div.news_item .news_body, div.news_item_cover .news_body {
+    padding: 0px 10px;
+}
+div.news_item div.news_body > div:first-of-type,
+div.news_item_cover div.news_body > div:first-of-type {
+    font-weight: bold;
+    font-size: 13pt;
+    line-height: 28px;
+    display: block;
+    margin-bottom: 10px;
+}
+div.news_item div.news_body > div:last-of-type,
+div.news_item_cover div.news_body > div:last-of-type {
+    clear: both;
+    float: right;
+    display: block;
+    margin: 10px 5px 0;
+}
+

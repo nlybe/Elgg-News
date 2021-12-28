@@ -1,16 +1,16 @@
 <?php
 /**
  * Elgg News plugin
- * @package amapnews
+ * @package elgg-news
  */
 
-use Amapnews\NewsOptions;
+use ElggNews\NewsOptions;
 
 class ElggNews extends ElggObject {
 
     const SUBTYPE = "news";
 
-    protected $meta_defaults = array(
+    protected $meta_defaults = [
         "title" => NULL,
         "description" => NULL,
         "excerpt" => NULL,
@@ -19,7 +19,7 @@ class ElggNews extends ElggObject {
         "tags" => NULL,
         "connected_guid" => NULL,
         "comments_on" => NULL,
-    );
+    ];
 
     protected function initializeAttributes() {
         parent::initializeAttributes();
@@ -64,10 +64,10 @@ class ElggNews extends ElggObject {
         if ($this->hasIcon('small')) {
             $icon = elgg_view_entity_icon($this, 'small', ['img_class' => 'elgg-photo']);
         } else {
-            $icon = elgg_view('output/img', array(
+            $icon = elgg_view('output/img', [
                 'src' => NewsOptions::getDefaultIcon(),
-                'alt' => elgg_echo('amapnews'),
-            ));
+                'alt' => elgg_echo('elgg-news'),
+            ]);
         }
 
         return $icon;
@@ -79,11 +79,11 @@ class ElggNews extends ElggObject {
      * @return boolean
      */
     public function delPhotos() {
-        $photo_sizes = elgg_get_config('amapnews_photo_sizes');
+        $photo_sizes = elgg_get_config('elggnews_photo_sizes');
         foreach ($photo_sizes as $name => $photo_info) {
             $file = new ElggFile();
             $file->owner_guid = $this->owner_guid;
-            $file->setFilename("amapnews/{$this->getGUID()}{$name}.jpg");
+            $file->setFilename("elgg-news/{$this->getGUID()}{$name}.jpg");
             $filepath = $file->getFilenameOnFilestore();
             if (!$file->delete()) {
                 // do nothing

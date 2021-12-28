@@ -1,7 +1,7 @@
 <?php
 /**
  * Elgg News plugin
- * @package amapnews
+ * @package elgg-news
  */
 
-echo elgg_view('amapnews/group_module', $vars);
+echo elgg_view('elgg-news/group_module', $vars);

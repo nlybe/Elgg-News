@@ -1,7 +1,7 @@
 <?php
 /**
  * Elgg News plugin
- * @package amapnews
+ * @package elgg-news
  */
 
 $title = $vars['entity']->title;

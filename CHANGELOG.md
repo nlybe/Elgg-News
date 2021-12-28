@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.19 (Dec 2021)
+
+- Upgraded to be compatible with Elgg 4.x
+- Rename plugin to elgg-news and relevant fixes
+- Code cleanup
+
 ## 3.18 (Sep 2021)
 
 - Minor code improvements

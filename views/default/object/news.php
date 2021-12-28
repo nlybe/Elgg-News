@@ -1,10 +1,10 @@
 <?php
 /**
  * Elgg News plugin
- * @package amapnews
+ * @package elgg-news
  */
 
-use Amapnews\NewsOptions;
+use ElggNews\NewsOptions;
 
 $full = elgg_extract('full_view', $vars, false);
 $simplified_view = elgg_extract('simplified_view', $vars, false);
