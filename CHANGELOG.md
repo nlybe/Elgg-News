@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.19.1 (Dec 2021)
+
+- Added default values on settings
+
 ## 4.19 (Dec 2021)
 
 - Upgraded to be compatible with Elgg 4.x

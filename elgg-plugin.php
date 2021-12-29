@@ -12,7 +12,7 @@ require_once(dirname(__FILE__) . '/lib/functions.php');
 return [
     'plugin' => [
         'name' => 'News',
-		'version' => '4.19',
+		'version' => '4.19.1',
 		'dependencies' => [],
 	],	
     'bootstrap' => Bootstrap::class,
@@ -23,6 +23,8 @@ return [
 		'featured_by_admin_only' => 'yes',
 		'show_featured_on_sidebar' => 'yes',
 		'show_username' => 'yes',
+		'custom_icon_width' => '600',
+		'custom_icon_height' => '360',
 	],
     'entities' => [
         [
