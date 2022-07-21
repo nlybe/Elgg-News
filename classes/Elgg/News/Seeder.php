@@ -83,4 +83,21 @@ class Seeder extends Seed {
         }
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function getType() : string {
+		return 'news';
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function getCountOptions() : array {
+		return [
+			'type' => 'object',
+			'subtype' => 'news',
+		];
+	}
+
 }

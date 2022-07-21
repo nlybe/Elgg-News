@@ -21,7 +21,12 @@ class MigrateNews implements AsynchronousUpgrade {
      * {@inheritDoc}
      */
     public function getVersion() {
-        return 2017110700;
+        if (!isset($this->_version)) {
+			$this->_version = date('Ymd') . rand(10, 99);
+		}
+		
+		return $this->_version;
+        // return 2017110700;
     }
 
     /**

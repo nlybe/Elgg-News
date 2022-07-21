@@ -169,7 +169,7 @@ class NewsOptions {
      * @param type $dir
      * @return string: list of files found
      */
-    function getFiles($dir, $current_value, $field_name, $plugin_path) {
+    Public Static function getFiles($dir, $current_value, $field_name, $plugin_path) {
         $files_list = '';
 
         if (is_dir($dir)) {

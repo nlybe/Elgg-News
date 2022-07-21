@@ -1,5 +1,10 @@
 # Change Log
 
+## 4.20 (July 2022)
+
+- Fix class function declaration
+- Minor code improvements
+
 ## 4.19.1 (Dec 2021)
 
 - Added default values on settings
