@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.19 (July 2022)
+
+- Fix class function declaration
+
 ## 3.18 (Sep 2021)
 
 - Minor code improvements
