@@ -2,7 +2,7 @@
 
 ## 4.21 (July 2022)
 
-- Fixed issue with obsolete function elgg_set_ignore_access
+- Fixed issue for obsolete function elgg_set_ignore_access
 
 ## 4.20 (July 2022)
 
