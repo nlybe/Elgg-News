@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.21 (July 2022)
+
+- Fixed issue with obsolete function elgg_set_ignore_access
+
 ## 4.20 (July 2022)
 
 - Fix class function declaration

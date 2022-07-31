@@ -1,5 +1,4 @@
-{
-    
+{    
     "name": "nlybe/elgg-news",
     "description": "News and announcements by administrators, news staff and group owners",
     "type": "elgg-plugin",

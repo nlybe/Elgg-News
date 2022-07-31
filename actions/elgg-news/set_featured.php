@@ -19,29 +19,21 @@ else if (!$entity->canEdit() && !NewsOptions::canSetFeaturedNews()) {
 }
 
 if ($entity instanceof \ElggNews) {
-    if (!$entity->canEdit()) {
-        // enable ignore access for staff news
-        $ia = elgg_get_ignore_access();
-        elgg_set_ignore_access(true);
-    }
-    
-    if ($entity->isFeatured()) {
-        $entity->featured = NewsOptions::NEWS_NO;
-    }
-    else {
-        $entity->featured = NewsOptions::NEWS_YES;
-    }
-    
-    if ($entity->save())  {
-        if (!$entity->canEdit()) {
-            elgg_set_ignore_access($ia);
+    return elgg_call(ELGG_IGNORE_ACCESS, function() use ($entity) {
+        if ($entity->isFeatured()) {
+            $entity->featured = NewsOptions::NEWS_NO;
         }
-        return elgg_ok_response('', elgg_echo('elggnews:save:success'), REFERER);
-    }
-    else {
-        return elgg_error_response(elgg_echo('elggnews:save:failed'));
-    }
+        else {
+            $entity->featured = NewsOptions::NEWS_YES;
+        }
         
+        if ($entity->save())  {
+            return elgg_ok_response('', elgg_echo('elggnews:save:success'), REFERER);
+        }
+        else {
+            return elgg_error_response(elgg_echo('elggnews:save:failed'));
+        }
+    });        
 } 
 else {
     return elgg_error_response(elgg_echo('InvalidParameterException:NoEntityFound'));
