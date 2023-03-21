@@ -68,10 +68,8 @@ function elggnews_entity_menu_setup(\Elgg\Hook $hook) {
 /**
  * News-Staff
  * 
- * @param type $hook
- * @param type $type
- * @param array $return
- * @param type $params
+ * @param \Elgg\Hook $hook
+ * 
  * @return type
  */
 function elggnews_staff_user_hover_menu_hook(\Elgg\Hook $hook) {
@@ -110,10 +108,8 @@ function elggnews_staff_user_hover_menu_hook(\Elgg\Hook $hook) {
 /**
  * Format and return the URL for news objects, since 1.9.
  *
- * @param string $hook
- * @param string $type
- * @param string $url
- * @param array  $params
+ * @param \Elgg\Hook $hook
+ * 
  * @return string URL of news
  */
 function elggnews_set_url(\Elgg\Hook $hook) {
@@ -131,11 +127,13 @@ function elggnews_set_url(\Elgg\Hook $hook) {
             return $connected_entity->getURL();
         }
         else {
-            return "news/view/{$entity->guid}/$friendly_title";
+            // return elgg_normalize_url("news/view/{$entity->guid}/$friendly_title");
+            return elgg_normalize_url("news/view/{$entity->guid}");
         }
     }
     else {
-        return "news/view/{$entity->guid}/$friendly_title";
+        // return elgg_normalize_url("news/view/{$entity->guid}/$friendly_title");
+        return elgg_normalize_url("news/view/{$entity->guid}");
     }
     
 }
@@ -169,6 +167,7 @@ function elggnews_owner_block_menu(\Elgg\Hook $hook) {
  * @elgg_plugin_hook seeds database
  *
  * @param \Elgg\Hook $hook Hook
+ * 
  * @return array
  */
 function elggnews_register_db_seeds(\Elgg\Hook $hook) {
@@ -183,10 +182,8 @@ function elggnews_register_db_seeds(\Elgg\Hook $hook) {
 /**
  * Set custom icon sizes for news objects
  *
- * @param string $hook   "entity:icon:url"
- * @param string $type   "object"
- * @param array  $return Sizes
- * @param array  $params Hook params
+ * @param \Elgg\Hook $hook
+ * 
  * @return array
  */
 function elggnews_set_custom_icon_sizes(\Elgg\Hook $hook) {
