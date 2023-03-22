@@ -105,6 +105,42 @@ return [
             'resource' => 'elgg-news/custom_list_view',
         ],
     ],
+	'hooks' => [
+		'entity:url' => [
+			'object' => [
+				'elggnews_set_url' => [],
+			],
+		],
+		'register' => [
+			'menu:entity' => [
+				'elggnews_entity_menu_setup' => []
+			],
+			'menu:social' => [
+				'elggnews_social_menu_setup' => [],
+			],
+			'menu:user_hover' => [
+				'elggnews_staff_user_hover_menu_hook' => [],
+			],
+			'menu:owner_block' => [
+				'elggnews_owner_block_menu' => [],
+			],
+		],
+		'entity:icon:sizes' => [
+			'object' => [
+				'elggnews_set_custom_icon_sizes' => [],
+			],
+		],
+		'seeds' => [
+			'database' => [
+				'elggnews_register_db_seeds' => [],
+			],
+		],
+		'likes:is_likable' => [ // enable this hook since the likable option doesn't work
+			'object:news' => [
+				'Elgg\Values::getTrue' => [],
+			],
+		],
+	],
     'widgets' => [
         'elgg-news' => [
             'description' => elgg_echo('elggnews:widget:description'),
