@@ -20,7 +20,7 @@ class MigrateNews implements AsynchronousUpgrade {
     /**
      * {@inheritDoc}
      */
-    public function getVersion() {
+    public function getVersion(): int {
         if (!isset($this->_version)) {
 			$this->_version = date('Ymd') . rand(10, 99);
 		}
@@ -32,14 +32,14 @@ class MigrateNews implements AsynchronousUpgrade {
     /**
      * {@inheritDoc}
      */
-    public function shouldBeSkipped() {
+    public function shouldBeSkipped(): bool {
         return empty($this->countItems());
     }
 
     /**
      * {@inheritDoc}
      */
-    public function countItems() {
+    public function countItems(): int {
         return elgg_get_entities([
             'type' => 'object',
             'subtype' => 'amapnews',
@@ -50,14 +50,14 @@ class MigrateNews implements AsynchronousUpgrade {
     /**
      * {@inheritDoc}
      */
-    public function needsIncrementOffset() {
+    public function needsIncrementOffset(): bool {
         return false;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function run(Result $result, $offset) {
+    public function run(Result $result, $offset): Result {
 
         /* @var \ElggBatch $entities */
         $entities = elgg_get_entities([
