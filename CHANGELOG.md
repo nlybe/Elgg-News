@@ -1,5 +1,10 @@
 # Change Log
 
+## 4.22 (March 2023)
+- Update hook params specifications
+- Fixed compatibility with Elgg on upgrade functions
+- Updated hooks declaration according Elgg v4.3.x
+
 ## 4.21 (July 2022)
 
 - Fixed issue for obsolete function elgg_set_ignore_access
