@@ -20,7 +20,8 @@ if ($featured) {
         [ 
             'name' => 'featured',
             'value' => NewsOptions::NEWS_YES, 
-            'operand' => '=' ],
+            'operand' => '=', 
+        ],
     ];
 }
 

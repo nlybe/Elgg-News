@@ -14,7 +14,7 @@ return [
     'collection:object:news' => "Noticias",
     'elggnews:featured' => "Destacado",
     'elggnews:read_more' => "Read more ",
-    'elggnews_featured' => "Featured News",
+    'elgg-news-featured' => "Featured News",
  
     // submit form
     'news:add' => "Publicar Noticia",
@@ -89,9 +89,9 @@ return [
     'elggnews:widget:description' => 'Muestra las últimas noticias y anuncios', 
     'elggnews:widget:num_display' => 'Numero de noticias a mostrar: ',
     'elggnews:widget:viewall' => 'Ver todas',  
-    'elggnews:widget:elggnews_featured' => 'Noticias Destacadas', 
-    'elggnews:widget:elggnews_featured:description' => 'Muestra las últimas noticias o anuncios destacados.',     
-    'elggnews:widget:elggnews_featured:viewall' => 'View all news',
+    'elggnews:widget:elgg-news-featured' => 'Noticias Destacadas', 
+    'elggnews:widget:elgg-news-featured:description' => 'Muestra las últimas noticias o anuncios destacados.',     
+    'elggnews:widget:elgg-news-featured:viewall' => 'View all news',
     
     // groups
     'elggnews:group' => 'Noticias de Grupo', 

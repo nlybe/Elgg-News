@@ -17,15 +17,14 @@ $options = [
     'view_toggle_type' => false 
 ];
 
-elgg_pop_breadcrumb();
-elgg_push_breadcrumb(elgg_echo('elgg-news'));
+elgg_push_collection_breadcrumbs('object', 'news');
 
 $content = elgg_list_entities($options);
 $title = elgg_echo('elgg-news');
 
 
 if (NewsOptions::allowPost($page_owner, $user)) {
-    elgg_register_title_button('news', 'add', 'object', 'news');
+    elgg_register_title_button('add', 'object', 'news');
 }
 
 if (!$content) {

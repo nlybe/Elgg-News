@@ -17,10 +17,10 @@ if (!($user instanceof \ElggUser)) {
 
 if ($user->news_staff) {
     unset($user->news_staff);
-    return elgg_ok_response('', elgg_echo('elggnews:action:news_staff:removed'), REFERER);
+    return elgg_ok_response('', elgg_echo('elggnews:action:news_staff:removed'), REFERRER);
 } 
 else {
     $user->news_staff = time();
-    return elgg_ok_response('', elgg_echo('elggnews:action:news_staff:added'), REFERER);
+    return elgg_ok_response('', elgg_echo('elggnews:action:news_staff:added'), REFERRER);
 }
 

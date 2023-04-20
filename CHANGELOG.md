@@ -1,5 +1,12 @@
 # Change Log
 
+## 5.23 (April 2023)
+- Upgraded to be compatible with Elgg 5.x
+- Added option to exclude title from news item url
+- Fixed issue on featured news widget
+- Removed likable hook
+- Code improvements and cleanup
+
 ## 4.22 (March 2023)
 - Update hook params specifications
 - Fixed compatibility with Elgg on upgrade functions

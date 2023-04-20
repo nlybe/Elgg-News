@@ -54,7 +54,6 @@ if ($uploaded_files) {
             'image/gif',
         ];
 
-        // $mime_type = ElggFile::detectMimeType($uploaded_file->getPathname(), $uploaded_file->getClientMimeType());
         $mime_type = elgg()->mimetype->getMimeType($uploaded_file->getPathname());
         if (!in_array($mime_type, $supported_mimes)) {
             return elgg_error_response(elgg_echo('elggnews:add:photo:invalid'));
@@ -89,15 +88,13 @@ if ($guid == 0) {
     }    
 }
 
-$tagarray = string_to_tag_array($tags);
-
 $entity->title = $title;
 $entity->description = $description;
 $entity->excerpt = $excerpt;
 if (NewsOptions::canSetFeaturedNews()) {
     $entity->featured = $featured;
 }
-$entity->tags = $tagarray;
+$entity->tags = elgg_string_to_array($tags);
 $entity->connected_guid = $connected_guid;
 $entity->container_guid = $container_guid;
 $entity->comments_on = $comments_on;

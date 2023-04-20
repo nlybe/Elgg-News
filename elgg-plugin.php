@@ -12,7 +12,7 @@ require_once(dirname(__FILE__) . '/lib/functions.php');
 return [
     'plugin' => [
         'name' => 'News',
-		'version' => '4.22',
+		'version' => '5.23',
 		'dependencies' => [],
 	],	
     'bootstrap' => Bootstrap::class,
@@ -22,7 +22,7 @@ return [
 		'post_on_groups' => 'yes',
 		'featured_by_admin_only' => 'yes',
 		'show_featured_on_sidebar' => 'yes',
-		'show_username' => 'yes',
+		'news_url_include_title' => 'yes',
 		'custom_icon_width' => '600',
 		'custom_icon_height' => '360',
 	],
@@ -135,19 +135,14 @@ return [
 				'elggnews_register_db_seeds' => [],
 			],
 		],
-		'likes:is_likable' => [ // enable this hook since the likable option doesn't work
-			'object:news' => [
-				'Elgg\Values::getTrue' => [],
-			],
-		],
 	],
     'widgets' => [
         'elgg-news' => [
             'description' => elgg_echo('elggnews:widget:description'),
             'context' => ['profile', 'dashboard', 'index', 'groups'],
         ],
-        'elggnews_featured' => [
-            'description' => elgg_echo('elggnews:widget:elggnews_featured:description'),
+        'elgg-news-featured' => [
+            'description' => elgg_echo('elggnews:widget:elgg-news-featured:description'),
             'context' => ['dashboard', 'index', 'groups'],
         ],
     ],

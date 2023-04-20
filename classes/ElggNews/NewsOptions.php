@@ -211,6 +211,20 @@ class NewsOptions {
         } 
 
         return false;
+    }   
+    
+    /**
+     * Check if include title on news item url
+     * 
+     * @return boolean
+     */
+    Public Static function includeTitleOnNewsItemUrl() {
+        $include_title = self::getParams('news_url_include_title');
+        if ($include_title === self::NEWS_YES) {
+            return true;
+        } 
+
+        return false;
     }
       
 }

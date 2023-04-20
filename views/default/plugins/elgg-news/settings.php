@@ -23,7 +23,6 @@ $general_settings .= elgg_view_field([
     'checked' => ($plugin->show_user_icon === 'yes'), 
     '#label' => elgg_echo('elggnews:settings:show_user_icon'),
     '#help' => elgg_echo('elggnews:settings:show_user_icon:note'),
-    // 'checked' => ($plugin->show_user_icon || !isset($plugin->show_user_icon) ? true : false),
 ]);
 
 // set if display username on list or single view
@@ -62,7 +61,7 @@ $general_settings .= elgg_view_field([
     '#help' => elgg_echo('elggnews:settings:featured_by_admin_only:note'),
 ]);
 
-// set if allow group's owners to post news/announcements inside groups
+// set if display featured news on sidebar
 $general_settings .= elgg_view_field([
     'id' => 'show_featured_on_sidebar',
     '#type' => 'checkbox',
@@ -72,6 +71,18 @@ $general_settings .= elgg_view_field([
     'checked' => ($plugin->show_featured_on_sidebar === 'yes'), 
     '#label' => elgg_echo('elggnews:settings:show_featured_on_sidebar'),
     '#help' => elgg_echo('elggnews:settings:show_featured_on_sidebar:note'),
+]);
+
+// set include title on news item url
+$general_settings .= elgg_view_field([
+    'id' => 'news_url_include_title',
+    '#type' => 'checkbox',
+    'name' => 'params[news_url_include_title]',
+    'switch' => true,
+    'value' => 'yes',
+    'checked' => ($plugin->news_url_include_title === 'yes'), 
+    '#label' => elgg_echo('elggnews:settings:news_url_include_title'),
+    '#help' => elgg_echo('elggnews:settings:news_url_include_title:note'),
 ]);
 echo elgg_view_module("inline", elgg_echo('elggnews:settings:general'), $general_settings);
 

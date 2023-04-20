@@ -14,7 +14,7 @@ return [
     'collection:object:news' => "Ανακοινώσεις",
     'elggnews:featured' => "Προτεινόμενες",
     'elggnews:read_more' => "Περισσότερα ",
-    'elggnews_featured' => "Προτεινόμενα",
+    'elgg-news-featured' => "Προτεινόμενα",
     
     // submit form
     'news:add' => "Νέα ανακοίνωση",
@@ -89,9 +89,9 @@ return [
     'elggnews:widget:description' => 'Προβολή πρόσφατων ανακοινώσεων',  
     'elggnews:widget:viewall' => 'Προβολή όλων', 
     'elggnews:widget:viewall' => 'Προβολή όλων',  
-    'elggnews:widget:elggnews_featured' => 'Προτεινόμενα', 
-    'elggnews:widget:elggnews_featured:description' => 'Προβολή πιο πρόσφατων προτεινόμενων ανακοινώσεων',     
-    'elggnews:widget:elggnews_featured:viewall' => 'Προβολή όλων',
+    'elggnews:widget:elgg-news-featured' => 'Προτεινόμενα', 
+    'elggnews:widget:elgg-news-featured:description' => 'Προβολή πιο πρόσφατων προτεινόμενων ανακοινώσεων',     
+    'elggnews:widget:elgg-news-featured:viewall' => 'Προβολή όλων',
     
     // groups
     'elggnews:group' => 'Ανακοινώσεις Ομάδας', 

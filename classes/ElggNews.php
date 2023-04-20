@@ -33,9 +33,8 @@ class ElggNews extends ElggObject {
      * @see ElggObject::canComment()
      *
      * @param int  $user_guid User guid (default is logged in user)
-     * @param bool $default   Default permission
      */
-    public function canComment($user_guid = 0, $default = null) {
+    public function canComment(int $user_guid = 0): bool {
         if ($this->comments_on === 'Off') {
             return false;
         }

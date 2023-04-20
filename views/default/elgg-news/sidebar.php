@@ -22,4 +22,4 @@ $options = [
 
 $body = elgg_list_entities($options);
 
-echo elgg_view_module('aside', elgg_echo('elggnews_featured'), $body);
+echo elgg_view_module('aside', elgg_echo('elgg-news-featured'), $body);

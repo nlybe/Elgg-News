@@ -19,7 +19,7 @@ if ($page_owner instanceof \ElggGroup && !NewsOptions::allowPostOnGroups()) {
 $user = elgg_get_logged_in_user_entity();
 // post news only for admins or groups owners (if allowed by admins)
 if (NewsOptions::allowPost($page_owner, $user))	{
-    elgg_register_title_button('news', 'add', 'object', 'news');
+    elgg_register_title_button('add', 'object', 'news');
 }
 
 $options = [

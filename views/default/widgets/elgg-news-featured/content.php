@@ -35,13 +35,13 @@ if ($owner instanceof \ElggUser) {
     $posts = elgg_get_entities($options);	
 	
     if (is_array($posts) && sizeof($posts) > 0) {
-        $content =  '<ul class="elgg-list">';	
+        $content = '<ul class="elgg-list">';	
 
         foreach($posts as $post) {
             $content .=  "<li class=\"pvs\">";
 
             $owner = $post->getOwnerEntity();		
-            if (NewsOptions::displayUserIcon())  {
+            if (NewsOptions::displayUserIcon()) {
                 $news_icon = elgg_view_entity_icon($owner, 'small');
             }
             else {
@@ -54,7 +54,7 @@ if ($owner instanceof \ElggUser) {
                     'text' => $owner->name,
                     'is_trusted' => true,
                 ]);
-                $author_text = elgg_echo('byline', [ $owner_link ]);
+                $author_text = elgg_echo('byline', [$owner_link]);
             }
             else
                 $author_text = '';
@@ -63,13 +63,12 @@ if ($owner instanceof \ElggUser) {
 
             $subtitle = "{$author_text} {$date}";
             $subtitle .= '<br />'.$post->excerpt;
-            $params = [ 'entity' => $post,'subtitle' => $subtitle ];
+            $params = ['entity' => $post,'subtitle' => $subtitle];
             $params = $params + $vars;
             $list_body = elgg_view('object/elements/summary', $params);
             $content .= elgg_view_image_block($news_icon, $list_body);
             $content .= "</li>";
         }
-
         $content .= "</ul>";
     }	
 } 
@@ -94,7 +93,7 @@ if (!$content) {
 
 echo $content;
 
-$text = elgg_echo("elggnews:widget:elggnews_featured:viewall").elgg_view_icon('angle-double-right');
+$text = elgg_echo("elggnews:widget:elgg-news-featured:viewall").elgg_view_icon('angle-double-right');
 echo elgg_format_element('div', ['class' => 'elgg-widget-more'], elgg_view('output/url', [
     'href' => elgg_normalize_url('news'),
     'text' => $text,

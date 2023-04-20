@@ -14,7 +14,7 @@ return [
     'collection:object:news' => "News",
     'elggnews:featured' => "Featured",
     'elggnews:read_more' => "Read more ",
-    'elggnews_featured' => "Featured News",
+    'elgg-news-featured' => "Featured News",
     'add:object:news' => 'Post News',
  
     // submit form
@@ -61,8 +61,10 @@ return [
     'elggnews:settings:show_username:note' => "Display username on list or single view",   
     'elggnews:settings:post_on_groups' => "Post news on groups",    
     'elggnews:settings:post_on_groups:note' => "Allow group's owners to post news/announcements inside groups", 
-    'elggnews:settings:featured_by_admin_only' => "Restrict featured news to admin",    
-    'elggnews:settings:featured_by_admin_only:note' => "Select Yes if want to restrict setting Featured News only to administrators", 
+    'elggnews:settings:featured_by_admin_only' => "Restrict featured news to admin",
+    'elggnews:settings:featured_by_admin_only:note' => "Select Yes if want to restrict setting Featured News only to administrators",
+    'elggnews:settings:news_url_include_title' => "Include title on news item URL",
+    'elggnews:settings:news_url_include_title:note' => "The function elgg_get_friendly_title doesn't work good with some languages, so it may raise an invalid URI path issue. In this case uncheck this option to exclude the title from news item url.",
     'elggnews:settings:post_users' => "Regular User can post News",    
     'elggnews:settings:post_users:note' => "Allow users  to post site-news/announcements. Restict this with user-roles.", 
     'elggnews:settings:custom_icon' => "Custom size for news photos",  
@@ -90,9 +92,9 @@ return [
     'elggnews:widget:description' => 'Display latest news and announcements', 
     'elggnews:widget:num_display' => 'Number of items to display: ',
     'elggnews:widget:viewall' => 'View all',  
-    'elggnews:widget:elggnews_featured' => 'Featured News', 
-    'elggnews:widget:elggnews_featured:description' => 'Display latest featured/important news and announcements',     
-    'elggnews:widget:elggnews_featured:viewall' => 'View all news',
+    'elggnews:widget:elgg-news-featured' => 'Featured News', 
+    'elggnews:widget:elgg-news-featured:description' => 'Display latest featured/important news and announcements',     
+    'elggnews:widget:elgg-news-featured:viewall' => 'View all news',
     
     // groups
     'elggnews:group' => 'Group news', 

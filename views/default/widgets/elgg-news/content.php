@@ -38,11 +38,13 @@ if ($owner instanceof \ElggUser) {
             $content .=  "<li class=\"pvs\">";
 
             $owner = $post->getOwnerEntity();		
-            if (NewsOptions::displayUserIcon()) 
+            if (NewsOptions::displayUserIcon()) {
                 $news_icon = elgg_view_entity_icon($owner, 'small');
-            else
+            }
+            else {
                 $news_icon = $post->getNewsIcon();
-
+            }
+            
             if (NewsOptions::displayUsername()) {
                 $owner_link = elgg_view('output/url', [
                     'href' => "news/owner/$owner->username",

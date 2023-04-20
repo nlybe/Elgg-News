@@ -119,21 +119,18 @@ function elggnews_set_url(\Elgg\Hook $hook) {
 		return;
 	}
 
-    $friendly_title = elgg_get_friendly_title($entity->title);
+    $friendly_title = NewsOptions::includeTitleOnNewsItemUrl()?elgg_get_friendly_title($entity->title):"";
     if ($entity->connected_guid) {
-        $connected_entity = get_entity($entity->connected_guid);
-        
+        $connected_entity = get_entity($entity->connected_guid);        
         if ($connected_entity) {
             return $connected_entity->getURL();
         }
         else {
-            // return elgg_normalize_url("news/view/{$entity->guid}/$friendly_title");
-            return elgg_normalize_url("news/view/{$entity->guid}");
+            return elgg_normalize_url("news/view/{$entity->guid}/$friendly_title");
         }
     }
     else {
-        // return elgg_normalize_url("news/view/{$entity->guid}/$friendly_title");
-        return elgg_normalize_url("news/view/{$entity->guid}");
+        return elgg_normalize_url("news/view/{$entity->guid}/$friendly_title");
     }
     
 }

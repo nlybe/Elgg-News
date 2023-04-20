@@ -28,7 +28,7 @@ if ($entity instanceof \ElggNews) {
         }
         
         if ($entity->save())  {
-            return elgg_ok_response('', elgg_echo('elggnews:save:success'), REFERER);
+            return elgg_ok_response('', elgg_echo('elggnews:save:success'), REFERRER);
         }
         else {
             return elgg_error_response(elgg_echo('elggnews:save:failed'));
