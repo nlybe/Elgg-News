@@ -15,7 +15,7 @@ use ElggObject;
  *
  * @since 3.0
  */
-class MigrateNews implements AsynchronousUpgrade {
+class MigrateNews extends AsynchronousUpgrade {
 
     /**
      * {@inheritDoc}
