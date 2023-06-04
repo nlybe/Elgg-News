@@ -41,8 +41,14 @@ if (!$content) {
     $content = elgg_format_element('p', [], elgg_echo('elggnews:none'));
 }
 
-$post_link = elgg_view('output/url', [
-    'href' => "news/add/$group->guid",
+// $add_link = elgg_view('output/url', [
+//     'href' => "news/add/$group->guid",
+//     'text' => elgg_echo('elggnews:add'),
+//     'is_trusted' => true,
+// ]);
+
+$add_link = elgg_view('output/url', [
+    'href' => elgg_generate_url('edit:object:news', ['guid' => $group->guid]),
     'text' => elgg_echo('elggnews:add'),
     'is_trusted' => true,
 ]);
@@ -51,5 +57,5 @@ echo elgg_view('groups/profile/module', [
     'title' => elgg_echo('elggnews:group'),
     'content' => $content,
     'all_link' => $all_link,
-    'add_link' => $post_link,
+    'add_link' => $add_link,
 ]);

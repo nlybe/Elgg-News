@@ -1,5 +1,10 @@
 # Change Log
 
+## 5.24 (June 2023)
+- Moved css declaration to elgg-plugins.php
+- Fixed migration issue
+
+
 ## 5.23 (April 2023)
 - Upgraded to be compatible with Elgg 5.x
 - Added option to exclude title from news item url
