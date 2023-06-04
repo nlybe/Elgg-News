@@ -53,9 +53,13 @@ $add_link = elgg_view('output/url', [
     'is_trusted' => true,
 ]);
 
-echo elgg_view('groups/profile/module', [
-    'title' => elgg_echo('elggnews:group'),
+$params = [
+	'entity_type' => 'object',
+	'entity_subtype' => 'news',
     'content' => $content,
     'all_link' => $all_link,
     'add_link' => $add_link,
-]);
+];
+$params = $params + $vars;
+
+echo elgg_view('groups/profile/module', $params);
