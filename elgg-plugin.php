@@ -152,6 +152,11 @@ return [
             'elgg-news/icons/' => __DIR__ . '/graphics/icons',
         ],
     ],
+	'view_extensions' => [
+		'elgg.css' => [
+			'elgg-news/elgg-news.css' => [],
+		],
+	],
     'upgrades' => [
         '\Elgg\News\Upgrades\MigrateNews',
     ],

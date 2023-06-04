@@ -26,8 +26,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 	 * @return void
 	 */
 	protected function initViews() {
-		// register extra css
-		elgg_extend_view('elgg.css', 'elgg-news/elgg-news.css');
 				
 		// add a site navigation item
 		elgg_register_menu_item('site', [
