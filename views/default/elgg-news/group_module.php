@@ -41,12 +41,6 @@ if (!$content) {
     $content = elgg_format_element('p', [], elgg_echo('elggnews:none'));
 }
 
-// $add_link = elgg_view('output/url', [
-//     'href' => "news/add/$group->guid",
-//     'text' => elgg_echo('elggnews:add'),
-//     'is_trusted' => true,
-// ]);
-
 $add_link = elgg_view('output/url', [
     'href' => elgg_generate_url('add:object:news', ['guid' => $group->guid]),
     'text' => elgg_echo('elggnews:add'),

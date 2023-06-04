@@ -3,6 +3,8 @@
 ## 5.24 (June 2023)
 - Moved css declaration to elgg-plugins.php
 - Fixed migration issue
+- Fixed post news link on group module
+- Improved error handlers
 
 
 ## 5.23 (April 2023)

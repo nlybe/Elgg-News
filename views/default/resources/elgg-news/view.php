@@ -4,14 +4,15 @@
  * @package elgg-news
  */
 
+use Elgg\Exceptions\Http\EntityNotFoundException;
+
 $guid = elgg_extract('guid', $vars);
 elgg_entity_gatekeeper($guid, 'object', 'news');
 
 $entity = get_entity($guid);
 
 if (!$entity) {
-    elgg_error_response(elgg_echo('noaccess'));
-    forward(REFERRER);
+    throw new EntityNotFoundException();
 }
 
 $page_owner = elgg_get_page_owner_entity();

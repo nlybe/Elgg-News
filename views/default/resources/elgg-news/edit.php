@@ -4,14 +4,19 @@
  * @package elgg-news
  */
 
+use Elgg\Exceptions\Http\EntityNotFoundException;
+use Elgg\Exceptions\Http\EntityPermissionsException;
 use ElggNews\NewsOptions;
 
 $guid = elgg_extract('guid', $vars, '');
 $entity = get_entity($guid);
 
-if (!$entity instanceof \ElggNews || !$entity->canEdit()) {
-    elgg_error_response(elgg_echo('elggnews:unknown_elggnews'));
-    forward(REFERRER);
+if (!$entity instanceof \ElggNews) {
+    throw new EntityNotFoundException();
+}
+
+if (!$entity->canEdit()) {
+    throw new EntityPermissionsException();
 }
 
 $page_owner = elgg_get_page_owner_entity();

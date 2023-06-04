@@ -4,6 +4,7 @@
  * @package elgg-news
  */
 
+use Elgg\Exceptions\Http\EntityPermissionsException;
 use ElggNews\NewsOptions;
 
 $guid = elgg_extract('guid', $vars, '');
@@ -13,8 +14,7 @@ $user = elgg_get_logged_in_user_entity();
 
 // post news only for admins or groups owners (if allowed by admins)
 if (!NewsOptions::allowPost($submitter, $user)) {
-    elgg_error_response(elgg_echo('elggnews:add:noaccessforpost'));
-    forward(REFERRER);
+    throw new EntityPermissionsException();
 }
 
 $title = elgg_echo('elggnews:add');
