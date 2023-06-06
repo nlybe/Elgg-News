@@ -3,7 +3,7 @@
  * Elgg News plugin
  * @package elgg-news
  *
- * All hooks are here
+ * All events are here
  */
  
 use ElggNews\NewsOptions;
@@ -11,18 +11,18 @@ use ElggNews\NewsOptions;
 /**
  * Add option to set as new by admin to entity menu at end of the menu
  * 
- * @param \Elgg\Hook $hook 'register', 'menu:entity'
+ * @param \Elgg\Event $event 'register', 'menu:entity'
  *
  * @return void|ElggMenuItem[]
  */
-function elggnews_entity_menu_setup(\Elgg\Hook $hook) {
+function elggnews_entity_menu_setup(\Elgg\Event $event) {
     $user = elgg_get_logged_in_user_entity();
     if (!$user) {
         return;
     }
     
-    $return = $hook->getValue();
-    $entity = $hook->getEntityParam();
+    $return = $event->getValue();
+    $entity = $event->getEntityParam();
     if (!$entity || $entity instanceof \ElggUser) {
         return;
     }
@@ -68,22 +68,20 @@ function elggnews_entity_menu_setup(\Elgg\Hook $hook) {
 /**
  * News-Staff
  * 
- * @param \Elgg\Hook $hook
+ * @param \Elgg\Event $event
  * 
  * @return type
  */
-function elggnews_staff_user_hover_menu_hook(\Elgg\Hook $hook) {
+function elggnews_staff_user_hover_menu_hook(\Elgg\Event $event) {
     
-    $return = $hook->getValue();
+    $return = $event->getValue();
 
     $user = elgg_get_logged_in_user_entity();
     if (empty($user) || !$user->isAdmin()) {
         return $return;
     }
 
-    // $entity_subtype = $hook->getParam('entity_subtype');
-    // $entity = elgg_extract("entity", $params);
-    $entity = $hook->getEntityParam();
+    $entity = $event->getEntityParam();
     if ($entity->getGUID() == $user->getGUID()) {
         return $return;
     }
@@ -106,14 +104,14 @@ function elggnews_staff_user_hover_menu_hook(\Elgg\Hook $hook) {
 }
 
 /**
- * Format and return the URL for news objects, since 1.9.
+ * Format and return the URL for news objects
  *
- * @param \Elgg\Hook $hook
+ * @param \Elgg\Event $event
  * 
  * @return string URL of news
  */
-function elggnews_set_url(\Elgg\Hook $hook) {
-    $entity = $hook->getEntityParam();
+function elggnews_set_url(\Elgg\Event $event) {
+    $entity = $event->getEntityParam();
 
     if (!$entity instanceof \ElggNews) {
 		return;
@@ -138,13 +136,13 @@ function elggnews_set_url(\Elgg\Hook $hook) {
 /**
  * Add a menu item to an ownerblock
  *
- * @param \Elgg\Hook $hook 'register', 'menu:owner_block'
+ * @param \Elgg\Event $event 'register', 'menu:owner_block'
  *
  * @return ElggMenuItem[]
  */
-function elggnews_owner_block_menu(\Elgg\Hook $hook) {
-	$entity = $hook->getEntityParam();
-	$return = $hook->getValue();
+function elggnews_owner_block_menu(\Elgg\Event $event) {
+	$entity = $event->getEntityParam();
+	$return = $event->getValue();
 	
 	if ($entity instanceof \ElggUser) {
         return $return;
@@ -161,15 +159,13 @@ function elggnews_owner_block_menu(\Elgg\Hook $hook) {
 /**
  * Register database seed
  *
- * @elgg_plugin_hook seeds database
- *
- * @param \Elgg\Hook $hook Hook
+ * @param \Elgg\Event $event Event
  * 
  * @return array
  */
-function elggnews_register_db_seeds(\Elgg\Hook $hook) {
+function elggnews_register_db_seeds(\Elgg\Event $event) {
 
-    $seeds = $hook->getValue();
+    $seeds = $event->getValue();
 
     $seeds[] = \Elgg\News\Seeder::class;
 
@@ -179,13 +175,13 @@ function elggnews_register_db_seeds(\Elgg\Hook $hook) {
 /**
  * Set custom icon sizes for news objects
  *
- * @param \Elgg\Hook $hook
+ * @param \Elgg\Event $event
  * 
  * @return array
  */
-function elggnews_set_custom_icon_sizes(\Elgg\Hook $hook) {
+function elggnews_set_custom_icon_sizes(\Elgg\Event $event) {
 
-    $entity_subtype = $hook->getParam('entity_subtype');
+    $entity_subtype = $event->getParam('entity_subtype');
     if ($entity_subtype !== ElggNews::SUBTYPE) {
         return;
     }
@@ -204,12 +200,12 @@ function elggnews_set_custom_icon_sizes(\Elgg\Hook $hook) {
 /**
  * Show featured icon, if news entity is featured
  *
- * @param \Elgg\Hook $hook 'register' 'menu:social'
+ * @param \Elgg\Event $event 'register' 'menu:social'
  * @return void|ElggMenuItem[]
  * @since 3.0
  */
-function elggnews_social_menu_setup(\Elgg\Hook $hook) {
-    $entity = $hook->getEntityParam();
+function elggnews_social_menu_setup(\Elgg\Event $event) {
+    $entity = $event->getEntityParam();
     if (!$entity) {
         return;
     }
@@ -218,7 +214,7 @@ function elggnews_social_menu_setup(\Elgg\Hook $hook) {
         return;
     }
 
-    $return = $hook->getValue();
+    $return = $event->getValue();
     if ($entity->isFeatured()) {
         $return[] = \ElggMenuItem::factory([
             'name' => 'featured_news',

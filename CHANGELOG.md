@@ -5,6 +5,7 @@
 - Fixed migration issue
 - Fixed post news link on group module
 - Improved error handlers
+- Replaced hooks with events
 
 
 ## 5.23 (April 2023)

@@ -6,7 +6,7 @@
 
 use ElggNews\Elgg\Bootstrap;
 
-require_once(dirname(__FILE__) . '/lib/hooks.php');
+require_once(dirname(__FILE__) . '/lib/events.php');
 require_once(dirname(__FILE__) . '/lib/functions.php');
 
 return [
@@ -105,7 +105,7 @@ return [
             'resource' => 'elgg-news/custom_list_view',
         ],
     ],
-	'hooks' => [
+	'events' => [
 		'entity:url' => [
 			'object' => [
 				'elggnews_set_url' => [],
