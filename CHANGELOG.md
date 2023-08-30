@@ -1,5 +1,9 @@
 # Change Log
 
+## 5.24.1 (Aug 2023)
+
+- Improve error messages and redirects
+
 ## 5.24 (June 2023)
 - Moved css declaration to elgg-plugins.php
 - Fixed migration issue

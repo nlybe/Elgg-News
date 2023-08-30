@@ -4,16 +4,18 @@
  * @package elgg-news
  */
 
+use Elgg\Exceptions\Http\EntityNotFoundException;
+use Elgg\Exceptions\Http\EntityPermissionsException;
 use ElggNews\NewsOptions;
 
 $page_owner = elgg_get_page_owner_entity();
 if (!$page_owner || $page_owner instanceof \ElggUser) { // not allow owner view if user
-    forward('news/all');
+    throw new EntityPermissionsException();
 }
 
 // not display group news view if not allowed in settings
 if ($page_owner instanceof \ElggGroup && !NewsOptions::allowPostOnGroups()) {
-    forward('news/all');
+    throw new EntityNotFoundException();
 }
 
 $user = elgg_get_logged_in_user_entity();
