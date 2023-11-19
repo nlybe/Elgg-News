@@ -12,7 +12,7 @@ require_once(dirname(__FILE__) . '/lib/functions.php');
 return [
     'plugin' => [
         'name' => 'News',
-		'version' => '5.24.1',
+		'version' => '5.24.2',
 		'dependencies' => [],
 	],	
     'bootstrap' => Bootstrap::class,

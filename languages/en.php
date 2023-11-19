@@ -16,6 +16,7 @@ return [
     'elggnews:read_more' => "Read more ",
     'elgg-news-featured' => "Featured News",
     'add:object:news' => 'Post News',
+    'collection:object:news:group' => 'Group News',
  
     // submit form
     'news:add' => "Post News",

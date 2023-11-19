@@ -15,6 +15,7 @@ return [
     'elggnews:featured' => "Προτεινόμενες",
     'elggnews:read_more' => "Περισσότερα ",
     'elgg-news-featured' => "Προτεινόμενα",
+    'collection:object:news:group' => 'Ανακοινώσεις Ομάδας',
     
     // submit form
     'news:add' => "Νέα ανακοίνωση",
