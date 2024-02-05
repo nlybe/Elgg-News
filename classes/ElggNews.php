@@ -61,15 +61,13 @@ class ElggNews extends ElggObject {
      */
     function getNewsIcon() {
         if ($this->hasIcon('small')) {
-            $icon = elgg_view_entity_icon($this, 'small', ['img_class' => 'elgg-photo']);
-        } else {
-            $icon = elgg_view('output/img', [
-                'src' => NewsOptions::getDefaultIcon(),
-                'alt' => elgg_echo('elgg-news'),
-            ]);
+            return elgg_view_entity_icon($this, 'small', ['img_class' => 'elgg-photo']);
         }
-
-        return $icon;
+         
+        return elgg_view('output/img', [
+            'src' => NewsOptions::getDefaultIcon(),
+            'alt' => elgg_echo('elgg-news'),
+        ]);
     }
 
     /**

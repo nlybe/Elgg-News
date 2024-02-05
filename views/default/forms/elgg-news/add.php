@@ -43,7 +43,7 @@ if ($connected_entity_guid) {
                 $excerpt = elgg_get_excerpt($connected_entity_unit->excerpt);
             }
             else {  // case of standard entities 
-                $excerpt = elgg_get_excerpt($connected_entity_unit->description);
+                $excerpt = $connected_entity_unit->description?elgg_get_excerpt($connected_entity_unit->description):'';
             }
         }
     }	

@@ -8,7 +8,7 @@ $object = $vars['item']->getObjectEntity();
 
 echo elgg_view('river/elements/layout', [
     'item' => $vars['item'],
-    'message' => elgg_get_excerpt($object->excerpt),
+    'message' => $object->excerpt?elgg_get_excerpt($object->excerpt):'',
 ]);
 
 

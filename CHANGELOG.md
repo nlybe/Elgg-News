@@ -3,6 +3,7 @@
 ## 5.24.2 (Dec 2023)
 
 - Fixed group language message
+- Minor code improvements
 
 ## 5.24.1 (Aug 2023)
 
