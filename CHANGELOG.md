@@ -1,5 +1,9 @@
 # Change Log
 
+## 5.24.3 (Mar 2024)
+
+- Minor update on composer.json
+
 ## 5.24.2 (Dec 2023)
 
 - Fixed group language message
