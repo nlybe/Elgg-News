@@ -1,5 +1,9 @@
 # Change Log
 
+## 5.24.4 (May 2024)
+
+- Fix issue on entity delete
+
 ## 5.24.3 (Mar 2024)
 
 - Minor update on composer.json

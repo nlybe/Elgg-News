@@ -17,7 +17,7 @@ if ($entity instanceof \ElggNews && $entity->canEdit()) {
     $container = $entity->getContainerEntity();
         
     if ($entity->delete()) {
-        $forward_url = "news/all";
+        $forward_url = elgg_normalize_url("news/all");
         if ($container instanceof \ElggGroup) {
             $forward_url = elgg_normalize_url("news/group/{$container->getGUID()}/all");
         }

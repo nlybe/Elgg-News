@@ -59,8 +59,15 @@ function elggnews_entity_menu_setup(\Elgg\Event $event) {
                 'priority' => 40,
                 'is_action' => true,
             ]);
+        }  
+    
+        // update delete url for news entities
+        foreach ($return as $r) {
+            if ($r->getData("name") == 'delete') {
+                $r->setHref(elgg_normalize_url("action/elgg-news/delete/?guid={$entity->guid}"));
+            }
         }
-    }        
+    } 
 
     return $return;
 }
